@@ -1,0 +1,49 @@
+[
+  {
+    "id": "chen2023deepa",
+    "abstract": "We use deep neural networks to estimate an asset pricing model for individual stock returns that takes advantage of the vast amount of conditioning information, keeps a fully flexible form, and acc...",
+    "accessed": { "date-parts": [[2023, 2, 24]] },
+    "archive_location": "world",
+    "author": [
+      { "family": "Chen", "given": "Luyang" },
+      { "family": "Pelger", "given": "Markus" },
+      { "family": "Zhu", "given": "Jason" }
+    ],
+    "citation-key": "chen2023deepa",
+    "container-title": "Management Science",
+    "DOI": "10.1287/mnsc.2023.4695",
+    "issued": { "date-parts": [[2023, 2, 20]] },
+    "language": "EN",
+    "license": "Copyright © 2023, INFORMS",
+    "note": "ZSCC:00264",
+    "publisher": "INFORMS",
+    "source": "pubsonline.informs.org",
+    "title": "Deep Learning in Asset Pricing",
+    "type": "article-journal",
+    "URL": "https://pubsonline.informs.org/doi/abs/10.1287/mnsc.2023.4695"
+  },
+  {
+    "id": "kayhan2007firms",
+    "abstract": "This paper examines how cash flows, investment expenditures, and stock price histories affect debt ratios. Consistent with earlier work, we find that these variables have a substantial influence on changes in capital structure. Specifically, stock price changes and financial deficits (i.e., the amount of external capital raised) have strong influences on capital structure changes, but in contrast to previous conclusions, we find that over long horizons their effects are partially reversed. These results indicate that although firms’ histories strongly influence their capital structures, over time their capital structures tend to move towards target debt ratios that are consistent with the tradeoff theories of capital structure.",
+    "accessed": { "date-parts": [[2023, 2, 24]] },
+    "author": [
+      { "family": "Kayhan", "given": "Ayla" },
+      { "family": "Titman", "given": "Sheridan" }
+    ],
+    "citation-key": "kayhan2007firms",
+    "container-title": "Journal of Financial Economics",
+    "container-title-short": "Journal of Financial Economics",
+    "DOI": "10.1016/j.jfineco.2005.10.007",
+    "ISSN": "0304-405X",
+    "issue": "1",
+    "issued": { "date-parts": [[2007, 1, 1]] },
+    "language": "en",
+    "note": "ZSCC:01429",
+    "page": "1-32",
+    "source": "ScienceDirect",
+    "title": "Firms’ histories and their capital structures",
+    "type": "article-journal",
+    "URL": "https://www.sciencedirect.com/science/article/pii/S0304405X06001437",
+    "volume": "83"
+  }
+]
