@@ -5,6 +5,8 @@
 #main(
 name: [#lorem(2)], //name:"" or name:[]
 address: [#lorem(4)],
+lastupdated: "true",
+date:"2023.4.7",
 contacts: (
 (text:"08856",link:""),
 (text:"example.com",link:"https://www.example.com"),
