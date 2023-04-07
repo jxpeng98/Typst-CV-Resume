@@ -1,5 +1,6 @@
 #import "typstcv.typ": *
-// TODO: add the bibliography block
+#import "bibstyle.typ": *
+// TODO: add more bibstyle and try to use yaml and xml to replace json
 
 #main(
 name: [#lorem(2)], //name:"" or name:[]
@@ -10,7 +11,7 @@ contacts: (
 (text:"github.com",link:"https://www.github.com"),
 (text:"123@example.com",link:"mailto:123@example.com"),
   ),
-bibfile: "biblio.bib",
+bibfile: [bib.json],
 [
     //About
     #section("About")
@@ -32,6 +33,12 @@ bibfile: "biblio.bib",
     #subsectionsep
     #descript("Tools")
     #info[Git, GitHub, Docker, AWS, Heroku, MongoDB, MySQL, PostgreSQL, Redis, Linux]
+    // Award
+    #section("Awards")
+    #awarddetail[2018][Scholarship][University]
+    #awarddetail[2017][Grant][Organisation]
+    #awarddetail[2016][Scholarship][University]
+    #sectionsep
 ],
 [
     //Experience
@@ -62,15 +69,11 @@ bibfile: "biblio.bib",
     #descript[#lorem(2)]
     #info[#lorem(40)]
     #sectionsep
-    // Award
-    #section("Awards")
-    #awarddetail[2018][Scholarship][University]
-    #awarddetail[2017][Grant][Organisation]
-    #awarddetail[2016][Scholarship][University]
-    #sectionsep
-    // // Publication
-    // #section("Publications")
-    // #bibliography()
+    // Publication
+    #section("Publications")
+    #chicago(json("bib.json"))
 ],
 )
+
+
 

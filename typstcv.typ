@@ -46,11 +46,17 @@
     )
 }
 
+#let biblist(contents) = {
+    for ids in contents [
+        #id.title (#id.year)
+    ]
+}
+
 #let main(
     name: "",
     address: "",
     contacts: (),
-    bibfile: "",
+    bibfile: (),
     left,
     right,
 ) = {
@@ -74,10 +80,7 @@ let display(contacts) = {
     }
     ).join(" | ")
     }
-// let ref = {
-
-//     [#bibliography(bibfile)]
-// }
+// create bibliography block
 // Head Name Section
     text(25pt,font:"Helvetica",fill:primary_colour, weight:"light",top-edge:"baseline",bottom-edge:"baseline",baseline: 12pt)[#align(center,[#name])]
     text(12pt,font:"Heiti TC",fill:headings_colour, weight: "medium",top-edge:"baseline",bottom-edge:"baseline")[#align(center,[#address])]
