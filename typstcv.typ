@@ -52,9 +52,22 @@
     ]
 }
 
+// last update
+#let lastupdate(lastupdated, date)= {
+    if lastupdated == "true" {
+        set text(10pt,font: "Helvetica", fill: primary_colour,weight: "light",)
+        block(
+            width: 100%,
+            height: 1.5em,
+            align(right,{[Last updated: #date]}),
+        )
+    }
+}
 #let main(
     name: "",
     address: "",
+    lastupdated: "",
+    date:"",
     contacts: (),
     bibfile: (),
     left,
@@ -66,9 +79,13 @@ set page(
     right: 1.25cm, 
     top: 0.7cm, 
     bottom: 1.5cm
-  )
+  ),
+  footer: [
+    #lastupdate(lastupdated, date)
+  ]
 )
 
+// show contact details
 let display(contacts) = {
     set text(11pt,font:"Heiti TC",fill:headings_colour, weight: "medium",top-edge:"baseline",bottom-edge:"baseline",baseline: 2pt)
     contacts.map(contact =>{
@@ -80,7 +97,7 @@ let display(contacts) = {
     }
     ).join(" | ")
     }
-// create bibliography block
+
 // Head Name Section
     text(25pt,font:"Helvetica",fill:primary_colour, weight:"light",top-edge:"baseline",bottom-edge:"baseline",baseline: 12pt)[#align(center,[#name])]
     text(12pt,font:"Heiti TC",fill:headings_colour, weight: "medium",top-edge:"baseline",bottom-edge:"baseline")[#align(center,[#address])]
