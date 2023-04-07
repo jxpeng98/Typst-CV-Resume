@@ -1,5 +1,4 @@
 #import "typstcv.typ": *
-#import "bibstyle.typ": *
 // TODO: add more bibstyle and try to use yaml and xml to replace json
 
 #main(

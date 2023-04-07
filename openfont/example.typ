@@ -1,28 +1,7 @@
-# Typst-CV-Resume
+#import "typstcv.typ": *
+// TODO: add more bibstyle and try to use yaml and xml to replace json
 
-This Typst CV template is inspired by Latex template [Deedy-Resume](https://github.com/deedy/Deedy-Resume).
-You can use it for both of industry and academia. I have create a function to import your publication list.
-
-In original Typst, we cannot create a reference list withou citation. So I modified the code for this purpose. Currently, I only create the Chicago style citation and reference list. If you want to use other citation styles, you need to modify the code.
-
-**remember: you need to use `json` file exported from Zotero with BetterBibTeX. I did not test other ways.**
-
-## Use
-
-This project include **three** files:
-
-- `example.typ`: the main file
-- `typstcv.typ`: the template file
-- `bib.json`: the bibliography file
-
-You can use `example.typ` as a template to create your own CV. You can also download `typstcv.typ` as a template. Then create a new file with the following code:
-
-<details>
-    <summary>Click me</summary>
-
-```
-# import "typstcv.typ": *
-# main(
+#main(
 name: [#lorem(2)], //name:"" or name:[]
 address: [#lorem(4)],
 lastupdated: "true",
@@ -96,18 +75,6 @@ bibfile: [bib.json],
     #chicago(json("bib.json"))
 ],
 )
-```
 
-</details>
 
-## Example
-I only test the template on macOS. If you want to use it on other platforms, you should use template in the `openfont` folder. Then, modify the font in `typstcv.typ` to the font installed on your PC.
 
-**MacFont**
-![U5Emap](https://cdn.jsdelivr.net/gh/jxpeng98/imagerepo@main/2023/04/U5Emap.png)
-**PT Sans**
-![qxLtUZ](https://cdn.jsdelivr.net/gh/jxpeng98/imagerepo@main/2023/04/qxLtUZ.png)
-
-## Todo
-
-Create more citation styles for citations.
