@@ -126,7 +126,7 @@ grid(
         ] else {
             if author.at("family") == id.author.first().at("family") [
                 #author.at("family"), #author.at("given")
-            ] else if author.at("family") != id.author.last().at("family") [
+            ] else if author.at("family") == id.author.last().at("family") [
                 and #author.at("given"), #author.at("family").
             ] else [
                 #author.at("given"), #author.at("family"),
@@ -155,3 +155,52 @@ grid(
     )
     }
   }
+
+// APA style
+// Ball, R., Gerakos, J., Linnainmaa, J. T., & Nikolaev, V. (2020). Earnings, retained earnings, and book-to-market in the cross section of expected returns. Journal of Financial Economics, 135(1), 231-254.
+// Sumiyana, S. (2020). Different characteristics of the aggregate of accounting earnings between developed and developing countries: Evidence for predicting future GDP. Journal of international studies, 13(1), 58-80.
+#let apa(contents) = {
+    set text(10pt,font: "Helvetica", fill: primary_colour,weight: "light", )
+  for i, id in contents {
+    grid(
+        columns: (auto,auto),
+        column-gutter: 0.4em, 
+        row-gutter: 0em, 
+         {"[" 
+         str(i+1)
+         "]"},{
+    for author in id.author {
+        if author.len() == 1 [
+        #author.at("family"), #author.at("given").first().
+        ] else {
+            if author.at("family") == id.author.first().at("family") [
+                #author.at("family"), #author.at("given").first().,
+            ] else if author.at("family") == id.author.last().at("family") [
+                & #author.at("family"), #author.at("given").first(). 
+            ] else [
+                 #author.at("family"), #author.at("given").first().,
+            ]
+        }
+        }
+            [(#id.issued.date-parts.at(0).first()). ]
+    [ #id.title. #emph(id.container-title)]
+    if "volume" in id [, #id.volume]
+    if "issue" in id [(#id.issue)]
+    if "page" in id [, #id.page.] else[. ]
+    if "DOI" in id and "URL" in id {
+        [ doi: ] 
+        emph(link(id.DOI))
+        [\ ]
+        } else if "URL" in id {
+        [url: ] 
+        emph(link(id.URL))
+        [\ ]
+        } else if "DOI" in id {
+        [doi: ] 
+        emph(link(id.DOI))
+        [\ ]
+        }
+         }
+    )
+    }
+}

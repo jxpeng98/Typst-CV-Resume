@@ -1,5 +1,7 @@
 #import "typstcv.typ": *
 // TODO: add more bibstyle and try to use yaml and xml to replace json
+//
+// select the font type: "macfont" or "openfont"
 
 #main(
 name: [#lorem(2)], //name:"" or name:[]
@@ -34,6 +36,7 @@ bibfile: [bib.json],
     #subsectionsep
     #descript("Tools")
     #info[Git, GitHub, Docker, AWS, Heroku, MongoDB, MySQL, PostgreSQL, Redis, Linux]
+    #sectionsep
     // Award
     #section("Awards")
     #awarddetail[2018][Scholarship][University]
@@ -44,21 +47,18 @@ bibfile: [bib.json],
 [
     //Experience
     #section("Experience")
-    #subsection[#lorem(4)]
+    #jobtitle[#lorem(4)][#lorem(2)]
     #term[xxxx-xxxx][UK]
-    #descript[#lorem(4)]
-    #info[#lorem(20)]
+    #jobdetail[
+      - #lorem(10)
+      - #lorem(10)
+      - #lorem(10)
+      - #lorem(10)]
     #subsectionsep
-    #subsection[#lorem(4)]
-    #term[xxxx-xxxx][UK]
-    #descript[#lorem(4)]
-    #info[#lorem(20)]
+    #jobtitle[#lorem(4)][#lorem(2)]
+    #term[xxxx-xxxx][]
+    #jobdetail[#lorem(30)]
     #subsectionsep
-    #subsection[#lorem(4)]
-    #term[xxxx-xxxx][UK]
-    #descript[#lorem(4)]
-    #info[#lorem(20)]
-    #sectionsep
     // Projects
     #section("Projects")
     #descript[#lorem(2)]
@@ -73,6 +73,7 @@ bibfile: [bib.json],
     // Publication
     #section("Publications")
     #chicago(json("bib.json"))
+    // #apa(json("bib.json"))
 ],
 )
 

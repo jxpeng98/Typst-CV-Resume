@@ -3,30 +3,41 @@
 #let headings_colour= rgb("#6A6A6A")
 #let subheadings_colour= rgb("#333333")
 
-
 // Section Headings (Education, Experience, etc)
 #let section(title) = {
-    text(16pt,font: "Helvetica", fill: headings_colour, weight: "light", )[#upper[#title]\ ]
+    text(16pt,font: "Helvetica", fill: headings_colour,weight: "light", )[#upper[#title]\ ]
 }
 
 // Subsection Headings (University, Company, etc)
 #let subsection(content) = {
-    text(12pt,font: "Helvetica", fill: subheadings_colour,weight: "bold", )[#upper[#content]\ ]
+    text(12pt,font: "Helvetica", fill: subheadings_colour,weight: "bold", )[#upper[#content] ]
 }
 
 // Time period and location
 #let term(period, location) = {
-    text(12pt,font: "Heiti TC", fill: headings_colour, weight: "medium", )[#period | #location \ ]
+    if location == [] or location == "" {
+        text(10pt,font: "Heiti TC", fill: headings_colour, weight: "medium", )[#period\ ]
+    } else {
+        text(10pt,font: "Heiti TC", fill: headings_colour, weight: "medium", )[#period | #location \ ]
+    }
 }
-
 // Description of a job, degree, etc
 #let descript(content) = {
     text(12pt, font: "Heiti SC", fill: subheadings_colour,weight: "semibold",)[#content\ ]
     }
-
+// Job title
+#let jobtitle(firm, title) = {
+    text(12pt,font: "Helvetica", fill: subheadings_colour,weight: "bold", )[#upper[#firm] ] 
+    text(12pt, font: "Heiti SC", fill: subheadings_colour,weight: "semibold",)[| #title\ ]
+    }
+//job details
+#let jobdetail(content) = {
+    text(10pt,font: "Helvetica", fill: primary_colour,weight: "light", baseline: 0em )[#set enum(tight:false,spacing:0em,indent: 0em, body-indent: 0em)
+    #content ]
+}
 // Details
 #let info(content) = {
-    text(10pt,font: "Helvetica", fill: primary_colour,weight: "light", )[#content\ ]
+    text(11pt,font: "Helvetica", fill: primary_colour,weight: "light", )[#content\ ]
 }
 #let sectionsep = {
     [#v(5pt)]
@@ -38,8 +49,8 @@
 #let awarddetail(time,award,organise) = {
     set text(10pt,font: "Helvetica", fill: primary_colour,weight: "light",top-edge: "baseline",bottom-edge: "baseline",baseline: 0pt)
     grid(
-        columns: (1fr,1fr,1fr),
-        gutter: 0em,
+        columns: (auto,auto,auto),
+        gutter: 1em,
         time,
         award,
         organise,
@@ -51,7 +62,9 @@
         #id.title (#id.year)
     ]
 }
-
+#let keyword(content) = {
+        text(12pt, font: "Helvetica", fill: headings_colour,weight: "light",)[#content\ ]
+}
 // last update
 #let lastupdate(lastupdated, date)= {
     if lastupdated == "true" {
@@ -73,18 +86,6 @@
     left,
     right,
 ) = {
-set page(
-    margin: (
-        left: 1.25cm, 
-        right: 1.25cm, 
-        top: 0.7cm, 
-        bottom: 1.5cm,
-    ),
-    footer: [
-    #lastupdate(lastupdated, date)
-    ],
-)
-
 // show contact details
 let display(contacts) = {
     set text(11pt,font:"Heiti TC",fill:headings_colour, weight: "medium",top-edge:"baseline",bottom-edge:"baseline",baseline: 2pt)
@@ -97,13 +98,26 @@ let display(contacts) = {
     }
     ).join(" | ")
     }
-
-// Head Name Section
-    text(25pt,font:"Helvetica",fill:primary_colour, weight:"light",top-edge:"baseline",bottom-edge:"baseline",baseline: 12pt)[#align(center,[#name])]
-    text(12pt,font:"Heiti TC",fill:headings_colour, weight: "medium",top-edge:"baseline",bottom-edge:"baseline")[#align(center,[#address])]
+ 
+set page(
+    margin: (
+        left: 1.25cm, 
+        right: 1.25cm, 
+        top: 3.2cm, 
+        bottom: 1.5cm,
+    ),
+    header:{
+        // Head Name Section
+    text(25pt,font:"Helvetica Neue",fill:primary_colour, weight:"light",top-edge:"baseline",bottom-edge:"baseline",baseline: 12pt)[#align(center,[#name])]
+    text(11pt,font:"Heiti TC",fill:headings_colour, weight: "medium",top-edge:"baseline",bottom-edge:"baseline")[#align(center,[#address])]
     align(center)[#display(contacts)]
-    [#line(length: 100%, stroke:0.5pt + primary_colour)]    
-
+    line(length: 100%, stroke:0.5pt + primary_colour)   
+    },
+    header-ascent: 1em,
+    footer: [
+    #lastupdate(lastupdated, date)
+    ],
+)
 //Main Body 
 grid(
     columns: (1fr,2fr),
@@ -114,7 +128,9 @@ grid(
 }
 
 
-// This can only works with Zotero JSON file. You can export your Zotero library as JSON file and then use this template to generate your publicatio in your CV.
+// Chicago style
+// Ball, Ray, Joseph Gerakos, Juhani T. Linnainmaa, and Valeri Nikolaev. "Earnings, retained earnings, and book-to-market in the cross section of expected returns." Journal of Financial Economics 135, no. 1 (2020): 231-254.
+// Sumiyana, Sumiyana. "Different characteristics of the aggregate of accounting earnings between developed and developing countries: Evidence for predicting future GDP." Journal of international studies 13, no. 1 (2020): 58-80.
 #let chicago(contents) = {
     set text(10pt,font: "Helvetica", fill: primary_colour,weight: "light", )
   for i, id in contents {
@@ -130,18 +146,18 @@ grid(
         ] else {
             if author.at("family") == id.author.first().at("family") [
                 #author.at("family"), #author.at("given")
-            ] else if author.at("family") != id.author.last().at("family") [
+            ] else if author.at("family") == id.author.last().at("family") [
                 and #author.at("given"), #author.at("family").
             ] else [
                 #author.at("given"), #author.at("family"),
             ]
         }
         }
-    [" #id.title " #emph(id.container-title) ]
+    [\" #id.title.\" #emph(id.container-title) ]
     if "volume" in id [#id.volume, ]
     if "issue" in id [no. #id.issue ]
     [(#id.issued.date-parts.at(0).first())]
-    if "page" in id [ #id.page.] else[. ]
+    if "page" in id [: #id.page.] else[. ]
     if "DOI" in id and "URL" in id {
         [doi: ] 
         emph(link(id.DOI))
@@ -159,3 +175,51 @@ grid(
     )
     }
   }
+// APA style
+// Ball, R., Gerakos, J., Linnainmaa, J. T., & Nikolaev, V. (2020). Earnings, retained earnings, and book-to-market in the cross section of expected returns. Journal of Financial Economics, 135(1), 231-254.
+// Sumiyana, S. (2020). Different characteristics of the aggregate of accounting earnings between developed and developing countries: Evidence for predicting future GDP. Journal of international studies, 13(1), 58-80.
+#let apa(contents) = {
+    set text(10pt,font: "Helvetica", fill: primary_colour,weight: "light", )
+  for i, id in contents {
+    grid(
+        columns: (auto,auto),
+        column-gutter: 0.4em, 
+        row-gutter: 0em, 
+         {"[" 
+         str(i+1)
+         "]"},{
+    for author in id.author {
+        if author.len() == 1 [
+        #author.at("family"), #author.at("given").first().
+        ] else {
+            if author.at("family") == id.author.first().at("family") [
+                #author.at("family"), #author.at("given").first().,
+            ] else if author.at("family") == id.author.last().at("family") [
+                & #author.at("family"), #author.at("given").first(). 
+            ] else [
+                 #author.at("family"), #author.at("given").first().,
+            ]
+        }
+        }
+            [(#id.issued.date-parts.at(0).first()). ]
+    [ #id.title. #emph(id.container-title)]
+    if "volume" in id [, #id.volume]
+    if "issue" in id [(#id.issue)]
+    if "page" in id [, #id.page.] else[. ]
+    if "DOI" in id and "URL" in id {
+        [ doi: ] 
+        emph(link(id.DOI))
+        [\ ]
+        } else if "URL" in id {
+        [url: ] 
+        emph(link(id.URL))
+        [\ ]
+        } else if "DOI" in id {
+        [doi: ] 
+        emph(link(id.DOI))
+        [\ ]
+        }
+         }
+    )
+    }
+}
