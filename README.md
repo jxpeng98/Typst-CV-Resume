@@ -1,15 +1,20 @@
 # Typst-CV-Resume
 
 This Typst CV template is inspired by Latex template [Deedy-Resume](https://github.com/deedy/Deedy-Resume).
-You can use it for both of industry and academia. I have create a function to import your publication list.
+You can use it for both of industry and academia.
 
 In original Typst, we cannot create a reference list withou citation. So I modified the code for this purpose. Currently, I only create the Chicago style citation and reference list. If you want to use other citation styles, you need to modify the code.
 
+I have create a function to import your publication list.
 **remember: you need to use `json` file exported from Zotero with BetterBibTeX. I did not test other ways.**
+
+Then you can call the function by using `#chicago(json("bib.json"))`.
+## Update
+I have update the `macfont` version with the some location changes. The `openfont` version is still the same.
 
 ## Use
 
-This project include **three** files:
+This project includes **three** files:
 
 - `example.typ`: the main file
 - `typstcv.typ`: the template file
@@ -21,8 +26,12 @@ You can use `example.typ` as a template to create your own CV. You can also down
     <summary>Click me</summary>
 
 ```
-# import "typstcv.typ": *
-# main(
+#import "typstcv.typ": *
+// TODO: add more bibstyle and try to use yaml and xml to replace json
+//
+// select the font type: "macfont" or "openfont"
+
+#main(
 name: [#lorem(2)], //name:"" or name:[]
 address: [#lorem(4)],
 lastupdated: "true",
@@ -35,7 +44,7 @@ contacts: (
   ),
 bibfile: [bib.json],
 [
-    // About
+    //About
     #section("About")
     #descript[#lorem(50)]
     #sectionsep
@@ -55,6 +64,7 @@ bibfile: [bib.json],
     #subsectionsep
     #descript("Tools")
     #info[Git, GitHub, Docker, AWS, Heroku, MongoDB, MySQL, PostgreSQL, Redis, Linux]
+    #sectionsep
     // Award
     #section("Awards")
     #awarddetail[2018][Scholarship][University]
@@ -65,21 +75,18 @@ bibfile: [bib.json],
 [
     //Experience
     #section("Experience")
-    #subsection[#lorem(4)]
+    #jobtitle[#lorem(4)][#lorem(2)]
     #term[xxxx-xxxx][UK]
-    #descript[#lorem(4)]
-    #info[#lorem(20)]
+    #jobdetail[
+      - #lorem(10)
+      - #lorem(10)
+      - #lorem(10)
+      - #lorem(10)]
     #subsectionsep
-    #subsection[#lorem(4)]
-    #term[xxxx-xxxx][UK]
-    #descript[#lorem(4)]
-    #info[#lorem(20)]
+    #jobtitle[#lorem(4)][#lorem(2)]
+    #term[xxxx-xxxx][]
+    #jobdetail[#lorem(30)]
     #subsectionsep
-    #subsection[#lorem(4)]
-    #term[xxxx-xxxx][UK]
-    #descript[#lorem(4)]
-    #info[#lorem(20)]
-    #sectionsep
     // Projects
     #section("Projects")
     #descript[#lorem(2)]
@@ -94,6 +101,7 @@ bibfile: [bib.json],
     // Publication
     #section("Publications")
     #chicago(json("bib.json"))
+    // #apa(json("bib.json"))
 ],
 )
 ```
@@ -101,13 +109,15 @@ bibfile: [bib.json],
 </details>
 
 ## Example
+
 I only test the template on macOS. If you want to use it on other platforms, you should use template in the `openfont` folder. Then, modify the font in `typstcv.typ` to the font installed on your PC.
 
 **MacFont**
-![U5Emap](https://cdn.jsdelivr.net/gh/jxpeng98/imagerepo@main/2023/04/U5Emap.png)
+![K083Nm](https://cdn.jsdelivr.net/gh/jxpeng98/imagerepo@main/2023/04/K083Nm.png)
 **PT Sans**
 ![qxLtUZ](https://cdn.jsdelivr.net/gh/jxpeng98/imagerepo@main/2023/04/qxLtUZ.png)
 
 ## Todo
 
-Create more citation styles for citations.
+- [ ] Combine the macfont and openfont into one file.
+- [ ] Create one column version.
