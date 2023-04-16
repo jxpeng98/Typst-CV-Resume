@@ -3,13 +3,15 @@
 #let headings_colour= rgb("#6A6A6A")
 #let subheadings_colour= rgb("#333333")
 // Set font type for all text
-#let fonttype = "macfont"
+#let fonttype = ""
 
 #let font_head = {
     if fonttype == "macfont" {
         "Helvetica Neue"
     } else if fonttype == "openfont" {
         "PT Sans"
+    } else {
+        "Times New Roman"
     }
 }
 
@@ -18,6 +20,8 @@
      "Helvetica"
     } else if fonttype == "openfont" {
      "PT Sans"
+    } else {
+        "Times New Roman"
     }
 }
 
@@ -26,6 +30,8 @@
         "Helvetica"
     } else if fonttype == "openfont" {
         "PT Sans"
+    } else {
+        "Times New Roman"
     }
 }
 #let font_term = {
@@ -33,6 +39,8 @@
         "Heiti TC"
     } else if fonttype == "openfont" {
         "PT Sans"
+    }  else {
+        "Times New Roman"
     }
 }
 #let font_descript = {
@@ -40,6 +48,8 @@
         "Heiti SC"
     } else if fonttype == "openfont" {
         "PT Sans"
+    } else {
+        "Times New Roman"
     }
 }
 
@@ -48,6 +58,8 @@
         "Helvetica"
     } else if fonttype == "openfont" {
         "PT Sans"
+    } else {
+        "Times New Roman"
     }
 }
 
@@ -56,6 +68,8 @@
         "Helvetica"
     } else if fonttype == "openfont" {
         "PT Sans"
+    } else {
+        "Times New Roman"
     }
 }
 
@@ -64,6 +78,8 @@
         "Helvetica"
     } else if fonttype == "openfont" {
         "PT Sans"
+    } else {
+        "Times New Roman"
     }
 }
 
@@ -72,6 +88,8 @@
         "Helvetica"
     } else if fonttype == "openfont" {
         "PT Sans"
+    } else {
+        "Times New Roman"
     }
 }
 
@@ -80,6 +98,8 @@
         "Helvetica"
     } else if fonttype == "openfont" {
         "PT Sans"
+    } else {
+        "Times New Roman"
     }
 }
 
@@ -213,7 +233,7 @@ grid(
 // Sumiyana, Sumiyana. "Different characteristics of the aggregate of accounting earnings between developed and developing countries: Evidence for predicting future GDP." Journal of international studies 13, no. 1 (2020): 58-80.
 #let chicago(contents) = {
     set text(10pt,font: font_bib, fill: primary_colour,weight: "light", )
-  for i, id in contents {
+  for (i, id) in contents.enumerate() {
     grid(
         columns: (auto,auto),
         column-gutter: 0.4em, 
@@ -260,7 +280,7 @@ grid(
 // Sumiyana, S. (2020). Different characteristics of the aggregate of accounting earnings between developed and developing countries: Evidence for predicting future GDP. Journal of international studies, 13(1), 58-80.
 #let apa(contents) = {
     set text(10pt,font: font_bib, fill: primary_colour,weight: "light", )
-  for i, id in contents {
+  for (i, id) in contents.enumerate() {
     grid(
         columns: (auto,auto),
         column-gutter: 0.4em, 
