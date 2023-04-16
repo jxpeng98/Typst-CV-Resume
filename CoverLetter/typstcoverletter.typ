@@ -10,6 +10,8 @@
         "Helvetica Neue"
     } else if fonttype == "openfont" {
         "PT Sans"
+    } else {
+        "Times New Roman"
     }
 }
 
@@ -19,6 +21,8 @@
         "Heiti TC"
     } else if fonttype == "openfont" {
         "PT Sans"
+    } else {
+        "Times New Roman"
     }
 }
 #let font_descript = {
@@ -26,6 +30,8 @@
         "Heiti SC"
     } else if fonttype == "openfont" {
         "PT Sans"
+    } else {
+        "Times New Roman"
     }
 }
 #let font_info = {
@@ -33,6 +39,8 @@
         "Helvetica"
     } else if fonttype == "openfont" {
         "PT Sans"
+    } else {
+        "Times New Roman"
     }
 }
 
