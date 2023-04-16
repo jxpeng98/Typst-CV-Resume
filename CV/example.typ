@@ -1,31 +1,3 @@
-# Typst-CV-Resume
-
-This Typst CV template is inspired by Latex template [Deedy-Resume](https://github.com/deedy/Deedy-Resume).
-You can use it for both of industry and academia.
-
-In original Typst, we cannot create a reference list withou citation. So I modified the code for this purpose. Currently, I only create the Chicago style citation and reference list. If you want to use other citation styles, you need to modify the code.
-
-I have create a function to import your publication list.
-**remember: you need to use `json` file exported from Zotero with BetterBibTeX. I did not test other ways.**
-
-Then you can call the function by using `#chicago(json("bib.json"))`.
-## Update
-I have update the `macfont` version with the some location changes. The `openfont` version is still the same.
-
-## Use
-
-This project includes **three** files:
-
-- `example.typ`: the main file
-- `typstcv.typ`: the template file
-- `bib.json`: the bibliography file
-
-You can use `example.typ` as a template to create your own CV. You can also download `typstcv.typ` as a template. Then create a new file with the following code:
-
-<details>
-    <summary>Click me</summary>
-
-```
 #import "typstcv.typ": *
 // Remember to set the fonttype in `typstcv.typ` 
 
@@ -102,23 +74,6 @@ bibfile: [bib.json],
     // #apa(json("bib.json"))
 ],
 )
-```
-
-</details>
 
 
-**Remember: If you want to change the font, you should change the font setting `#let fonttype = "macfont"` to `openfont` and modify the font that you prefer for each section.**
 
-## Example
-
-I only test the template on macOS. If you want to use it on other platforms, you should use template in the `openfont` folder. Then, modify the font in `typstcv.typ` to the font installed on your PC.
-
-**MacFont**
-![WzzFAb](https://cdn.jsdelivr.net/gh/jxpeng98/imagerepo@main/2023/04/WzzFAb.png)
-**PT Sans**
-![S4rnjN](https://cdn.jsdelivr.net/gh/jxpeng98/imagerepo@main/2023/04/S4rnjN.png)
-
-## Todo
-
-- [x] Combine the macfont and openfont into one file.
-- [ ] Create one column version.

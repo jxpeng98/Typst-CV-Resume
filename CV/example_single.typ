@@ -1,8 +1,8 @@
-#import "typstcv.typ": *
+#import "typstcv_single.typ": *
 // TODO: add more bibstyle and try to use yaml and xml to replace json
 //
 // select the font type: "macfont" or "openfont"
-
+#let fonttype = "macfont"
 #main(
 name: [#lorem(2)], //name:"" or name:[]
 address: [#lorem(4)],
@@ -43,8 +43,6 @@ bibfile: [bib.json],
     #awarddetail[2017][Grant][Organisation]
     #awarddetail[2016][Scholarship][University]
     #sectionsep
-],
-[
     //Experience
     #section("Experience")
     #jobtitle[#lorem(4)][#lorem(2)]
