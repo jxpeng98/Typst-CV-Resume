@@ -5,42 +5,59 @@
 
 // Section Headings (Education, Experience, etc)
 #let section(title) = {
-    text(16pt,font: "Helvetica", fill: headings_colour,weight: "light", )[#upper[#title]\ ]
+    text(13pt,font: "Helvetica", fill: headings_colour,weight: "light", )[#upper[#title]\ ]
 }
 
 // Subsection Headings (University, Company, etc)
 #let subsection(content) = {
-    text(12pt,font: "Helvetica", fill: subheadings_colour,weight: "bold", )[#upper[#content] ]
+    text(10pt,font: "Helvetica", fill: subheadings_colour,weight: "bold", )[#upper[#content] ]
 }
 
+// Education details
+#let education(university, major, period, location, detail) = {
+    text(10pt,font: "Helvetica", fill: subheadings_colour,weight: "bold", )[#upper[#university] ]
+    h(1fr) 
+    text(9pt,font: "Heiti TC", fill: headings_colour, weight: "medium", )[#period \ ]
+    text(10pt, font: "Heiti SC", fill: subheadings_colour,weight: "semibold",)[#major ]
+    h(1fr)
+    text(9pt,font: "Heiti TC", fill: headings_colour, weight: "medium", )[#location \ ]
+    text(9pt,font: "Helvetica", fill: primary_colour,weight: "light", )[#detail\ ]
+    }
 // Time period and location
 #let term(period, location) = {
     if location == [] or location == "" {
-        text(10pt,font: "Heiti TC", fill: headings_colour, weight: "medium", )[#period\ ]
+        text(9pt,font: "Heiti TC", fill: headings_colour, weight: "medium", )[#period ]
     } else {
-        text(10pt,font: "Heiti TC", fill: headings_colour, weight: "medium", )[#period | #location \ ]
+        text(9pt,font: "Heiti TC", fill: headings_colour, weight: "medium", )[#period | #location  ]
     }
 }
 // Description of a job, degree, etc
 #let descript(content) = {
-    text(12pt, font: "Heiti SC", fill: subheadings_colour,weight: "semibold",)[#content\ ]
+    text(9pt, font: "Heiti SC", fill: subheadings_colour,weight: "semibold",)[#content ]
     }
 // Job title
-#let jobtitle(firm, title) = {
-    text(12pt,font: "Helvetica", fill: subheadings_colour,weight: "bold", )[#upper[#firm] ] 
-    text(12pt, font: "Heiti SC", fill: subheadings_colour,weight: "semibold",)[| #title\ ]
+#let jobtitle(firm, title, period, location) = {
+    text(10pt,font: "Helvetica", fill: subheadings_colour,weight: "bold", )[#upper[#firm] ]
+    h(1fr) 
+    text(9pt,font: "Heiti TC", fill: headings_colour, weight: "medium", )[#period \ ]
+    text(10pt, font: "Heiti SC", fill: subheadings_colour,weight: "semibold",)[#title ]
+    h(1fr)
+    text(9pt,font: "Heiti TC", fill: headings_colour, weight: "medium", )[#location \ ]
     }
 //job details
 #let jobdetail(content) = {
-    text(10pt,font: "Helvetica", fill: primary_colour,weight: "light", baseline: 0em )[#set enum(tight:false,spacing:0em,indent: 0em, body-indent: 0em)
+    text(9pt,font: "Helvetica", fill: primary_colour,weight: "light", baseline: 0em )[#set enum(tight:false,spacing:0em,indent: 0em, body-indent: 0em)
     #content ]
 }
 // Details
 #let info(content) = {
-    text(11pt,font: "Helvetica", fill: primary_colour,weight: "light", )[#content\ ]
+    text(9pt,font: "Helvetica", fill: primary_colour,weight: "light", )[#content\ ]
 }
 #let sectionsep = {
-    [#v(5pt)]
+    [#v(3pt)]
+    // [#v(1pt)]
+    // line(length: 100%, stroke:0.1pt + primary_colour)
+    // [#v(1pt)]
 }
 #let subsectionsep = {
     [#v(2pt)]
@@ -49,7 +66,7 @@
 #let awarddetail(time,award,organise) = {
     set text(10pt,font: "Helvetica", fill: primary_colour,weight: "light",top-edge: "baseline",bottom-edge: "baseline",baseline: 0pt)
     grid(
-        columns: (auto,auto,auto),
+        columns: (auto,1fr,1fr),
         gutter: 1em,
         time,
         award,
@@ -100,14 +117,14 @@ let display(contacts) = {
  
 set page(
     margin: (
-        left: 2cm, 
-        right: 2cm, 
+        left: 1.8cm, 
+        right: 1.8cm, 
         top: 3.2cm, 
         bottom: 2cm,
     ),
     header:{
         // Head Name Section
-    text(25pt,font:"Helvetica Neue",fill:primary_colour, weight:"light",top-edge:"baseline",bottom-edge:"baseline",baseline: 12pt)[#align(center,[#name])]
+    text(25pt,font:"Helvetica Neue",fill:primary_colour, weight:"light",top-edge:"baseline",bottom-edge:"baseline",baseline: 11pt)[#align(center,[#name])]
     text(11pt,font:"Heiti TC",fill:headings_colour, weight: "medium",top-edge:"baseline",bottom-edge:"baseline")[#align(center,[#address])]
     align(center)[#display(contacts)]
     line(length: 100%, stroke:0.5pt + primary_colour)   
@@ -127,7 +144,7 @@ mainbody
 // Sumiyana, Sumiyana. "Different characteristics of the aggregate of accounting earnings between developed and developing countries: Evidence for predicting future GDP." Journal of international studies 13, no. 1 (2020): 58-80.
 #let chicago(contents) = {
     set text(10pt,font: "Helvetica", fill: primary_colour,weight: "light", )
-  for i, id in contents {
+  for (i, id) in contents.enumerate() {
     grid(
         columns: (auto,auto),
         column-gutter: 0.4em, 
@@ -174,7 +191,7 @@ mainbody
 // Sumiyana, S. (2020). Different characteristics of the aggregate of accounting earnings between developed and developing countries: Evidence for predicting future GDP. Journal of international studies, 13(1), 58-80.
 #let apa(contents) = {
     set text(10pt,font: "Helvetica", fill: primary_colour,weight: "light", )
-  for i, id in contents {
+  for (i, id) in contents.enumerate() {
     grid(
         columns: (auto,auto),
         column-gutter: 0.4em, 
