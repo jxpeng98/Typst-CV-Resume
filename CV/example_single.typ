@@ -21,12 +21,8 @@ bibfile: [bib.json],
     #descript[#lorem(50)]
     #sectionsep
     #section("Education")
-    #subsection[#lorem(4)]
-    #term[xxxx-xxxx][UK]
-    #subsectionsep
-    #subsection[#lorem(4)]
-    #term[xxxx-xxxx][UK]
-    #sectionsep
+    #education[#lorem(4)][#lorem(2)][xxxx-xxxx][UK][Core Modules: #lorem(10)]
+    #education[#lorem(4)][#lorem(2)][xxxx-xxxx][UK][]
     #section("Skills")
     #descript("Programming Languages")
     #info[Python, C++, Java, JavaScript, HTML, CSS, SQL, LaTeX]
@@ -45,16 +41,14 @@ bibfile: [bib.json],
     #sectionsep
     //Experience
     #section("Experience")
-    #jobtitle[#lorem(4)][#lorem(2)]
-    #term[xxxx-xxxx][UK]
+    #jobtitle[#lorem(4)][#lorem(2)][xxxx-xxxx][UK]
     #jobdetail[
       - #lorem(10)
       - #lorem(10)
       - #lorem(10)
       - #lorem(10)]
     #subsectionsep
-    #jobtitle[#lorem(4)][#lorem(2)]
-    #term[xxxx-xxxx][]
+    #jobtitle[#lorem(4)][#lorem(2)][xxxx-xxxx][UK]
     #jobdetail[#lorem(30)]
     #subsectionsep
     // Projects
