@@ -4,9 +4,11 @@
 // select the font type: "macfont" or "openfont"
 #let fonttype = "macfont"
 #main(
+continue_header: "false",
 name: [#lorem(2)], //name:"" or name:[]
 address: [#lorem(4)],
 lastupdated: "true",
+pagecount: "true",
 date:"2023.4.7",
 contacts: (
 (text:"08856",link:""),
@@ -21,8 +23,9 @@ bibfile: [bib.json],
     #descript[#lorem(50)]
     #sectionsep
     #section("Education")
-    #education[#lorem(4)][#lorem(2)][xxxx-xxxx][UK][Core Modules: #lorem(10)]
+    #education[#lorem(4)][#lorem(2)][xxxx-xxxx][UK][Core Modules: #lorem(10)]\
     #education[#lorem(4)][#lorem(2)][xxxx-xxxx][UK][]
+    #sectionsep
     #section("Skills")
     #descript("Programming Languages")
     #info[Python, C++, Java, JavaScript, HTML, CSS, SQL, LaTeX]
@@ -53,13 +56,13 @@ bibfile: [bib.json],
     #subsectionsep
     // Projects
     #section("Projects")
-    #descript[#lorem(2)]
+    #descript[#lorem(2)]\
     #info[#lorem(40)]
     #subsectionsep
-    #descript[#lorem(2)]
+    #descript[#lorem(2)]\
     #info[#lorem(40)]
     #subsectionsep
-    #descript[#lorem(2)]
+    #descript[#lorem(2)]\
     #info[#lorem(40)]
     #sectionsep
     // Publication
