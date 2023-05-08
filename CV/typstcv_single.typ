@@ -13,7 +13,6 @@
     text(10pt,font: "Helvetica", fill: subheadings_colour,weight: "bold", )[#upper[#content] ]
 }
 
-// Education details
 #let education(university, major, period, location, detail) = {
     text(10pt,font: "Helvetica", fill: subheadings_colour,weight: "bold", )[#upper[#university] ]
     h(1fr) 
@@ -21,7 +20,9 @@
     text(10pt, font: "Heiti SC", fill: subheadings_colour,weight: "semibold",)[#major ]
     h(1fr)
     text(9pt,font: "Heiti TC", fill: headings_colour, weight: "medium", )[#location \ ]
-    text(9pt,font: "Helvetica", fill: primary_colour,weight: "light", )[#detail\ ]
+    if detail != [] or detail != "" {
+        text(10pt,font: "Helvetica", fill: primary_colour,weight: "light", )[#detail]
+    }
     }
 // Time period and location
 #let term(period, location) = {
@@ -33,7 +34,7 @@
 }
 // Description of a job, degree, etc
 #let descript(content) = {
-    text(9pt, font: "Heiti SC", fill: subheadings_colour,weight: "semibold",)[#content ]
+    text(10pt, font: "Heiti SC", fill: subheadings_colour,weight: "semibold",)[#content ]
     }
 // Job title
 #let jobtitle(firm, title, period, location) = {
@@ -42,16 +43,16 @@
     text(9pt,font: "Heiti TC", fill: headings_colour, weight: "medium", )[#period \ ]
     text(10pt, font: "Heiti SC", fill: subheadings_colour,weight: "semibold",)[#title ]
     h(1fr)
-    text(9pt,font: "Heiti TC", fill: headings_colour, weight: "medium", )[#location \ ]
+    text(9pt,font: "Heiti TC", fill: headings_colour, weight: "medium", )[#location]
     }
 //job details
 #let jobdetail(content) = {
-    text(9pt,font: "Helvetica", fill: primary_colour,weight: "light", baseline: 0em )[#set enum(tight:false,spacing:0em,indent: 0em, body-indent: 0em)
+    text(10pt,font: "Helvetica", fill: primary_colour,weight: "light", baseline: 0em )[#set enum(tight:false,spacing:0em,indent: 0em, body-indent: 0em)
     #content ]
 }
 // Details
 #let info(content) = {
-    text(9pt,font: "Helvetica", fill: primary_colour,weight: "light", )[#content\ ]
+    text(10pt,font: "Helvetica", fill: primary_colour,weight: "light", )[#content\ ]
 }
 #let sectionsep = {
     [#v(3pt)]
@@ -66,7 +67,7 @@
 #let awarddetail(time,award,organise) = {
     set text(10pt,font: "Helvetica", fill: primary_colour,weight: "light",top-edge: "baseline",bottom-edge: "baseline",baseline: 0pt)
     grid(
-        columns: (auto,1fr,1fr),
+        columns: (auto,auto,auto),
         gutter: 1em,
         time,
         award,
@@ -85,18 +86,16 @@
 // last update
 #let lastupdate(lastupdated, date)= {
     if lastupdated == "true" {
-        set text(10pt,font: "Helvetica", fill: primary_colour,weight: "light",)
-        block(
-            width: 100%,
-            height: 1.5em,
-            align(right,{[Last updated: #date]}),
-        )
+        set text(9pt,font: "Helvetica", fill: primary_colour,weight: "light",)
+        [Last updated: #date]
+        }
     }
-}
 #let main(
+    continue_header: "",
     name: "",
     address: "",
     lastupdated: "",
+    pagecount: "",
     date:"",
     contacts: (),
     bibfile: (),
@@ -116,26 +115,49 @@ let display(contacts) = {
     }
  
 set page(
-    margin: (
+    footer: [
+    #lastupdate(lastupdated, date)
+    #h(1fr)
+    #if pagecount == "true" {
+        text(9pt,font: "Helvetica", fill: primary_colour,weight: "light",)[#counter(page).display("1 / 1", both: true,)]
+    }
+    ],
+)
+
+if continue_header == "true" {
+    set page(
+        margin: (
         left: 1.8cm, 
         right: 1.8cm, 
-        top: 3.2cm, 
-        bottom: 2cm,
-    ),
-    header:{
-        // Head Name Section
+        top: 3cm, 
+        bottom: 1cm,
+        ),
+        header:{
+            // Head Name Section
+        text(25pt,font:"Helvetica Neue",fill:primary_colour, weight:"light",top-edge:"baseline",bottom-edge:"baseline",baseline: 11pt)[#align(center,[#name])]
+        text(11pt,font:"Heiti TC",fill:headings_colour, weight: "medium",top-edge:"baseline",bottom-edge:"baseline")[#align(center,[#address])]
+        align(center)[#display(contacts)]
+        line(length: 100%, stroke:0.5pt + primary_colour)   
+        },
+        header-ascent: 1em,
+        )
+    mainbody
+} else {
+    set page(
+        margin: (
+        left: 1.8cm, 
+        right: 1.8cm, 
+        top: 1.3cm, 
+        bottom: 1.5cm,
+        ),
+    )
     text(25pt,font:"Helvetica Neue",fill:primary_colour, weight:"light",top-edge:"baseline",bottom-edge:"baseline",baseline: 11pt)[#align(center,[#name])]
     text(11pt,font:"Heiti TC",fill:headings_colour, weight: "medium",top-edge:"baseline",bottom-edge:"baseline")[#align(center,[#address])]
     align(center)[#display(contacts)]
-    line(length: 100%, stroke:0.5pt + primary_colour)   
-    },
-    header-ascent: 1em,
-    footer: [
-    #lastupdate(lastupdated, date)
-    ],
-)
+    line(length: 100%, stroke:0.5pt + primary_colour)
+    mainbody
+}
 //Main Body 
-mainbody
 }
 
 
