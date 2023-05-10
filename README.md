@@ -118,6 +118,9 @@ I only test the template on macOS. If you want to use it on other platforms, you
 **PT Sans**
 ![S4rnjN](https://cdn.jsdelivr.net/gh/jxpeng98/imagerepo@main/2023/04/S4rnjN.png)
 
+
+I also create a single column version, You can find it from the [`typstcv_single.typ`](CV/typstcv_single.typ) and [`example_single.typ`](CV/example_single.typ):
+![RWRbMA](https://cdn.jsdelivr.net/gh/jxpeng98/imagerepo@main/2023/05/RWRbMA.png)
 ## Todo
 
 - [x] Combine the macfont and openfont into one file.

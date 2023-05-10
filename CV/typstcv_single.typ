@@ -32,6 +32,19 @@
         text(9pt,font: "Heiti TC", fill: headings_colour, weight: "medium", )[#period | #location  ]
     }
 }
+// Projects
+#let project(title, period, info) = {
+    text(10pt, font: "Heiti SC", fill: subheadings_colour,weight: "semibold",)[#title ]
+    if period != [] or period != "" {
+        h(1fr)
+        text(9pt,font: "Heiti TC", fill: headings_colour, weight: "medium", )[#period \ ]
+    } else {
+        [\ ]
+    }
+    if info != [] or info != "" {
+        text(10pt,font: "Helvetica", fill: primary_colour,weight: "light", )[#info ]
+    }
+}
 // Description of a job, degree, etc
 #let descript(content) = {
     text(10pt, font: "Heiti SC", fill: subheadings_colour,weight: "semibold",)[#content ]
@@ -55,9 +68,9 @@
     text(10pt,font: "Helvetica", fill: primary_colour,weight: "light", )[#content\ ]
 }
 #let sectionsep = {
-    [#v(3pt)]
+    // [#v(3pt)]
     // [#v(1pt)]
-    // line(length: 100%, stroke:0.1pt + primary_colour)
+    line(length: 100%, stroke:0.1pt + primary_colour)
     // [#v(1pt)]
 }
 #let subsectionsep = {
