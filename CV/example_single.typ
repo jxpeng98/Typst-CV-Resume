@@ -53,17 +53,17 @@ bibfile: [bib.json],
     #subsectionsep
     #jobtitle[#lorem(4)][#lorem(2)][xxxx-xxxx][UK]
     #jobdetail[#lorem(30)]
-    #subsectionsep
+    #sectionsep
     // Projects
     #section("Projects")
-    #descript[#lorem(2)]\
-    #info[#lorem(40)]
+    #project[#lorem(2)][Jan 2023][#lorem(40)]
     #subsectionsep
-    #descript[#lorem(2)]\
-    #info[#lorem(40)]
+    #project[#lorem(2)][][
+      - #lorem(15)
+      - #lorem(15)
+      ]
     #subsectionsep
-    #descript[#lorem(2)]\
-    #info[#lorem(40)]
+    #project[#lorem(2)][][#lorem(40)]
     #sectionsep
     // Publication
     #section("Publications")
