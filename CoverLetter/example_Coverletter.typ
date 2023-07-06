@@ -2,7 +2,7 @@
 // Remember to set the fonttype in `typstcv.typ` 
 
 
-#main(
+#show: mainbody => main(
 name: [#lorem(2)], //name:"" or name:[]
 address: [#lorem(4)],
 lastupdated: "true",
@@ -13,10 +13,17 @@ contacts: (
 (text:"github.com",link:"https://www.github.com"),
 (text:"123@example.com",link:"mailto:123@example.com"),
   ),
-[
-],
-
+mainbody,
 )
 
+#recepient[Date][Department][Institution][City, Country][Postcode]
+#align(left, text(12pt,font: "Helvetica", fill: primary_colour,weight: "medium", )[#upper([Job Application for Research Fellow])])
+#v(0.1em)
+#set text(11pt,font: "Helvetica", fill: primary_colour, weight: "regular", )
+Dear Application Committee,
 
+#set par(justify: true,first-line-indent: 2em,) 
 
+#lorem(300)
+
+#lorem(100)

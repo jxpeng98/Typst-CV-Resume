@@ -62,15 +62,16 @@
         )
     }
 }
-#let recepient(
-    department: "",
-    university: "",
-    address: "",
-    postcode: "",
-    ) = {
-        if department != "" {
-            text(16pt,font: font_section, fill: headings_colour, weight: "light", )[#department]
-        }
+#let recepient(date, department, university,address, postcode) = {
+    align(left,{
+        text(10pt,font: "Helvetica", fill: subheadings_colour,weight: "bold", )[#department]
+        h(1fr)
+        text(10pt,font: "Helvetica", fill: primary_colour,weight: "light", )[#date\ ]
+        text(10pt,font: "Helvetica", fill: subheadings_colour,weight: "bold", )[#university\ ]
+        text(10pt,font: "Helvetica", fill: headings_colour,weight: "light", )[#address\ ]
+        text(10pt,font: "Helvetica", fill: headings_colour,weight: "light", )[#postcode ]
+    }
+    )
 }
 #let main(
     name: "",
@@ -114,5 +115,7 @@ set page(
 )
 mainbody
 
-name
+[Sincerely,\ ]
+
+[*#name*]
 }
