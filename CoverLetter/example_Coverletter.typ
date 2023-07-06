@@ -5,8 +5,6 @@
 #show: mainbody => main(
 name: [#lorem(2)], //name:"" or name:[]
 address: [#lorem(4)],
-lastupdated: "true",
-date:"2023.4.7",
 contacts: (
 (text:"08856",link:""),
 (text:"example.com",link:"https://www.example.com"),
@@ -21,9 +19,9 @@ mainbody,
 #v(0.1em)
 #set text(11pt,font: "Helvetica", fill: primary_colour, weight: "regular", )
 Dear Application Committee,
-
 #set par(justify: true,first-line-indent: 2em,) 
 
 #lorem(300)
 
 #lorem(100)
+

@@ -51,17 +51,7 @@
     [#v(2pt)]
 }
 
-// last update
-#let lastupdate(lastupdated, date)= {
-    if lastupdated == "true" {
-        set text(10pt,font: font_info, fill: primary_colour,weight: "light",)
-        block(
-            width: 100%,
-            height: 1.5em,
-            align(right,{[Last updated: #date]}),
-        )
-    }
-}
+
 #let recepient(date, department, university,address, postcode) = {
     align(left,{
         text(10pt,font: "Helvetica", fill: subheadings_colour,weight: "bold", )[#department]
@@ -76,8 +66,6 @@
 #let main(
     name: "",
     address: "",
-    lastupdated: "",
-    date:"",
     contacts: (),
     mainbody,
 ) = {
@@ -96,8 +84,8 @@ let display(contacts) = {
  
 set page(
     margin: (
-        left: 1.25cm, 
-        right: 1.25cm, 
+        left: 2cm, 
+        right: 2cm, 
         top: 3.2cm, 
         bottom: 1.5cm,
     ),
@@ -109,12 +97,10 @@ set page(
     line(length: 100%, stroke:0.5pt + primary_colour)   
     },
     header-ascent: 1em,
-    footer: [
-    #lastupdate(lastupdated, date)
-    ],
 )
 mainbody
 
+set text(11pt,font: "Helvetica", fill: primary_colour, weight: "regular", )
 [Sincerely,\ ]
 
 [*#name*]
