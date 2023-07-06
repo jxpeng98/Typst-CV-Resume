@@ -3,7 +3,7 @@
 //
 // select the font type: "macfont" or "openfont"
 #let fonttype = "macfont"
-#main(
+#show: mainbody => main(
 continue_header: "false",
 name: [#lorem(2)], //name:"" or name:[]
 address: [#lorem(4)],
@@ -17,7 +17,9 @@ contacts: (
 (text:"123@example.com",link:"mailto:123@example.com"),
   ),
 bibfile: [bib.json],
-[
+mainbody
+)
+
     //About
     #section("About")
     #descript[#lorem(50)]
@@ -69,8 +71,5 @@ bibfile: [bib.json],
     #section("Publications")
     #chicago(json("bib.json"))
     // #apa(json("bib.json"))
-],
-)
-
 
 
