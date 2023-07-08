@@ -52,7 +52,7 @@
 }
 
 
-#let recepient(date, department, university,address, postcode) = {
+#let recepient(date, department, university, address, postcode) = {
     align(left,{
         text(10pt,font: "Helvetica", fill: subheadings_colour,weight: "bold", )[#department]
         h(1fr)

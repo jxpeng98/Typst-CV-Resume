@@ -14,7 +14,17 @@ contacts: (
 mainbody,
 )
 
-#recepient[Date][Department][Institution][City, Country][Postcode]
+#recepient[
+  #datetime.today(offset: auto).display("[day] [month repr:long] [year]") // display today in the format "day month year" or you can show the date directly
+  ][
+    Department
+    ][
+      Institution
+      ][
+        City, Country
+        ][
+          Postcode
+          ]
 #align(left, text(12pt,font: "Helvetica", fill: primary_colour,weight: "medium", )[#upper([Job Application for Research Fellow])])
 #v(0.1em)
 #set text(11pt,font: "Helvetica", fill: primary_colour, weight: "regular", )
