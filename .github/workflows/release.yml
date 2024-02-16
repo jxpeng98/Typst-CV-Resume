@@ -41,7 +41,7 @@ jobs:
 
                   ls
 
-                  echo "tag_name=$(git tag --sort version:refname | tail -n 1)" >> $GITHUB_OUTPUT
+                  echo "tag_name=$(git tag --sort version:refname | tail -n 1)" >> "$GITHUB_OUTPUT"
 
             - name: Create Release
               id: create_release
@@ -63,7 +63,7 @@ jobs:
               with:
                   upload_url: ${{ steps.create_release.outputs.upload_url }}
                   asset_path: ./${{ env.typst_cv }}.zip
-                  asset_name: ${{ env.typst_cv }}-${{ github.ref }}.zip
+                  asset_name: ${{ env.typst_cv }}-${{ github.ref.tag_name }}.zip
                   asset_content_type: application/zip
 
             - name: Upload CV Single zip
@@ -74,7 +74,7 @@ jobs:
               with:
                   upload_url: ${{ steps.create_release.outputs.upload_url }}
                   asset_path: ./${{ env.typst_cvs }}.zip
-                  asset_name: ${{ env.typst_cvs }}-${{ github.ref }}.zip
+                  asset_name: ${{ env.typst_cvs }}-${{ github.ref.tag_name }}.zip
                   asset_content_type: application/zip
 
             - name: Upload Cover Letter zip
@@ -85,7 +85,7 @@ jobs:
               with:
                   upload_url: ${{ steps.create_release.outputs.upload_url }}
                   asset_path: ./${{ env.typst_cl }}.zip
-                  asset_name: ${{ env.typst_cl }}-${{ github.ref }}.zip
+                  asset_name: ${{ env.typst_cl }}-${{ github.ref.tag_name }}.zip
                   asset_content_type: application/zip
 
             - name: Upload CV Single
