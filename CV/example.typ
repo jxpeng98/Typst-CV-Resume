@@ -70,8 +70,9 @@ bibfile: [bib.json],
     #sectionsep
     // Publication
     #section("Publications")
-    #chicago(json("bib.json"))
-    // #apa(json("bib.json"))
+    #publication(
+      "bib.bib",
+      "chicago-author-date")
 ],
 )
 

@@ -3,7 +3,7 @@
 #let headings_colour= rgb("#6A6A6A")
 #let subheadings_colour= rgb("#333333")
 // Set font type for all text
-#let fonttype = ""
+#let fonttype = "macfont"
 
 #let font_head = {
     if fonttype == "macfont" {
@@ -147,7 +147,7 @@
 }
 
 #let awarddetail(time,award,organise) = {
-    set text(10pt,font: font_award, fill: primary_colour,weight: "light",top-edge: "baseline",bottom-edge: "baseline",baseline: 0pt)
+    set text(10pt, font: font_award, fill: primary_colour,weight: "light",top-edge: "baseline",bottom-edge: "baseline",baseline: 0pt)
     grid(
         columns: (auto,auto,auto),
         gutter: 1em,
@@ -176,6 +176,20 @@
         )
     }
 }
+
+// Publications
+#let publication(path, styletype) = {
+    set text(11pt,font: font_info, fill: primary_colour,weight: "light", )
+        bibliography(
+            path,
+            title: none,
+            full: true,
+            style: styletype,
+        )
+    
+}
+
+
 #let main(
     name: "",
     address: "",
@@ -225,101 +239,4 @@ grid(
     left,
     right,
   )
-}
-
-
-// Chicago style
-// Ball, Ray, Joseph Gerakos, Juhani T. Linnainmaa, and Valeri Nikolaev. "Earnings, retained earnings, and book-to-market in the cross section of expected returns." Journal of Financial Economics 135, no. 1 (2020): 231-254.
-// Sumiyana, Sumiyana. "Different characteristics of the aggregate of accounting earnings between developed and developing countries: Evidence for predicting future GDP." Journal of international studies 13, no. 1 (2020): 58-80.
-#let chicago(contents) = {
-    set text(10pt,font: font_bib, fill: primary_colour,weight: "light", )
-  for (i, id) in contents.enumerate() {
-    grid(
-        columns: (auto,auto),
-        column-gutter: 0.4em, 
-         {"[" 
-         str(i+1)
-         "]"},{
-    for author in id.author {
-        if author.len() == 1 [
-        #author.at("family"), #author.at("given").
-        ] else {
-            if author.at("family") == id.author.first().at("family") [
-                #author.at("family"), #author.at("given")
-            ] else if author.at("family") == id.author.last().at("family") [
-                and #author.at("given"), #author.at("family").
-            ] else [
-                #author.at("given"), #author.at("family"),
-            ]
-        }
-        }
-    [\" #id.title.\" #emph(id.container-title) ]
-    if "volume" in id [#id.volume, ]
-    if "issue" in id [no. #id.issue ]
-    [(#id.issued.date-parts.at(0).first())]
-    if "page" in id [: #id.page.] else[. ]
-    if "DOI" in id and "URL" in id {
-        [doi: ] 
-        emph(link(id.DOI))
-        [\ ]
-        } else if "URL" in id {
-        [url: ] 
-        emph(link(id.URL))
-        [\ ]
-        } else if "DOI" in id {
-        [doi: ] 
-        emph(link(id.DOI))
-        [\ ]
-        }
-         }
-    )
-    }
-  }
-// APA style
-// Ball, R., Gerakos, J., Linnainmaa, J. T., & Nikolaev, V. (2020). Earnings, retained earnings, and book-to-market in the cross section of expected returns. Journal of Financial Economics, 135(1), 231-254.
-// Sumiyana, S. (2020). Different characteristics of the aggregate of accounting earnings between developed and developing countries: Evidence for predicting future GDP. Journal of international studies, 13(1), 58-80.
-#let apa(contents) = {
-    set text(10pt,font: font_bib, fill: primary_colour,weight: "light", )
-  for (i, id) in contents.enumerate() {
-    grid(
-        columns: (auto,auto),
-        column-gutter: 0.4em, 
-        row-gutter: 0em, 
-         {"[" 
-         str(i+1)
-         "]"},{
-    for author in id.author {
-        if author.len() == 1 [
-        #author.at("family"), #author.at("given").first().
-        ] else {
-            if author.at("family") == id.author.first().at("family") [
-                #author.at("family"), #author.at("given").first().,
-            ] else if author.at("family") == id.author.last().at("family") [
-                & #author.at("family"), #author.at("given").first(). 
-            ] else [
-                 #author.at("family"), #author.at("given").first().,
-            ]
-        }
-        }
-            [(#id.issued.date-parts.at(0).first()). ]
-    [ #id.title. #emph(id.container-title)]
-    if "volume" in id [, #id.volume]
-    if "issue" in id [(#id.issue)]
-    if "page" in id [, #id.page.] else[. ]
-    if "DOI" in id and "URL" in id {
-        [ doi: ] 
-        emph(link(id.DOI))
-        [\ ]
-        } else if "URL" in id {
-        [url: ] 
-        emph(link(id.URL))
-        [\ ]
-        } else if "DOI" in id {
-        [doi: ] 
-        emph(link(id.DOI))
-        [\ ]
-        }
-         }
-    )
-    }
 }
