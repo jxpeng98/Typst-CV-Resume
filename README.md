@@ -227,29 +227,24 @@ contacts: (
 (text:"github.com",link:"https://www.github.com"),
 (text:"123@example.com",link:"mailto:123@example.com"),
   ),
+  recipient: (
+  starttitle: "Dear",
+  jobtitle: "Hiring Manager",
+  date: "",
+  department: [#lorem(2)],
+  university: [#lorem(2)],
+  address: [#lorem(4)],
+  postcode: [#lorem(1)]
+  ),
 mainbody,
 )
 
-#recepient[
-  #datetime.today(offset: auto).display("[day] [month repr:long] [year]") // display today in the format "day month year" or you can show the date directly
-  ][
-    Department
-    ][
-      Institution
-      ][
-        City, Country
-        ][
-          Postcode
-          ]
-#align(left, text(12pt,font: "Helvetica", fill: primary_colour,weight: "medium", )[#upper([Job Application for Research Fellow])])
-#v(0.1em)
-#set text(11pt,font: "Helvetica", fill: primary_colour, weight: "regular", )
-Dear Application Committee,
-#set par(justify: true,first-line-indent: 2em,) 
+
 
 #lorem(300)
 
 #lorem(100)
+
 
 ```
 
