@@ -7,8 +7,8 @@ on:
 
 env:
     typst_cv: Typst-CV
+    typst_cvs: Typst-CV-Single
     typst_cl: Typst-CoverLetter
-
 
 jobs:
     build:
@@ -18,15 +18,27 @@ jobs:
         steps:
             - uses: actions/checkout@v4
 
+            - name: List CV directory contents
+              run: ls -l ./CV/
+
             - name: Zip
               id: zip
               run: |
                   mkdir ${{ env.typst_cv }}
-                  cp ./CV/typstcv.typ ./CV/typstcv-single.typ ./CV/example_single.typ ./CV/example.typ ${{ env.typst_cv }}
+                  cp ./CV/typstcv.typ ./CV/example.typ ${{ env.typst_cv }}
+
                   zip -r ${{ env.typst_cv }}.zip ./${{ env.typst_cv }}
-                  mdfir ${{ env.typst_cl }}
+
+                  mkdir ${{ env.typst_cvs }}
+                  cp ./CV/typstcv_single.typ ./CV/example_single.typ ${{ env.typst_cvs }}
+                  zip -r ${{ env.typst_cvs }}.zip ./${{ env.typst_cvs }}
+
+                  mkdir ${{ env.typst_cl }}
+
                   cp ./CoverLetter/typstcoverletter.typ ./CoverLetter/example_Coverletter.typ ${{ env.typst_cl }}
+
                   zip -r ${{ env.typst_cl }}.zip ./${{ env.typst_cl }}
+
                   ls
                   echo "tag_name=$(git tag --sort version:refname | tail -n 1)" >> $GITHUB_OUTPUT
 
@@ -51,6 +63,17 @@ jobs:
                   upload_url: ${{ steps.create_release.outputs.upload_url }}
                   asset_path: ./${{ env.typst_cv }}.zip
                   asset_name: ${{ env.typst_cv }}-${{ steps.build.outputs.tag_name }}.zip
+                  asset_content_type: application/zip
+
+            - name: Upload CV Single zip
+              id: upload-cv-single-zip
+              uses: actions/upload-release-asset@v1
+              env:
+                  GITHUB_TOKEN: ${{ secrets.REPO_ACCESS_TOKEN }}
+              with:
+                  upload_url: ${{ steps.create_release.outputs.upload_url }}
+                  asset_path: ./${{ env.typst_cvs }}.zip
+                  asset_name: ${{ env.typst_cvs }}-${{ steps.build.outputs.tag_name }}.zip
                   asset_content_type: application/zip
 
             - name: Upload Cover Letter zip
@@ -82,7 +105,7 @@ jobs:
                   GITHUB_TOKEN: ${{ secrets.REPO_ACCESS_TOKEN }}
               with:
                   upload_url: ${{ steps.create_release.outputs.upload_url }}
-                  asset_path: ./CV/typst`cv.typ
+                  asset_path: ./CV/typst_cv.typ
                   asset_name: typstcv.typ
                   asset_content_type: text/typst
 
@@ -90,9 +113,9 @@ jobs:
               id: upload-cl
               uses: actions/upload-release-asset@v1
               env:
-                GITHUB_TOKEN: ${{ secrets.REPO_ACCESS_TOKEN }}
+                  GITHUB_TOKEN: ${{ secrets.REPO_ACCESS_TOKEN }}
               with:
-                    upload_url: ${{ steps.create_release.outputs.upload_url }}
-                    asset_path: ./CoverLetter/typstcoverletter.typ
-                    asset_name: typstcoverletter.typ
-                    asset_content_type: text/typst
+                  upload_url: ${{ steps.create_release.outputs.upload_url }}
+                  asset_path: ./CoverLetter/typstcoverletter.typ
+                  asset_name: typstcoverletter.typ
+                  asset_content_type: text/typst
