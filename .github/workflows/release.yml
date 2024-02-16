@@ -1,0 +1,98 @@
+name: Release
+
+on:
+    push:
+        tags:
+            - "*"
+
+env:
+    typst_cv: Typst-CV
+    typst_cl: Typst-CoverLetter
+
+
+jobs:
+    build:
+        name: release
+        runs-on: ubuntu-latest
+
+        steps:
+            - uses: actions/checkout@v4
+
+            - name: Zip
+              id: zip
+              run: |
+                  mkdir ${{ env.typst_cv }}
+                  cp ./CV/typstcv.typ ./CV/typstcv-single.typ ./CV/example_single.typ ./CV/example.typ ${{ env.typst_cv }}
+                  zip -r ${{ env.typst_cv }}.zip ./${{ env.typst_cv }}
+                  mdfir ${{ env.typst_cl }}
+                  cp ./CoverLetter/typstcoverletter.typ ./CoverLetter/example_Coverletter.typ ${{ env.typst_cl }}
+                  zip -r ${{ env.typst_cl }}.zip ./${{ env.typst_cl }}
+                  ls
+                  echo "tag_name=$(git tag --sort version:refname | tail -n 1)" >> $GITHUB_OUTPUT
+
+            - name: Create Release
+              id: create_release
+              uses: actions/create-release@v1
+              env:
+                  GITHUB_TOKEN: ${{ secrets.REPO_ACCESS_TOKEN }}
+                  VERSION: ${{ github.ref }}
+              with:
+                  tag_name: ${{ github.ref }}
+                  release_name: ${{ github.ref }}
+                  draft: false
+                  prerelease: false
+
+            - name: Upload CV zip
+              id: upload-cv-zip
+              uses: actions/upload-release-asset@v1
+              env:
+                  GITHUB_TOKEN: ${{ secrets.REPO_ACCESS_TOKEN }}
+              with:
+                  upload_url: ${{ steps.create_release.outputs.upload_url }}
+                  asset_path: ./${{ env.typst_cv }}.zip
+                  asset_name: ${{ env.typst_cv }}-${{ steps.build.outputs.tag_name }}.zip
+                  asset_content_type: application/zip
+
+            - name: Upload Cover Letter zip
+              id: upload-cl-zip
+              uses: actions/upload-release-asset@v1
+              env:
+                  GITHUB_TOKEN: ${{ secrets.REPO_ACCESS_TOKEN }}
+              with:
+                  upload_url: ${{ steps.create_release.outputs.upload_url }}
+                  asset_path: ./${{ env.typst_cl }}.zip
+                  asset_name: ${{ env.typst_cl }}-${{ steps.build.outputs.tag_name }}.zip
+                  asset_content_type: application/zip
+
+            - name: Upload CV Single
+              id: upload-cv-single
+              uses: actions/upload-release-asset@v1
+              env:
+                  GITHUB_TOKEN: ${{ secrets.REPO_ACCESS_TOKEN }}
+              with:
+                  upload_url: ${{ steps.create_release.outputs.upload_url }}
+                  asset_path: ./CV/typstcv_single.typ
+                  asset_name: typstcv_single.typ
+                  asset_content_type: text/typst
+
+            - name: Upload CV
+              id: upload-cv-double
+              uses: actions/upload-release-asset@v1
+              env:
+                  GITHUB_TOKEN: ${{ secrets.REPO_ACCESS_TOKEN }}
+              with:
+                  upload_url: ${{ steps.create_release.outputs.upload_url }}
+                  asset_path: ./CV/typst`cv.typ
+                  asset_name: typstcv.typ
+                  asset_content_type: text/typst
+
+            - name: Upload Cover Letter
+              id: upload-cl
+              uses: actions/upload-release-asset@v1
+              env:
+                GITHUB_TOKEN: ${{ secrets.REPO_ACCESS_TOKEN }}
+              with:
+                    upload_url: ${{ steps.create_release.outputs.upload_url }}
+                    asset_path: ./CoverLetter/typstcoverletter.typ
+                    asset_name: typstcoverletter.typ
+                    asset_content_type: text/typst

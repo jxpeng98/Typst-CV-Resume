@@ -2,6 +2,7 @@
 #let primary_colour= rgb("#2b2b2b")
 #let headings_colour= rgb("#6A6A6A")
 #let subheadings_colour= rgb("#333333")
+
 // Set font type for all text
 #let fonttype = "macfont"
 
@@ -54,15 +55,16 @@
 
 #let recepient(date, department, university, address, postcode) = {
     align(left,{
-        text(10pt,font: "Helvetica", fill: subheadings_colour,weight: "bold", )[#department]
+        text(10pt,font: font_info, fill: subheadings_colour,weight: "bold", )[#department]
         h(1fr)
-        text(10pt,font: "Helvetica", fill: primary_colour,weight: "light", )[#date\ ]
-        text(10pt,font: "Helvetica", fill: subheadings_colour,weight: "bold", )[#university\ ]
-        text(10pt,font: "Helvetica", fill: headings_colour,weight: "light", )[#address\ ]
-        text(10pt,font: "Helvetica", fill: headings_colour,weight: "light", )[#postcode ]
+        text(10pt,font: font_info, fill: primary_colour,weight: "light", )[#date\ ]
+        text(10pt,font: font_info, fill: subheadings_colour,weight: "bold", )[#university\ ]
+        text(10pt,font: font_info, fill: headings_colour,weight: "light", )[#address\ ]
+        text(10pt,font: font_info, fill: headings_colour,weight: "light", )[#postcode ]
     }
     )
 }
+
 #let main(
     name: "",
     address: "",
@@ -100,7 +102,7 @@ set page(
 )
 mainbody
 
-set text(11pt,font: "Helvetica", fill: primary_colour, weight: "regular", )
+set text(11pt,font: font_info, fill: primary_colour, weight: "regular", )
 [Sincerely,\ ]
 
 [*#name*]
