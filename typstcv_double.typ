@@ -201,7 +201,7 @@
     right,
 ) = {
 // show contact details
-let display(contacts) = {
+#let display(contacts) = {
     set text(11pt,font:font_term,fill:headings_colour, weight: "medium",top-edge:"baseline",bottom-edge:"baseline",baseline: 2pt)
     contacts.map(contact =>{
         if contact.link == none [

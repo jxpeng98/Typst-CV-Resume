@@ -1,14 +1,10 @@
-#import "typstcv_single.typ": *
-// TODO: add more bibstyle and try to use yaml and xml to replace json
-//
-// select the font type: "macfont" or "openfont"
-#let fonttype = "macfont"
-#show: mainbody => main(
-continue_header: "false",
+#import "typstcv.typ": *
+// Remember to set the fonttype in `typstcv.typ` 
+
+#show: main.with(
 name: [#lorem(2)], //name:"" or name:[]
 address: [#lorem(4)],
 lastupdated: "true",
-pagecount: "true",
 date:"2023.4.7",
 contacts: (
 (text:"08856",link:""),
@@ -17,16 +13,17 @@ contacts: (
 (text:"123@example.com",link:"mailto:123@example.com"),
   ),
 bibfile: [bib.json],
-mainbody
-)
-
+[
     //About
     #section("About")
     #descript[#lorem(50)]
     #sectionsep
     #section("Education")
-    #education[#lorem(4)][#lorem(2)][xxxx-xxxx][UK][Core Modules: #lorem(10)]\
-    #education[#lorem(4)][#lorem(2)][xxxx-xxxx][UK][]
+    #subsection[#lorem(4)\ ]
+    #term[xxxx-xxxx][UK]
+    #subsectionsep
+    #subsection[#lorem(4)\ ]
+    #term[xxxx-xxxx][UK]
     #sectionsep
     #section("Skills")
     #descript("Programming Languages")
@@ -44,33 +41,40 @@ mainbody
     #awarddetail[2017][Grant][Organisation]
     #awarddetail[2016][Scholarship][University]
     #sectionsep
+],
+[
     //Experience
     #section("Experience")
-    #jobtitle[#lorem(4)][#lorem(2)][xxxx-xxxx][UK]
+    #jobtitle[#lorem(4)][#lorem(2)]
+    #term[xxxx-xxxx][UK]
     #jobdetail[
       - #lorem(10)
       - #lorem(10)
       - #lorem(10)
       - #lorem(10)]
     #subsectionsep
-    #jobtitle[#lorem(4)][#lorem(2)][xxxx-xxxx][UK]
+    #jobtitle[#lorem(4)][#lorem(2)]
+    #term[xxxx-xxxx][]
     #jobdetail[#lorem(30)]
-    #sectionsep
+    #subsectionsep
     // Projects
     #section("Projects")
-    #project[#lorem(2)][Jan 2023][#lorem(40)]
+    #descript[#lorem(2)]
+    #info[#lorem(40)]
     #subsectionsep
-    #project[#lorem(2)][][
-      - #lorem(15)
-      - #lorem(15)
-      ]
+    #descript[#lorem(2)]
+    #info[#lorem(40)]
     #subsectionsep
-    #project[#lorem(2)][][#lorem(40)]
+    #descript[#lorem(2)]
+    #info[#lorem(40)]
     #sectionsep
     // Publication
     #section("Publications")
     #publication(
-      "bib.bib",   	
+      "bib.bib",
       "chicago-author-date")
+],
+)
+
 
 
