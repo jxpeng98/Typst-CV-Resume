@@ -1,13 +1,12 @@
 #import "modernpro-cv.typ": *
 
-#show: main-single.with(
-  fonttype: "macfont",
+#show: main.with(
   continue_header: "false",
   name: [#lorem(2)], //name:"" or name:[]
   address: [#lorem(4)],
   lastupdated: "true",
   pagecount: "true",
-  date: "2023.4.7",
+  date: "2024-07-03",
   contacts: (
     (text: "08856", link: ""),
     (text: "example.com", link: "https://www.example.com"),
@@ -17,25 +16,27 @@
   bibfile: [bib.json],
 )
 
-
 // about
 #section[about]
-// descript[#lorem(50)]
-// sectionsep
-// section("Education")
-// education[#lorem(4)][#lorem(2)][xxxx-xxxx][UK][Core Modules: #lorem(10)]\
-// education[#lorem(4)][#lorem(2)][xxxx-xxxx][UK][]
-// sectionsep
-// section("Skills")
-// descript("Programming Languages")
-// info[Python, C++, Java, JavaScript, HTML, CSS, SQL, LaTeX]
-// subsectionsep
-// descript("Frameworks")
-// info[React, Node.js, Express, Flask, Django, Bootstrap, jQuery]
-// subsectionsep
-// descript("Tools")
-// info[Git, GitHub, Docker, AWS, Heroku, MongoDB, MySQL, PostgreSQL, Redis, Linux]
-// sectionsep
+#descript[#lorem(50)]
+#sectionsep
+#section("Education")
+#education(
+  institution: [#lorem(4)],
+  major: [#lorem(2)],
+  period: "xxxx-xxxx",
+  location: "UK",
+  description: "GPA: 4.0/4.0",
+)
+
+#section("Skills")
+#descript("Programming Languages")
+#info[Python, C++, Java, JavaScript, HTML, CSS, SQL, LaTeX]
+#descript("Frameworks")
+#info[React, Node.js, Express, Flask, Django, Bootstrap, jQuery]
+#descript("Tools")
+#info[Git, GitHub, Docker, AWS, Heroku, MongoDB, MySQL, PostgreSQL, Redis, Linux]
+#sectionsep
 // // Award
 // section("Awards")
 // awarddetail[2018][Scholarship][University]
