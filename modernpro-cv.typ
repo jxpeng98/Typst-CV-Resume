@@ -16,19 +16,20 @@
 #let subheadings_colour = rgb("#333333")
 
 #let sectionsep = {
-  line(length: 100%, stroke: 0.1pt + primary_colour)
+  [#v(0.5pt)]
 }
+
 #let subsectionsep = {
   [#v(0.5pt)]
 }
 
 // Section Headings (Education, Experience, etc)
 #let section(title) = {
-  text(
-    12pt,
-    fill: headings_colour,
-    weight: "bold",
-  )[#upper[#title]]
+  text(12pt, fill: headings_colour, weight: "bold")[
+    #upper[#title]
+    #v(-8pt)
+    #line(length: 100%)
+    #v(-5pt)]
 }
 
 // Subsection Headings (institution, Company, etc)
@@ -48,14 +49,12 @@
   location: "",
   description: "",
 ) = {
-  text(11pt, fill: subheadings_colour, weight: "bold")[#upper[#institution] ]
+  text(11pt, fill: subheadings_colour, weight: "bold")[#upper[#institution], #location]
   h(1fr)
-  text(11pt, fill: headings_colour, weight: "medium")[#period \ ]
-  text(11pt, fill: subheadings_colour, weight: "semibold")[#major]
-  h(1fr)
-  text(11pt, fill: headings_colour, weight: "medium")[#location \ ]
+  text(11pt, style: "italic", fill: headings_colour, weight: "regular")[#period \ ]
+  text(11pt, style: "italic", fill: subheadings_colour, weight: "medium")[#major \ ]
   if description != [] or description != "" {
-    text(11pt, fill: primary_colour, weight: "light")[#description \ ]
+    text(11pt, fill: primary_colour, weight: "regular")[#description]
   }
 }
 
@@ -86,45 +85,46 @@
   text(
     11pt,
     fill: subheadings_colour,
-    weight: "semibold",
+    weight: "regular",
   )[#content ]
 }
 
 // Job title
-#let jobtitle(firm, title, period, location) = {
-  text(
-    11pt,
-    fill: subheadings_colour,
-    weight: "bold",
-  )[#upper[#firm] ]
-  h(1fr)
-  text(
-    11pt,
-    fill: headings_colour,
-    weight: "medium",
-  )[#period \ ]
+#let job(
+  position: "",
+  institution: "",
+  location: "",
+  date: "",
+  description: "",
+) = {
   text(
     11pt,
     fill: subheadings_colour,
     weight: "semibold",
-  )[#title]
+  )[#upper[#position] ]
   h(1fr)
   text(
     11pt,
+    style: "italic",
     fill: headings_colour,
-    weight: "medium",
-  )[#location]
-}
-
-//job details
-#let jobdetail(content) = {
+    weight: "regular",
+  )[#location \ ]
   text(
     11pt,
-    fill: primary_colour,
-    weight: "light",
-    baseline: 0em,
-  )[#set enum(tight: false, spacing: 0em, indent: 0em, body-indent: 0em)
-    #content]
+    style: "italic",
+    fill: subheadings_colour,
+    weight: "medium",
+  )[#institution]
+  h(1fr)
+  text(
+    11pt,
+    style: "italic",
+    fill: headings_colour,
+    weight: "regular",
+  )[#date]
+  if description != [] or description != "" {
+    text(11pt, fill: primary_colour, weight: "regular")[#description]
+  }
 }
 
 // Details
@@ -136,26 +136,86 @@
   )[#content\ ]
 }
 
-
-#let awarddetail(award, organise, time) = {
+#let oneline-item(
+  title: "",
+  content: "",
+) = {
   text(
     11pt,
-
+    fill: subheadings_colour,
+    weight: "bold",
+  )[#title: ]
+  text(
+    11pt,
     fill: primary_colour,
     weight: "light",
-  )[#award, #organise #h(1fr) #time\ ]
+  )[#content \ ]
+}
+
+#let twoline-item(
+  entry1: none,
+  entry2: none,
+  entry3: none,
+  entry4: none,
+  description: none,
+) = {
+  text(
+    11pt,
+    fill: subheadings_colour,
+    weight: "semibold",
+  )[#upper[#entry1]]
+  if entry2 != none {
+    h(1fr)
+    text(
+      11pt,
+      style: "italic",
+      fill: headings_colour,
+      weight: "regular",
+    )[#entry2 \ ]
+  }
+  if entry3 != [] or entry3 != ""!= none {
+    text(
+      11pt,
+      style: "italic",
+      fill: subheadings_colour,
+      weight: "medium",
+    )[#entry3]
+  }
+  if entry4 != none {
+    h(1fr)
+    text(
+      11pt,
+      style: "italic",
+      fill: headings_colour,
+      weight: "regular",
+    )[#entry4]
+  }
+  if description != [] or description != "" {
+    text(11pt, fill: primary_colour, weight: "regular")[#description]
+  }
+}
+
+
+#let award(
+  award: "",
+  institution: "",
+  date: "",
+) = {
+  text(
+    11pt,
+    fill: primary_colour,
+    weight: "regular",
+  )[#award, #emph(institution) #h(1fr) #emph(date)\ ]
 }
 
 #let teaching(position, institution, detail) = {
   text(
     11pt,
-
     fill: subheadings_colour,
     weight: "bold",
   )[#upper[#institution]]
   text(
     11pt,
-
     fill: subheadings_colour,
     weight: "semibold",
   )[ | #position \ ]
@@ -170,25 +230,21 @@
     {
       text(
         11pt,
-
         fill: subheadings_colour,
         weight: "semibold",
       )[#name\ ]
       text(
         10pt,
-
         fill: headings_colour,
         weight: "medium",
       )[#department\ ]
       text(
         10pt,
-
         fill: headings_colour,
         weight: "medium",
       )[#firm\ ]
       text(
         10pt,
-
         fill: headings_colour,
         weight: "medium",
       )[#address\ ]
@@ -203,87 +259,27 @@
 }
 
 #let main(
-  font-type: "Source Sans Pro",
+  font-type: "",
   continue_header: "",
   name: "",
   address: "",
   lastupdated: "",
   pagecount: "",
-  date: [#datetime.today().display()],
+  date: none,
   contacts: (),
   bibfile: (),
   mainbody,
 ) = {
+  set text(font: font-type)
 
-  let recipient(date, department, institution, address, postcode) = {
-    align(
-      left,
-      {
-        text(
-          10pt,
-
-          fill: subheadings_colour,
-          weight: "bold",
-        )[#department]
-        h(1fr)
-        text(10pt, fill: primary_colour, weight: "light")[#date\ ]
-        text(
-          10pt,
-
-          fill: subheadings_colour,
-          weight: "bold",
-        )[#institution\ ]
-        text(
-          10pt,
-
-          fill: headings_colour,
-          weight: "light",
-        )[#address\ ]
-        text(
-          10pt,
-
-          fill: headings_colour,
-          weight: "light",
-        )[#postcode ]
-      },
-    )
-  }
-
-
-
-
-
-
-
-
-
-
-
-  let reference2(name, department, firm, email) = {
-    text(
-      10pt,
-      fill: subheadings_colour,
-      weight: "semibold",
-    )[#name | #email\ ]
-    text(
-      10pt,
-      fill: headings_colour,
-      weight: "medium",
-    )[#department, #firm\ ]
-  }
-
-  let keyword(content) = {
-    text(
-      9pt,
-      fill: headings_colour,
-      weight: "light",
-    )[#content\ ]
+  if date == none {
+    let date = [#datetime.today().display()]
   }
 
   // last update
   let lastupdate(lastupdated, date) = {
     if lastupdated == "true" {
-      set text(8pt, fill: primary_colour, weight: "light")
+      set text(8pt, style: "italic", fill: primary_colour, weight: "light")
       [Last updated: #date]
     }
   }
@@ -291,9 +287,9 @@
   // show contact details
   let display(contacts) = {
     set text(
-      9pt,
+      10pt,
       fill: headings_colour,
-      weight: "medium",
+      weight: "regular",
       top-edge: "baseline",
       bottom-edge: "baseline",
       baseline: 2pt,
@@ -314,12 +310,15 @@
   set page(footer: [
     #lastupdate(lastupdated, date)
     #h(1fr)
+    #text(9pt, style: "italic", fill: primary_colour, weight: "light")[#name]
+    #h(1fr)
     #if pagecount == "true" {
       text(
         9pt,
+        style: "italic",
         fill: primary_colour,
         weight: "light",
-      )[#counter(page).display("1 / 1", both: true)]
+      )[Page #counter(page).display("1 / 1", both: true)]
     }
   ])
 
@@ -327,19 +326,17 @@
     set page(
       margin: (left: 2cm, right: 2cm, top: 2.5cm, bottom: 1.5cm),
       header: {
-        // Head Name Section
         text(
           20pt,
           fill: primary_colour,
-          weight: "light",
+          weight: "bold",
           top-edge: "baseline",
           bottom-edge: "baseline",
           baseline: 11pt,
         )[#align(center, [#name])]
         v(2pt)
-        // text(9pt,font:"Heiti TC",fill:headings_colour, weight: "medium",top-edge:"baseline",bottom-edge:"baseline")[#align(center,[#address])]
         align(center)[#display(contacts)]
-        line(length: 100%, stroke: 0.5pt + primary_colour)
+        // line(length: 100%, stroke: 0.5pt + primary_colour)
       },
       header-ascent: 1em,
     )
@@ -349,15 +346,14 @@
     text(
       20pt,
       fill: primary_colour,
-      weight: "light",
+      weight: "bold",
       top-edge: "baseline",
       bottom-edge: "baseline",
       baseline: 11pt,
     )[#align(center, [#name])]
     v(2pt)
-    // text(9pt,font:"Heiti TC",fill:headings_colour, weight: "medium",top-edge:"baseline",bottom-edge:"baseline")[#align(center,[#address])]
     align(center)[#display(contacts)]
-    line(length: 100%, stroke: 0.5pt + primary_colour)
+    // line(length: 100%, stroke: 0.5pt + primary_colour)
     mainbody
   }
   //Main Body
