@@ -6,9 +6,8 @@ on:
             - "*"
 
 env:
-    typst_cv: Typst-CV
-    typst_cvs: Typst-CV-Single
-    typst_cl: Typst-CoverLetter
+    typst_cv: modernpro-cv
+    typst_legacy: modernpro-cv-legacy
 
 jobs:
     build:
@@ -18,23 +17,22 @@ jobs:
         steps:
             - uses: actions/checkout@v4
 
-            - name: List CV directory contents
-              run: ls -l ./CV/
+            - name: List template directory contents
+              run: ls -l ./template/
+
+            - name: List legacy directory contents
+              run: ls -l ./legacy/
 
             - name: Zip
               id: zip
               run: |
                   mkdir ${{ env.typst_cv }}
-                  cp ./CV/typstcv.typ ./CV/example.typ ${{ env.typst_cv }}
+                  cp ./template/cv-single.typ ./template/cv-double.typ ./modernpro-cv.typ ${{ env.typst_cv }}
                   zip -r ${{ env.typst_cv }}.zip ./${{ env.typst_cv }}
 
-                  mkdir ${{ env.typst_cvs }}
-                  cp ./CV/typstcv_single.typ ./CV/example_single.typ ${{ env.typst_cvs }}
-                  zip -r ${{ env.typst_cvs }}.zip ./${{ env.typst_cvs }}
-
-                  mkdir ${{ env.typst_cl }}
-                  cp ./CoverLetter/typstcoverletter.typ ./CoverLetter/example_Coverletter.typ ${{ env.typst_cl }}
-                  zip -r ${{ env.typst_cl }}.zip ./${{ env.typst_cl }}
+                  mkdir ${{ env.typst_legacy }}
+                  cp ./legacy/modernpro-cv-legacy.typ ./legacy/example-single-legacy.typ ./legacy/example-double-legacy.typ ./legacy/coverletter-legacy.typ ${{ env.typst_legacy }}
+                  zip -r ${{ env.typst_legacy }}.zip ./${{ env.typst_legacy }}
 
                   echo "tag_name=$(git tag --sort version:refname | tail -n 1)" >> "$GITHUB_ENV"
 
@@ -61,26 +59,15 @@ jobs:
                   asset_name: ${{ env.typst_cv }}-${{ github.ref_name }}.zip
                   asset_content_type: application/zip
 
-            - name: Upload CV Single zip
-              id: upload-cv-single-zip
-              uses: actions/upload-release-asset@v1
-              env:
-                  GITHUB_TOKEN: ${{ secrets.REPO_ACCESS_TOKEN }}
-              with:
-                  upload_url: ${{ steps.create_release.outputs.upload_url }}
-                  asset_path: ./${{ env.typst_cvs }}.zip
-                  asset_name: ${{ env.typst_cvs }}-${{ github.ref_name }}.zip
-                  asset_content_type: application/zip
-
-            - name: Upload Cover Letter zip
+            - name: Upload legacy zip
               id: upload-cl-zip
               uses: actions/upload-release-asset@v1
               env:
                   GITHUB_TOKEN: ${{ secrets.REPO_ACCESS_TOKEN }}
               with:
                   upload_url: ${{ steps.create_release.outputs.upload_url }}
-                  asset_path: ./${{ env.typst_cl }}.zip
-                  asset_name: ${{ env.typst_cl }}-${{ github.ref_name }}.zip
+                  asset_path: ./${{ env.typst_legacy }}.zip
+                  asset_name: ${{ env.typst_legacy }}-${{ github.ref_name }}.zip
                   asset_content_type: application/zip
 
             - name: Upload CV Single
@@ -90,28 +77,29 @@ jobs:
                   GITHUB_TOKEN: ${{ secrets.REPO_ACCESS_TOKEN }}
               with:
                   upload_url: ${{ steps.create_release.outputs.upload_url }}
-                  asset_path: ./CV/typstcv_single.typ
-                  asset_name: typstcv_single.typ
+                  asset_path: ./template/cv-single.typ
+                  asset_name: cv-single.typ
                   asset_content_type: text/typst
 
-            - name: Upload CV
+            - name: Upload CV Double
               id: upload-cv-double
               uses: actions/upload-release-asset@v1
               env:
                   GITHUB_TOKEN: ${{ secrets.REPO_ACCESS_TOKEN }}
               with:
                   upload_url: ${{ steps.create_release.outputs.upload_url }}
-                  asset_path: ./CV/typstcv.typ
-                  asset_name: typstcv.typ
+                  asset_path: ./template/cv-double.typ
+                  asset_name: cv-double.typ
                   asset_content_type: text/typst
 
-            - name: Upload Cover Letter
-              id: upload-cl
+            - name: Upload Typst setup
+              id: upload-typst-setup
               uses: actions/upload-release-asset@v1
               env:
                   GITHUB_TOKEN: ${{ secrets.REPO_ACCESS_TOKEN }}
               with:
                   upload_url: ${{ steps.create_release.outputs.upload_url }}
-                  asset_path: ./CoverLetter/typstcoverletter.typ
-                  asset_name: typstcoverletter.typ
+                  asset_path: ./modernpro-cv.typ
+                  asset_name: modernpro-cv.typ
                   asset_content_type: text/typst
+
