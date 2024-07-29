@@ -1,2 +1,11 @@
 my.secrets
 publishUpdate.sh
+localUpdate.sh
+modernpro-cv.pdf
+example_double.pdf
+example_single.pdf
+
+./legacy/example-single-legacy.pdf
+./legacy/example-double-legacy.pdf
+./legacy/coverletter-legacy.pdf
+./legacy/modernpro-cv-legacy.pdf
