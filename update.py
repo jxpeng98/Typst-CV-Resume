@@ -125,8 +125,8 @@ def update_main(main_typ_file_path, new_version):
 
 
 # define the path to main.typ file
-main_typ_file_single_path = 'template/cv_single.typ'
-main_typ_file_double_path = 'template/cv_double.typ'
+main_typ_file_single_path = 'template/cv-single.typ'
+main_typ_file_double_path = 'template/cv-double.typ'
 
 update_main(main_typ_file_single_path, new_version)
 update_main(main_typ_file_double_path, new_version)
