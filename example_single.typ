@@ -1,7 +1,9 @@
-#import "modernpro-cv.typ": *
+#import "@local/modernpro-cv:0.0.1": *
 
-#show: main.with(
-  continue_header: "false",
+
+#show: cv-single.with(
+  font-type: "PT Serif",
+  continue-header: "false",
   name: [#lorem(2)], //name:"" or name:[]
   address: [#lorem(4)],
   lastupdated: "true",
@@ -12,8 +14,7 @@
     (text: "example.com", link: "https://www.example.com"),
     (text: "github.com", link: "https://www.github.com"),
     (text: "123@example.com", link: "mailto:123@example.com"),
-  ),
-  bibfile: [bib.json],
+  )
 )
 
 // about
@@ -26,38 +27,68 @@
   major: [#lorem(2)],
   period: "xxxx-xxxx",
   location: "UK",
-  description: "GPA: 4.0/4.0",
+  description: [
+    - #lorem(10),
+    - #lorem(10),
+    - #lorem(10),
+  ],
+)
+#education(
+  institution: [#lorem(4)],
+  major: [#lorem(2)],
+  period: "xxxx-xxxx",
+  location: "UK",
 )
 
 #section("Skills")
-#descript("Programming Languages")
-#info[Python, C++, Java, JavaScript, HTML, CSS, SQL, LaTeX]
-#descript("Frameworks")
-#info[React, Node.js, Express, Flask, Django, Bootstrap, jQuery]
-#descript("Tools")
-#info[Git, GitHub, Docker, AWS, Heroku, MongoDB, MySQL, PostgreSQL, Redis, Linux]
+#oneline-item(
+  title: "Programming Languages",
+  content: [Python, C++, Java, JavaScript, HTML, CSS, SQL, LaTeX],
+)
+#oneline-item(
+  title: "Frameworks",
+  content: [React, Node.js, Express, Flask, Django, Bootstrap, jQuery],
+)
+#oneline-item(
+  title: "Tools",
+  content: [Git, GitHub, Docker, AWS, Heroku, MongoDB, MySQL, PostgreSQL, Redis, Linux],
+)
 #sectionsep
-// // Award
-// section("Awards")
-// awarddetail[2018][Scholarship][University]
-// awarddetail[2017][Grant][Organisation]
-// awarddetail[2016][Scholarship][University]
-// sectionsep
-// //Experience
-// section("Experience")
-// jobtitle[#lorem(4)][#lorem(2)][xxxx-xxxx][UK]
-// jobdetail[
-//   - #lorem(10)
-//   - #lorem(10)
-//   - #lorem(10)
-//   - #lorem(10)
-// ]
-// subsectionsep
-// jobtitle[#lorem(4)][#lorem(2)][xxxx-xxxx][UK]
-// jobdetail[#lorem(30)]
-// sectionsep
-// // Projects
-// section("Projects")
+// Award
+#section("Awards")
+#award(award: "Scholarship", date: "2018", institution: "University")
+#award(award: "Prize", date: "2018", institution: "University")
+#sectionsep
+//Experience
+#section("Experience")
+#job(
+  position: "Software Engineer",
+  institution: [#lorem(4)],
+  location: "UK",
+  date: "xxxx-xxxx",
+  description: [
+    - #lorem(10),
+    - #lorem(10),
+    - #lorem(10),
+  ],
+)
+#subsectionsep
+#job(
+  position: "Software Engineer",
+  institution: [#lorem(4)],
+  location: "UK",
+  date: "xxxx-xxxx",
+)
+#sectionsep
+// Projects
+#section("Projects")
+#twoline-item(
+  entry1: "Project 1",
+  entry2: "Jan 2023",
+  description: [#lorem(40)],
+)
+
+
 // project[#lorem(2)][Jan 2023][#lorem(40)]
 // subsectionsep
 // project[#lorem(2)][][
@@ -68,5 +99,33 @@
 // project[#lorem(2)][][#lorem(40)]
 // sectionsep
 // // Publication
-// section("Publications")
-// publication("bib.bib", "chicago-author-date")
+#section("Publications")
+#bibliography("bib.bib", style: "american-psychological-association", full: true, title: none)
+
+// Reference
+#section("References")
+#references(references: (
+  (
+    name: "Dr. John Doe",
+    position: "Professor",
+    department: "Computer Science",
+    institution: "University",
+    address: "123 Street, City, Country",
+    email: "john.doe@university.edu",
+  ),
+  (
+    name: "Dr. John Doe",
+    department: "Computer Science",
+    institution: "University",
+    address: "123 Street, City, Country",
+    email: "john.doe@university.edu",
+  ),
+  (
+    name: "Dr. John Doe",
+    position: "Professor",
+    department: "Computer Science",
+    institution: "University",
+    address: "123 Street, City, Country",
+    email: "john.doe@university.edu",
+  ),
+))

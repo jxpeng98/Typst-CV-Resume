@@ -1,266 +1,149 @@
 # Typst-CV-Resume
 
-This Typst CV template is inspired by the Latex template [Deedy-Resume](https://github.com/deedy/Deedy-Resume).
-You can use it for both industry and academia.
+This Typst CV template is inspired by the Latex template [Deedy-Resume](https://github.com/deedy/Deedy-Resume). You can use it for both industry and academia.
 
-## Todo
+[TOC]
 
-- [X] Combine the macfont and openfont into one file.
-- [X] Create one column version.`(typstcv_single.typ)` is the single column version.
+## How to start
 
-## Update
+### Use Typst CLI
 
-- Add the official bibliography support, you can change to your own preferred style. Remember to export your publication in `bib.bib` and put the bib file in the same directory with your file.
-- I have updated the `macfont` version with some location changes. The `openfont` version is still the same.
+If you use Typst CLI, you can use the following command to create a new project:
 
-## Use
-
-### Double Column CV
-
-This project includes **three** files:
-
-- `example.typ`: the main file
-- `typstcv.typ`: the template file
-- `bib.bib`: the bibliography file
-
-You can use `example.typ` as a main entry for your CV. Then download `typstcv.typ` as a template.
-
-Or you can download the `typstcv.typ` as a template, and create a new file with the following code:
-
-<details>
-    <summary>Click me</summary>
-
+```bash
+typst init modernpro-cv
 ```
-#import "typstcv.typ": *
-// Remember to set the fonttype in `typstcv.typ` 
 
-#main(
-name: [#lorem(2)], //name:"" or name:[]
-address: [#lorem(4)],
-lastupdated: "true",
-date:"2023.4.7",
-contacts: (
-(text:"08856",link:""),
-(text:"example.com",link:"https://www.example.com"),
-(text:"github.com",link:"https://www.github.com"),
-(text:"123@example.com",link:"mailto:123@example.com"),
-  ),
-bibfile: [bib.json],
-[
-    //About
-    #section("About")
-    #descript[#lorem(50)]
-    #sectionsep
-    #section("Education")
-    #subsection[#lorem(4)\ ]
-    #term[xxxx-xxxx][UK]
-    #subsectionsep
-    #subsection[#lorem(4)\ ]
-    #term[xxxx-xxxx][UK]
-    #sectionsep
-    #section("Skills")
-    #descript("Programming Languages")
-    #info[Python, C++, Java, JavaScript, HTML, CSS, SQL, LaTeX]
-    #subsectionsep
-    #descript("Frameworks")
-    #info[React, Node.js, Express, Flask, Django, Bootstrap, jQuery]
-    #subsectionsep
-    #descript("Tools")
-    #info[Git, GitHub, Docker, AWS, Heroku, MongoDB, MySQL, PostgreSQL, Redis, Linux]
-    #sectionsep
-    // Award
-    #section("Awards")
-    #awarddetail[2018][Scholarship][University]
-    #awarddetail[2017][Grant][Organisation]
-    #awarddetail[2016][Scholarship][University]
-    #sectionsep
-],
-[
-    //Experience
-    #section("Experience")
-    #jobtitle[#lorem(4)][#lorem(2)]
-    #term[xxxx-xxxx][UK]
-    #jobdetail[
-      - #lorem(10)
-      - #lorem(10)
-      - #lorem(10)
-      - #lorem(10)]
-    #subsectionsep
-    #jobtitle[#lorem(4)][#lorem(2)]
-    #term[xxxx-xxxx][]
-    #jobdetail[#lorem(30)]
-    #subsectionsep
-    // Projects
-    #section("Projects")
-    #descript[#lorem(2)]
-    #info[#lorem(40)]
-    #subsectionsep
-    #descript[#lorem(2)]
-    #info[#lorem(40)]
-    #subsectionsep
-    #descript[#lorem(2)]
-    #info[#lorem(40)]
-    #sectionsep
-    // Publication
-    #section("Publications")
-    #publication(
-      "bib.bib",
-      "chicago-author-date")
-],
+It will create a folder named `modernpro-cv` with the following structure:
+
+```plain
+modernpro-cv
+├── bib.bib
+├── cv_double.typ
+└── cv_single.typ
+```
+
+If you want to use the single-column version, you can modify the template `cv-single.typ`. If you prefer the two-column version, you can use the `cv-double.typ`.
+
+**Note:** The `bib.bib` is the bibliography file. You can modify it to add your publications.
+
+### Manual Download
+
+If you want to manually download the template, you can download `modernpro-cv-{version}.zip` from the [release page](https://github.com/jxpeng98/Typst-CV-Resume/releases)
+
+### Typst website
+
+If you want to use the template via [Typst](https://typst.app), You can `start from template` and search for `modernpro-cv`.
+
+## How to use the template
+
+### The arguments
+
+The template has the following arguments:
+| Argument | Description | Default |
+| --- | --- | --- |
+| `font-type` | The font type. You can choose any supported font in your system. | `Times New Roman` |
+| `continue-header` | Whether to continue the header on the follwing pages. | `false` |
+| `name` | Your name. | `""` |
+| `address` | Your address. | `""` |
+| `lastupdated` | Whether to show the last updated date. | `true` |
+| `pagecount` | Whether to show the page count. | `true` |
+| `date` | The date of the CV. | `today` |
+| `contacts` | contact details, e.g phone number, email, etc. | `(text: "", link: "")` |
+
+### Start single column version
+
+If you want to use the single column version, you create a new `.typ` file and copy the following code:
+
+```Typst
+#import "@preview/modernpro-cv:1.0.0": *
+
+#show: cv-single.with(
+  font-type: "PT Serif",
+  continue-header: "false",
+  name: "",
+  address: "","
+  lastupdated: "true",
+  pagecount: "true",
+  date: "2024-07-03",
+  contacts: (
+    (text: "08856", link: ""),
+    (text: "example.com", link: "https://www.example.com"),
+    (text: "github.com", link: "https://www.github.com"),
+    (text: "123@example.com", link: "mailto:123@example.com"),
+  )
 )
 ```
 
-</details>
+### Start double column version
 
-Preview:
+The double column version is similar to the single column version. However, you need to add contents to the specific `left` and `right` sections.
 
-![WzzFAb](https://cdn.jsdelivr.net/gh/jxpeng98/imagerepo@main/2023/04/WzzFAb.png)
-
-### Single Column CV
-
-The single column version is in the `typstcv_single.typ`. You can use it as the same way as the double column version.
-
-<details>
-    <summary>Click me</summary>
-
-```
-#import "typstcv_single.typ": *
-// TODO: add more bibstyle and try to use yaml and xml to replace json
-//
-// select the font type: "macfont" or "openfont"
-#let fonttype = "macfont"
-#show: mainbody => main(
-continue_header: "false",
-name: [#lorem(2)], //name:"" or name:[]
-address: [#lorem(4)],
-lastupdated: "true",
-pagecount: "true",
-date:"2023.4.7",
-contacts: (
-(text:"08856",link:""),
-(text:"example.com",link:"https://www.example.com"),
-(text:"github.com",link:"https://www.github.com"),
-(text:"123@example.com",link:"mailto:123@example.com"),
-  ),
-bibfile: [bib.json],
-mainbody
-)
-
-    //About
-    #section("About")
-    #descript[#lorem(50)]
-    #sectionsep
-    #section("Education")
-    #education[#lorem(4)][#lorem(2)][xxxx-xxxx][UK][Core Modules: #lorem(10)]\
-    #education[#lorem(4)][#lorem(2)][xxxx-xxxx][UK][]
-    #sectionsep
-    #section("Skills")
-    #descript("Programming Languages")
-    #info[Python, C++, Java, JavaScript, HTML, CSS, SQL, LaTeX]
-    #subsectionsep
-    #descript("Frameworks")
-    #info[React, Node.js, Express, Flask, Django, Bootstrap, jQuery]
-    #subsectionsep
-    #descript("Tools")
-    #info[Git, GitHub, Docker, AWS, Heroku, MongoDB, MySQL, PostgreSQL, Redis, Linux]
-    #sectionsep
-    // Award
-    #section("Awards")
-    #awarddetail[2018][Scholarship][University]
-    #awarddetail[2017][Grant][Organisation]
-    #awarddetail[2016][Scholarship][University]
-    #sectionsep
-    //Experience
-    #section("Experience")
-    #jobtitle[#lorem(4)][#lorem(2)][xxxx-xxxx][UK]
-    #jobdetail[
-      - #lorem(10)
-      - #lorem(10)
-      - #lorem(10)
-      - #lorem(10)]
-    #subsectionsep
-    #jobtitle[#lorem(4)][#lorem(2)][xxxx-xxxx][UK]
-    #jobdetail[#lorem(30)]
-    #sectionsep
-    // Projects
-    #section("Projects")
-    #project[#lorem(2)][Jan 2023][#lorem(40)]
-    #subsectionsep
-    #project[#lorem(2)][][
-      - #lorem(15)
-      - #lorem(15)
-      ]
-    #subsectionsep
-    #project[#lorem(2)][][#lorem(40)]
-    #sectionsep
-    // Publication
-    #section("Publications")
-    #publication(
-      "bib.bib",    
-      "chicago-author-date")
-
-
-```
-
-</details>
-
-![](https://minioapi.pjx.ac.cn/img1/2024/02/738f1665f4d8499c15601491870da3d6.png)
-
-### Cover Letter
-
-Download `typstcoverletter.typ` as a template. Then create a new file with the following code:
-
-<details>
-    <summary>Click me</summary>
-
-```
-#import "typstcoverletter.typ": *
-// Remember to set the fonttype in `typstcv.typ` 
-
-
-#show: mainbody => main(
-name: [#lorem(2)], //name:"" or name:[]
-address: [#lorem(4)],
-contacts: (
-(text:"08856",link:""),
-(text:"example.com",link:"https://www.example.com"),
-(text:"github.com",link:"https://www.github.com"),
-(text:"123@example.com",link:"mailto:123@example.com"),
-  ),
-  recipient: (
-  starttitle: "Dear",
-  jobtitle: "Hiring Manager",
-  date: "",
-  department: [#lorem(2)],
-  university: [#lorem(2)],
+```Typst
+#show: cv-double(
+  font-type: "PT Sans",
+  continue-header: "true",
+  name: [#lorem(2)],
   address: [#lorem(4)],
-  postcode: [#lorem(1)]
+  lastupdated: "true",
+  pagecount: "true",
+  date: "2024-07-03",
+  contacts: (
+    (text: "08856", link: ""),
+    (text: "example.com", link: "https://www.example.com"),
+    (text: "github.com", link: "https://www.github.com"),
+    (text: "123@example.com", link: "mailto:123@example.com"),
   ),
-mainbody,
+  left: [
+    // contents for the left column
+  ],
+  right:[
+    // contents for the right column
+  ]
 )
-
-
-
-#lorem(300)
-
-#lorem(100)
-
-
 ```
 
-</details>
+### Start the CV
 
-Preview:
+Once you set up the arguments, you can start to add details to your CV / Resume.
 
-![](https://minioapi.pjx.ac.cn/img1/2024/02/c98c13130d7156ae444f100c5f8b653d.png)
+I preset the following functions for you to create different parts:
+| Function | Description |
+| --- | --- |
+| `#section("Section Name")` | Start a new section |
+| `#sectionsep` | End the section |
+|`#oneline-item(title: "", content: "")`| Add a one-line item (**Title:** content)|
+|`#descript("descriptions")`| Add a description for self-introduction|
+|`#award(award: "", date: "", institution: "")`| Add an award (award, *institution*   *date*)|
+|`#education(institution: "", major: "", date: "", institution: "", core-modules: "")`| Add an education experience|
+|`#job(position: "", institution: "", location: "", date: "", description: [])`| Add a job experience (description is optional)|
+|`#twoline-item(entry1: "", entry2: "", entry3: "", entry4: "")`| Two line items, similar to education and job experiences|
+|`#references(references:())`| Add a reference list. In the `()`, you can add multi reference entries with the following format `(name: "", position: "", department: "", institution: "", address: "", email: "",),`|
 
-### Font
+## Preview
 
-**Remember: If you want to change the font, you should change the font setting `#let fonttype = "macfont"` to `openfont` and modify the font that you prefer for each section.**
+### Single Column
 
-I only test the template on macOS. If you want to use it on other platforms, you should use template in the `openfont` folder. Then, modify the font in `typstcv.typ` to the font installed on your PC.
+![](https://minioapi.pjx.ac.cn/img1/2024/07/a81ac7ec96be0625eefccb81ead160d3.png)
 
-**MacFont**
-![WzzFAb](https://cdn.jsdelivr.net/gh/jxpeng98/imagerepo@main/2023/04/WzzFAb.png)
-**PT Sans**
-![S4rnjN](https://cdn.jsdelivr.net/gh/jxpeng98/imagerepo@main/2023/04/S4rnjN.png)
+### Double Column
+
+![](https://minioapi.pjx.ac.cn/img1/2024/07/12e9b31e306055f615edf49f9b8ffe55.png)
+
+## Legacy Version
+
+I redesigned the template and submitted the new version to Typst Universe. However, you can find the legacy version in the `legacy` folder if you prefer to use the multi-font setting. You can also download the `modernpro-cv-legacy.zip` from the [release page](https://github.com/jxpeng98/Typst-CV-Resume/releases).
+
+**Note:** The legacy version also has a cover letter template. You can use it with the CV template.
+
+## Cover Letter
+
+If you used the previous version of this template, you might know that I also provided a cover letter template.
+
+If you want to use a consistent cover letter with the new version of the CV template, you can find it from another repository [typst-coverletter](https://github.com/jxpeng98/typst-coverletter).
+
+you can also use the following code in the command line:
+
+```bash
+typst init modernpro-coverletter
+```

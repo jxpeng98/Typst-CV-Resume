@@ -1,11 +1,11 @@
 ///////////////////////////////
 // modernpro-cv.typ
-// A cover letter template with modern Sans font for job applications and other formal letters.
+// A CV template with modern Sans font and professional look
 // Copyright (c) 2024
 // Author:  Jiaxin Peng
 // License: MIT
-// Version: 0.0.1
-// Date:    2024-04-29
+// Version: 1.0.0
+// Date:    2024-07-29
 // Email:   jiaxin.peng@outlook.com
 ///////////////////////////////
 
@@ -45,13 +45,13 @@
 #let education(
   institution: "",
   major: "",
-  period: "",
+  date: "",
   location: "",
   description: "",
 ) = {
   text(11pt, fill: subheadings_colour, weight: "bold")[#upper[#institution], #location]
   h(1fr)
-  text(11pt, style: "italic", fill: headings_colour, weight: "regular")[#period \ ]
+  text(11pt, style: "italic", fill: headings_colour, weight: "regular")[#date \ ]
   text(11pt, style: "italic", fill: subheadings_colour, weight: "medium")[#major \ ]
   if description != [] or description != "" {
     text(11pt, fill: primary_colour, weight: "regular")[#description]
@@ -59,19 +59,19 @@
 }
 
 // Projects
-#let project(title, period, info) = {
+#let project(title, date, info) = {
   text(
     11pt,
     fill: subheadings_colour,
     weight: "semibold",
   )[#title ]
-  if period != [] or period != "" {
+  if date != [] or date != "" {
     h(1fr)
     text(
       11pt,
       fill: headings_colour,
       weight: "medium",
-    )[#period \ ]
+    )[#date \ ]
   } else {
     [\ ]
   }
@@ -173,7 +173,7 @@
       weight: "regular",
     )[#entry2 \ ]
   }
-  if entry3 != [] or entry3 != ""!= none {
+  if entry3 != [] or entry3 != "" != none {
     text(
       11pt,
       style: "italic",
@@ -188,7 +188,7 @@
       style: "italic",
       fill: headings_colour,
       weight: "regular",
-    )[#entry4]
+    )[#entry4 \ ]
   }
   if description != [] or description != "" {
     text(11pt, fill: primary_colour, weight: "regular")[#description]
@@ -208,69 +208,104 @@
   )[#award, #emph(institution) #h(1fr) #emph(date)\ ]
 }
 
-#let teaching(position, institution, detail) = {
-  text(
-    11pt,
-    fill: subheadings_colour,
-    weight: "bold",
-  )[#upper[#institution]]
-  text(
-    11pt,
-    fill: subheadings_colour,
-    weight: "semibold",
-  )[ | #position \ ]
-  if detail != [] or detail != "" {
-    text(11pt, fill: primary_colour, weight: "light")[#detail]
-  }
-}
+#let references(
+  references: (),
+) = {
+  grid(
+    columns: (1fr, 1fr),
+    row-gutter: 10pt,
+    ..references.map(reference => {
+      align(
+        left,
+        {
+          if ("position" in reference) {
+            text(
+              11pt,
+              fill: primary_colour,
+              weight: "semibold",
+            )[#reference.name | #reference.position\ ]
+          } else {
+            text(
+              11pt,
+              fill: primary_colour,
+              weight: "semibold",
+            )[#reference.name\ ]
+          }
 
-#let reference(name, department, firm, address, email) = {
-  align(
-    left,
-    {
-      text(
-        11pt,
-        fill: subheadings_colour,
-        weight: "semibold",
-      )[#name\ ]
-      text(
-        10pt,
-        fill: headings_colour,
-        weight: "medium",
-      )[#department\ ]
-      text(
-        10pt,
-        fill: headings_colour,
-        weight: "medium",
-      )[#firm\ ]
-      text(
-        10pt,
-        fill: headings_colour,
-        weight: "medium",
-      )[#address\ ]
-      text(10pt, fill: headings_colour, weight: "medium")[#email]
-    },
+          if ("department" in reference) {
+            text(
+              10pt,
+              fill: primary_colour,
+              weight: "regular",
+            )[#reference.department\ ]
+          }
+          if ("institution" in reference) {
+            text(
+              10pt,
+              fill: primary_colour,
+              weight: "regular",
+            )[#reference.institution\ ]
+          }
+          if ("address" in reference) {
+            text(
+              10pt,
+              fill: primary_colour,
+              weight: "regular",
+            )[#reference.address\ ]
+          }
+          if ("email" in reference) {
+            text(10pt, fill: primary_colour, weight: "regular")[
+              #reference.email \
+            ]
+          }
+          v(2pt)
+        },
+      )
+    })
   )
 }
+
 // Publications
 #let publication(path, styletype) = {
   set text(11pt, fill: primary_colour, weight: "light")
   bibliography(path, title: none, full: true, style: styletype)
 }
 
-#let main(
-  font-type: "",
-  continue_header: "",
+// show contact details
+#let display(contacts) = {
+  set text(
+    10pt,
+    fill: headings_colour,
+    weight: "regular",
+    top-edge: "baseline",
+    bottom-edge: "baseline",
+    baseline: 2pt,
+  )
+  contacts
+    .map(contact => {
+        if contact.link == none [
+          contact.text
+        ] else {
+          link(contact.link)[#{
+              contact.text
+            }]
+        }
+      })
+    .join(" | ")
+}
+
+#let cv-single(
+  font-type: "Times New Roman",
+  continue-header: "false",
   name: "",
   address: "",
-  lastupdated: "",
-  pagecount: "",
+  lastupdated: "true",
+  pagecount: "true",
   date: none,
   contacts: (),
-  bibfile: (),
   mainbody,
 ) = {
-  set text(font: font-type)
+  set text(font: font-type, weight: "regular")
 
   if date == none {
     let date = [#datetime.today().display()]
@@ -282,29 +317,6 @@
       set text(8pt, style: "italic", fill: primary_colour, weight: "light")
       [Last updated: #date]
     }
-  }
-
-  // show contact details
-  let display(contacts) = {
-    set text(
-      10pt,
-      fill: headings_colour,
-      weight: "regular",
-      top-edge: "baseline",
-      bottom-edge: "baseline",
-      baseline: 2pt,
-    )
-    contacts
-      .map(contact => {
-          if contact.link == none [
-            contact.text
-          ] else {
-            link(contact.link)[#{
-                contact.text
-              }]
-          }
-        })
-      .join(" | ")
   }
 
   set page(footer: [
@@ -322,7 +334,7 @@
     }
   ])
 
-  if continue_header == "true" {
+  if continue-header == "true" {
     set page(
       margin: (left: 2cm, right: 2cm, top: 2.5cm, bottom: 1.5cm),
       header: {
@@ -357,4 +369,98 @@
     mainbody
   }
   //Main Body
+}
+
+#let cv-double(
+  font-type: "Times New Roman",
+  continue-header: "false",
+  name: "",
+  address: "",
+  lastupdated: "true",
+  pagecount: "true",
+  date: none,
+  contacts: (),
+  left: "",
+  right: "",
+) = {
+  set text(font: font-type, weight: "regular")
+
+  if date == none {
+    let date = [#datetime.today().display()]
+  }
+
+  // last update
+  let lastupdate(lastupdated, date) = {
+    if lastupdated == "true" {
+      set text(8pt, style: "italic", fill: primary_colour, weight: "light")
+      [Last updated: #date]
+    }
+  }
+
+  set page(footer: [
+    #lastupdate(lastupdated, date)
+    #h(1fr)
+    #text(9pt, style: "italic", fill: primary_colour, weight: "light")[#name]
+    #h(1fr)
+    #if pagecount == "true" {
+      text(
+        9pt,
+        style: "italic",
+        fill: primary_colour,
+        weight: "light",
+      )[Page #counter(page).display("1 / 1", both: true)]
+    }
+  ])
+
+
+  if continue-header == "true" {
+    set page(
+      margin: (left: 1.25cm, right: 1.25cm, top: 2.5cm, bottom: 1.5cm),
+      header: {
+        text(
+          20pt,
+          fill: primary_colour,
+          weight: "bold",
+          top-edge: "baseline",
+          bottom-edge: "baseline",
+          baseline: 11pt,
+        )[#align(center, [#name])]
+        v(2pt)
+        align(center)[#display(contacts)]
+        v(2pt)
+      },
+      header-ascent: 1em,
+    )
+    //Main Body
+    grid(
+      columns: (1fr, 2fr),
+      column-gutter: 2em,
+      left, right,
+    )
+
+  } else {
+    set page(margin: (
+      left: 1.25cm,
+      right: 1.25cm,
+      top: 1cm,
+      bottom: 1.5cm,
+    ))
+    text(
+      20pt,
+      fill: primary_colour,
+      weight: "bold",
+      top-edge: "baseline",
+      bottom-edge: "baseline",
+      baseline: 11pt,
+    )[#align(center, [#name])]
+    v(2pt)
+    align(center)[#display(contacts)]
+    v(2pt)
+    //Main Body
+    grid(
+      columns: (1fr, 2fr),
+      column-gutter: 2em,
+      left, right,
+    )
+  }
 }
