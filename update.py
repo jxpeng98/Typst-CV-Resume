@@ -95,9 +95,7 @@ print("Template File has been updated with the new version and date.")
 # update the main.typ file
 def update_main(main_typ_file_path, new_version):
     # define the content to prepend
-    new_content_to_prepend = f"""#import "@preview/modernpro-cv:{new_version}": *
-
-    """  # Ensuring only the intended newlines are included
+    new_content_to_prepend = f'#import "@preview/modernpro-cv:{new_version}": *\n\n'# Ensuring only the intended newlines are included
 
     # Read the existing content of the file
     with open(main_typ_file_path, 'r', encoding='utf-8') as file:
