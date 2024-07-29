@@ -136,7 +136,7 @@
   )[#content\ ]
 }
 
-#let oneline-item(
+#let oneline-title-item(
   title: "",
   content: "",
 ) = {
@@ -150,6 +150,23 @@
     fill: primary_colour,
     weight: "light",
   )[#content \ ]
+}
+
+#let oneline-two(
+  entry1: "",
+  entry2: "",
+) = {
+  text(
+    11pt,
+    fill: subheadings_colour,
+    weight: "regular",
+  )[#entry1]
+  h(1fr)
+  text(
+    11pt,
+    fill: primary_colour,
+    weight: "regular",
+  )[#entry2 \ ]
 }
 
 #let twoline-item(
