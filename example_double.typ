@@ -20,15 +20,15 @@
     #descript[#lorem(50)]
     #sectionsep
     #section("Skills")
-    #oneline-item(
+    #oneline-title-item(
       title: "Programming Languages",
       content: [Python, C++, Java, JavaScript, HTML, CSS, SQL, LaTeX],
     )
-    #oneline-item(
+    #oneline-title-item(
       title: "Frameworks",
       content: [React, Node.js, Express, Flask, Django, Bootstrap, jQuery],
     )
-    #oneline-item(
+    #oneline-title-item(
       title: "Tools",
       content: [Git, GitHub, Docker, AWS, Heroku, MongoDB, MySQL, PostgreSQL, Redis, Linux],
     )
@@ -100,7 +100,11 @@
     #sectionsep
     // Publication
     #section("Publications")
-    #bibliography("bib.bib", style: "american-psychological-association", full: true, title: none)
+
+    + @quenouille1949approximate
+    + @quenouille1949approximate
+    
+    #sectionsep
 
 
     // Reference
@@ -130,5 +134,10 @@
         email: "john.doe@university.edu",
       ),
     ))
+    // Keep this at the end
+    #show bibliography: none
+    #bibliography("bib.bib", style: "chicago-author-date")
   ],
 )
+
+
