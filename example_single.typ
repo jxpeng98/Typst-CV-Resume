@@ -89,7 +89,6 @@
   description: [#lorem(40)],
 )
 
-
 // project[#lorem(2)][Jan 2023][#lorem(40)]
 // subsectionsep
 // project[#lorem(2)][][
@@ -101,7 +100,9 @@
 // sectionsep
 // Publication
 #section("Publications")
-#bibliography("bib.bib", style: "american-psychological-association", full: true, title: none)
+
++ @quenouille1949approximate
++ @quenouille1949approximate
 
 // Reference
 #section("References")
@@ -130,3 +131,7 @@
     email: "john.doe@university.edu",
   ),
 ))
+
+// Keep this at the end
+#show bibliography: none
+#bibliography("bib.bib", style: "chicago-author-date")
