@@ -1,11 +1,12 @@
-#import "@local/modernpro-cv:1.0.0": *
+// #import "@local/modernpro-cv:1.0.0": *
 
+#import "modernpro-cv.typ": *
 
 #show: cv-single.with(
   font-type: "PT Serif",
   continue-header: "false",
   name: [#lorem(2)], //name:"" or name:[]
-  address: [#lorem(4)],
+  address: [],
   lastupdated: "true",
   pagecount: "true",
   date: "2024-07-03",
