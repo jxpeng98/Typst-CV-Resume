@@ -1,4 +1,4 @@
-#import "@local/modernpro-cv:0.0.1": *
+#import "@local/modernpro-cv:1.0.0": *
 
 
 #show: cv-double(
