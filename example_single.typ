@@ -1,4 +1,4 @@
-#import "@local/modernpro-cv:0.0.1": *
+#import "@local/modernpro-cv:1.0.0": *
 
 
 #show: cv-single.with(
@@ -25,7 +25,7 @@
 #education(
   institution: [#lorem(4)],
   major: [#lorem(2)],
-  period: "xxxx-xxxx",
+  date: "xxxx-xxxx",
   location: "UK",
   description: [
     - #lorem(10),
@@ -36,20 +36,20 @@
 #education(
   institution: [#lorem(4)],
   major: [#lorem(2)],
-  period: "xxxx-xxxx",
+  date: "xxxx-xxxx",
   location: "UK",
 )
 
 #section("Skills")
-#oneline-item(
+#oneline-title-item(
   title: "Programming Languages",
   content: [Python, C++, Java, JavaScript, HTML, CSS, SQL, LaTeX],
 )
-#oneline-item(
+#oneline-title-item(
   title: "Frameworks",
   content: [React, Node.js, Express, Flask, Django, Bootstrap, jQuery],
 )
-#oneline-item(
+#oneline-title-item(
   title: "Tools",
   content: [Git, GitHub, Docker, AWS, Heroku, MongoDB, MySQL, PostgreSQL, Redis, Linux],
 )
@@ -98,7 +98,7 @@
 // subsectionsep
 // project[#lorem(2)][][#lorem(40)]
 // sectionsep
-// // Publication
+// Publication
 #section("Publications")
 #bibliography("bib.bib", style: "american-psychological-association", full: true, title: none)
 
