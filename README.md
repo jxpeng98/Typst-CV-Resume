@@ -2,6 +2,8 @@
 
 This Typst CV template is inspired by the Latex template [Deedy-Resume](https://github.com/deedy/Deedy-Resume). You can use it for both industry and academia.
 
+If you want to find a cover letter template, you can check out [modernpro-coverletter](https://example.invalid/academic-templates/modernpro-coverletter).
+
 ## How to start
 
 ### Use Typst CLI
