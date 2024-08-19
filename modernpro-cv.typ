@@ -162,7 +162,7 @@
 
 // show contact details
 #let display(contacts) = {
-  set text(10pt, fill: headings-colour , weight: "regular", top-edge: "baseline", bottom-edge: "baseline", baseline: 2pt)
+  set text(10pt, fill: headings-colour , weight: "regular", baseline: -5pt)
   contacts
     .map(contact => {
         if ("link" in contact) {
