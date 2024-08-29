@@ -1,4 +1,4 @@
-#import "@preview/modernpro-cv:1.0.0": *
+#import "@preview/modernpro-cv:1.0.1": *
 
 #show: cv-single.with(
   font-type: "PT Serif",
