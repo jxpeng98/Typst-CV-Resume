@@ -4,16 +4,16 @@
 // Copyright (c) 2024
 // Author:  Jiaxin Peng
 // License: MIT
-// Version: 1.0.0
-// Date:    2024-08-02
+// Version: 1.0.1
+// Date:    2024-08-29
 // Email:   jiaxin.peng@outlook.com
 ///////////////////////////////
 
 // Define the colour scheme
 #let date-colour = rgb("#666666")
 #let primary-colour = rgb("#000000")
-#let headings-colour  = rgb("#2b2b2b")
-#let subheadings-colour  = rgb("#333333")
+#let headings-colour = rgb("#2b2b2b")
+#let subheadings-colour = rgb("#333333")
 
 #let sectionsep = {
   [#v(0.5pt)]
@@ -25,7 +25,7 @@
 
 // Section Headings (Education, Experience, etc)
 #let section(title) = {
-  text(12pt, fill: headings-colour , weight: "bold")[
+  text(12pt, fill: headings-colour, weight: "bold")[
     #upper[#title]
     #v(-8pt)
     #line(length: 100%)
@@ -35,15 +35,15 @@
 
 // Subsection Headings (institution, Company, etc)
 #let subsection(content) = {
-  text(11pt, fill: subheadings-colour , weight: "bold")[#content]
+  text(11pt, fill: subheadings-colour, weight: "bold")[#content]
 }
 
 // Education part
 #let education(institution: "", major: "", date: "", location: "", description: "") = {
-  text(11pt, fill: subheadings-colour , weight: "bold")[#institution, #location]
+  text(11pt, fill: subheadings-colour, weight: "bold")[#institution, #location]
   h(1fr)
-  text(11pt, style: "italic", fill: headings-colour , weight: "regular")[#date \ ]
-  text(11pt, style: "italic", fill: subheadings-colour , weight: "medium")[#major \ ]
+  text(11pt, style: "italic", fill: headings-colour, weight: "regular")[#date \ ]
+  text(11pt, style: "italic", fill: subheadings-colour, weight: "medium")[#major \ ]
   if description != [] or description != "" {
     text(11pt, fill: primary-colour, weight: "regular")[#description]
   }
@@ -51,10 +51,10 @@
 
 // Projects
 #let project(title, date, info) = {
-  text(11pt, fill: subheadings-colour , weight: "semibold")[#title ]
+  text(11pt, fill: subheadings-colour, weight: "semibold")[#title ]
   if date != [] or date != "" {
     h(1fr)
-    text(11pt, fill: headings-colour , weight: "medium")[#date \ ]
+    text(11pt, fill: headings-colour, weight: "medium")[#date \ ]
   } else {
     [\ ]
   }
@@ -65,17 +65,17 @@
 
 // Description of a job, degree, etc
 #let descript(content) = {
-  text(11pt, fill: subheadings-colour , weight: "regular")[#content ]
+  text(11pt, fill: subheadings-colour, weight: "regular")[#content ]
 }
 
 // Job title
 #let job(position: "", institution: "", location: "", date: "", description: "") = {
-  text(11pt, fill: subheadings-colour , weight: "semibold")[#position]
+  text(11pt, fill: subheadings-colour, weight: "semibold")[#position]
   h(1fr)
-  text(11pt, style: "italic", fill: headings-colour , weight: "regular")[#location \ ]
-  text(11pt, style: "italic", fill: subheadings-colour , weight: "medium")[#institution]
+  text(11pt, style: "italic", fill: headings-colour, weight: "regular")[#location \ ]
+  text(11pt, style: "italic", fill: subheadings-colour, weight: "medium")[#institution]
   h(1fr)
-  text(11pt, style: "italic", fill: headings-colour , weight: "regular")[#date]
+  text(11pt, style: "italic", fill: headings-colour, weight: "regular")[#date]
   if description != [] or description != "" {
     text(11pt, fill: primary-colour, weight: "regular")[#description]
   }
@@ -87,28 +87,28 @@
 }
 
 #let oneline-title-item(title: "", content: "") = {
-  text(11pt, fill: subheadings-colour , weight: "bold")[#title: ]
+  text(11pt, fill: subheadings-colour, weight: "bold")[#title: ]
   text(11pt, fill: primary-colour, weight: "light")[#content \ ]
 }
 
 #let oneline-two(entry1: "", entry2: "") = {
-  text(11pt, fill: subheadings-colour , weight: "regular")[#entry1]
+  text(11pt, fill: subheadings-colour, weight: "regular")[#entry1]
   h(1fr)
   text(11pt, fill: primary-colour, weight: "regular")[#entry2 \ ]
 }
 
 #let twoline-item(entry1: none, entry2: none, entry3: none, entry4: none, description: none) = {
-  text(11pt, fill: subheadings-colour , weight: "semibold")[#entry1]
+  text(11pt, fill: subheadings-colour, weight: "semibold")[#entry1]
   if entry2 != none {
     h(1fr)
-    text(11pt, style: "italic", fill: headings-colour , weight: "regular")[#entry2 \ ]
+    text(11pt, style: "italic", fill: headings-colour, weight: "regular")[#entry2 \ ]
   }
   if entry3 != [] or entry3 != "" != none {
-    text(11pt, style: "italic", fill: subheadings-colour , weight: "medium")[#entry3]
+    text(11pt, style: "italic", fill: subheadings-colour, weight: "medium")[#entry3]
   }
   if entry4 != none {
     h(1fr)
-    text(11pt, style: "italic", fill: headings-colour , weight: "regular")[#entry4 \ ]
+    text(11pt, style: "italic", fill: headings-colour, weight: "regular")[#entry4 \ ]
   }
   if description != [] or description != "" {
     text(11pt, fill: primary-colour, weight: "regular")[#description]
@@ -161,18 +161,16 @@
 }
 
 // show contact details
-#let display(contacts) = {
+#let contact-display(contacts) = {
   v(-5pt)
   set text(10pt, fill: headings-colour, weight: "regular")
   contacts
     .map(contact => {
         if ("link" in contact) {
-          link(contact.link)[#{
-              contact.text
-            }]
-        } else [
-          #{contact.text}
-        ]
+          link(contact.link)[#contact.text]
+        } else {
+          [#contact.text]
+        }
       })
     .join(" | ")
 }
@@ -243,7 +241,7 @@
           )[#align(center, [#address])]
         }
         v(2pt)
-        align(center)[#display(contacts)]
+        align(center)[#contact-display(contacts)]
       },
       header-ascent: 1em,
     )
@@ -271,7 +269,7 @@
       )[#align(center, [#address])]
     }
     v(2pt)
-    align(center)[#display(contacts)]
+    align(center)[#contact-display(contacts)]
     // line(length: 100%, stroke: 0.5pt + primary-colour)
     mainbody
   }
@@ -292,7 +290,7 @@
 ) = {
   set text(font: font-type, weight: "regular")
   set cite(form: "full")
-  
+
   if date == none {
     let date = [#datetime.today().display()]
   }
@@ -345,7 +343,7 @@
           )[#align(center, [#address])]
         }
         v(2pt)
-        align(center)[#display(contacts)]
+        align(center)[#contact-display(contacts)]
         v(2pt)
       },
       header-ascent: 1em,
@@ -379,7 +377,7 @@
       )[#align(center, [#address])]
     }
     v(2pt)
-    align(center)[#display(contacts)]
+    align(center)[#contact-display(contacts)]
     v(2pt)
     //Main Body
     grid(
