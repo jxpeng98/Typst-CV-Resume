@@ -1,5 +1,5 @@
 #import "@local/modernpro-cv:1.0.0": *
-
+#import "@preview/fontawesome:0.5.0": *
 
 #show: cv-double(
   font-type: "PT Sans",
@@ -10,10 +10,9 @@
   pagecount: "true",
   date: "2024-07-03",
   contacts: (
-    (text: "08856", link: ""),
-    (text: "example.com", link: "https://www.example.com"),
-    (text: "github.com", link: "https://www.github.com"),
-    (text: "123@example.com", link: "mailto:123@example.com"),
+    (text: [#fa-icon("location-dot") UK]),
+    (text: [#fa-icon("mobile") 123-456-789], link: "tel:123-456-789"),
+    (text: [#fa-icon("link") example.com], link: "https://www.example.com"),
   ),
   left: [
     #section[about]

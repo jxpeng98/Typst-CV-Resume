@@ -1,21 +1,23 @@
 // #import "@local/modernpro-cv:1.0.0": *
 
 #import "modernpro-cv.typ": *
+#import "@preview/fontawesome:0.5.0": *
 
 #show: cv-single.with(
   font-type: "PT Serif",
   continue-header: "false",
   name: [#lorem(2)], //name:"" or name:[]
-  address: [],
+  address: [UK],
   lastupdated: "true",
   pagecount: "true",
   date: "2024-07-03",
   contacts: (
-    (text: "08856", link: ""),
-    (text: "example.com", link: "https://www.example.com"),
-    (text: "github.com", link: "https://www.github.com"),
-    (text: "123@example.com", link: "mailto:123@example.com"),
-  )
+    (text: [#fa-icon("location-dot") UK]),
+    (text: [#fa-icon("mobile") 123-456-789], link: "tel:123-456-789"),
+    (text: [#fa-icon("link") example.com], link: "https://www.example.com"),
+    (text: [#fa-icon("github") github], link: "https://github.com/"),
+    (text: [#fa-icon("envelope") example\@example.com], link: "mailto:example@example.com"),
+  ),
 )
 
 // about

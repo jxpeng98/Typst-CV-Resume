@@ -4,8 +4,8 @@
 // Copyright (c) 2024
 // Author:  Jiaxin Peng
 // License: MIT
-// Version: 1.0.1
-// Date:    2024-08-29
+// Version: 1.0.2
+// Date:    2024-10-21
 // Email:   jiaxin.peng@outlook.com
 ///////////////////////////////
 
@@ -230,7 +230,7 @@
         )[#align(center, [#name])]
         // address
         if address != none {
-          v(2pt)
+          v(3pt)
           text(
             11pt,
             fill: primary-colour,
@@ -258,7 +258,7 @@
     )[#align(center, [#name])]
     // address
     if address != none {
-      v(2pt)
+      v(3pt)
       text(
         11pt,
         fill: primary-colour,
@@ -332,7 +332,7 @@
         )[#align(center, [#name])]
         // address
         if address != none {
-          v(2pt)
+          v(3pt)
           text(
             11pt,
             fill: primary-colour,
@@ -366,7 +366,7 @@
     )[#align(center, [#name])]
     // address
     if address != none {
-      v(2pt)
+      v(3pt)
       text(
         11pt,
         fill: primary-colour,
