@@ -1,6 +1,6 @@
 [package]
 name = "modernpro-cv"
-version = "1.0.1"
+version = "1.0.2"
 entrypoint = "modernpro-cv.typ"
 authors = [ "academic-template-collective",]
 repository = "https://example.invalid/academic-templates/modernpro-cv"

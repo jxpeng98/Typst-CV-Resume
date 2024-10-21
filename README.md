@@ -56,21 +56,21 @@ The template has the following arguments:
 If you want to use the single column version, you create a new `.typ` file and copy the following code:
 
 ```Typst
-#import "@preview/modernpro-cv:1.0.1": *
+#import "@preview/modernpro-cv:1.0.2": *
+#import "@preview/fontawesome:0.5.0": *
 
 #show: cv-single.with(
   font-type: "PT Serif",
   continue-header: "false",
-  name: "",
-  address: "","
+  name: [],
+  address: [],
   lastupdated: "true",
   pagecount: "true",
   date: "2024-07-03",
   contacts: (
-    (text: "08856", link: ""),
-    (text: "example.com", link: "https://www.example.com"),
-    (text: "github.com", link: "https://www.github.com"),
-    (text: "123@example.com", link: "mailto:123@example.com"),
+    (text: [#fa-icon("location-dot") UK]),
+    (text: [#fa-icon("mobile") 123-456-789], link: "tel:123-456-789"),
+    (text: [#fa-icon("link") example.com], link: "https://www.example.com"),
   )
 )
 ```
@@ -80,7 +80,8 @@ If you want to use the single column version, you create a new `.typ` file and c
 The double column version is similar to the single column version. However, you need to add contents to the specific `left` and `right` sections.
 
 ```Typst
-#import "@preview/modernpro-cv:1.0.1": *
+#import "@preview/modernpro-cv:1.0.2": *
+#import "@preview/fontawesome:0.5.0": *
 
 #show: cv-double(
   font-type: "PT Sans",
@@ -91,10 +92,9 @@ The double column version is similar to the single column version. However, you 
   pagecount: "true",
   date: "2024-07-03",
   contacts: (
-    (text: "08856", link: ""),
-    (text: "example.com", link: "https://www.example.com"),
-    (text: "github.com", link: "https://www.github.com"),
-    (text: "123@example.com", link: "mailto:123@example.com"),
+    (text: [#fa-icon("location-dot") UK]),
+    (text: [#fa-icon("mobile") 123-456-789], link: "tel:123-456-789"),
+    (text: [#fa-icon("link") example.com], link: "https://www.example.com"),
   ),
   left: [
     // contents for the left column
