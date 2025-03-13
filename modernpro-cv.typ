@@ -1,11 +1,11 @@
 ///////////////////////////////
 // modernpro-cv.typ
 // A CV template with modern Sans font and professional look
-// Copyright (c) 2024
+// Copyright (c) 2025
 // Author:  Jiaxin Peng
 // License: MIT
-// Version: 1.0.2
-// Date:    2024-10-22
+// Version: 1.1.0
+// Date:    2025-03-13
 // Email:   jiaxin.peng@outlook.com
 ///////////////////////////////
 
@@ -212,7 +212,7 @@
         style: "italic",
         fill: primary-colour,
         weight: "light",
-      )[Page #counter(page).display("1 / 1", both: true)]
+      )[Page #context counter(page).display("1 / 1", both: true)]
     }
   ])
 
@@ -314,7 +314,7 @@
         style: "italic",
         fill: primary-colour,
         weight: "light",
-      )[Page #counter(page).display("1 / 1", both: true)]
+      )[Page #context counter(page).display("1 / 1", both: true)]
     }
   ])
 

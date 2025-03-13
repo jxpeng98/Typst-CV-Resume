@@ -1,4 +1,4 @@
-#import "@preview/modernpro-cv:1.0.2": *
+#import "@preview/modernpro-cv:1.1.0": *
 
 #import "@preview/fontawesome:0.5.0": *
 

@@ -11,8 +11,11 @@ If you want to find a cover letter template, you can check out [modernpro-coverl
 If you use Typst CLI, you can use the following command to create a new project:
 
 ```bash
-typst init modernpro-cv
+typst init @preview/modernpro-cv
 ```
+
+>If you use the typst version `<0.13.0`, you need to use the following code to initial your project.
+> `typst init @preview/modernpro-cv:1.0.2`
 
 It will create a folder named `modernpro-cv` with the following structure:
 
