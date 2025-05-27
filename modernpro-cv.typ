@@ -40,7 +40,15 @@
 
 // Education part
 #let education(institution: "", major: "", date: "", location: "", description: "") = {
-  text(11pt, fill: subheadings-colour, weight: "bold")[#institution, #location]
+#let education(institution: none, major: none, date: none, location: none, description: none) = {
+  ct = if (institution != "") and (location != "") {
+    // With comma separator
+    [#institution, #location]
+  } else {
+    // Without comma separator
+    [#institution #location]
+  }
+  text(11pt, fill: subheadings-colour, weight: "bold")[ct]
   h(1fr)
   text(11pt, style: "italic", fill: headings-colour, weight: "regular")[#date \ ]
   text(11pt, style: "italic", fill: subheadings-colour, weight: "medium")[#major \ ]
