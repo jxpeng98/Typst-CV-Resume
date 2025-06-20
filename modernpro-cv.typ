@@ -39,12 +39,19 @@
 }
 
 // Education part
-#let education(institution: "", major: "", date: "", location: "", description: "") = {
-  text(11pt, fill: subheadings-colour, weight: "bold")[#institution, #location]
+#let education(institution: none, major: none, date: none, location: none, description: none) = {
+  ct = if (institution != none) and (location != none) {
+    // With comma separator
+    [#institution, #location]
+  } else {
+    // Without comma separator
+    [#institution #location]
+  }
+  text(11pt, fill: subheadings-colour, weight: "bold")[ct]
   h(1fr)
   text(11pt, style: "italic", fill: headings-colour, weight: "regular")[#date \ ]
   text(11pt, style: "italic", fill: subheadings-colour, weight: "medium")[#major \ ]
-  if description != [] or description != "" {
+  if description != [] or description != none {
     text(11pt, fill: primary-colour, weight: "regular")[#description]
   }
 }
@@ -52,13 +59,13 @@
 // Projects
 #let project(title, date, info) = {
   text(11pt, fill: subheadings-colour, weight: "semibold")[#title ]
-  if date != [] or date != "" {
+  if date != [] or date != none {
     h(1fr)
     text(11pt, fill: headings-colour, weight: "medium")[#date \ ]
   } else {
     [\ ]
   }
-  if info != [] or info != "" {
+  if info != [] or info != none {
     text(11pt, fill: primary-colour, weight: "light")[#info ]
   }
 }
@@ -69,14 +76,14 @@
 }
 
 // Job title
-#let job(position: "", institution: "", location: "", date: "", description: "") = {
+#let job(position: none, institution: none, location: none, date: none, description: none) = {
   text(11pt, fill: subheadings-colour, weight: "semibold")[#position]
   h(1fr)
   text(11pt, style: "italic", fill: headings-colour, weight: "regular")[#location \ ]
   text(11pt, style: "italic", fill: subheadings-colour, weight: "medium")[#institution]
   h(1fr)
   text(11pt, style: "italic", fill: headings-colour, weight: "regular")[#date]
-  if description != [] or description != "" {
+  if description != [] or description != none {
     text(11pt, fill: primary-colour, weight: "regular")[#description]
   }
 }
@@ -86,12 +93,12 @@
   text(11pt, fill: primary-colour, weight: "light")[#content\ ]
 }
 
-#let oneline-title-item(title: "", content: "") = {
+#let oneline-title-item(title: none, content: none) = {
   text(11pt, fill: subheadings-colour, weight: "bold")[#title: ]
   text(11pt, fill: primary-colour, weight: "light")[#content \ ]
 }
 
-#let oneline-two(entry1: "", entry2: "") = {
+#let oneline-two(entry1, entry2) = {
   text(11pt, fill: subheadings-colour, weight: "regular")[#entry1]
   h(1fr)
   text(11pt, fill: primary-colour, weight: "regular")[#entry2 \ ]
@@ -103,19 +110,19 @@
     h(1fr)
     text(11pt, style: "italic", fill: headings-colour, weight: "regular")[#entry2 \ ]
   }
-  if entry3 != [] or entry3 != "" != none {
+  if entry3 != [] or entry3 != none {
     text(11pt, style: "italic", fill: subheadings-colour, weight: "medium")[#entry3]
   }
   if entry4 != none {
     h(1fr)
     text(11pt, style: "italic", fill: headings-colour, weight: "regular")[#entry4 \ ]
   }
-  if description != [] or description != "" {
+  if description != [] or description != none {
     text(11pt, fill: primary-colour, weight: "regular")[#description]
   }
 }
 
-#let award(award: "", institution: "", date: "") = {
+#let award(award: none, institution: none, date: none) = {
   [#text(11pt, fill: primary-colour, weight: "medium")[#award,] #text(
       11pt,
       fill: primary-colour,
@@ -178,8 +185,8 @@
 #let cv-single(
   font-type: "Times New Roman",
   continue-header: "false",
-  name: "",
-  address: "",
+  name: none,
+  address: none,
   lastupdated: "true",
   pagecount: "true",
   date: none,
@@ -279,14 +286,14 @@
 #let cv-double(
   font-type: "Times New Roman",
   continue-header: "false",
-  name: "",
-  address: "",
+  name: none,
+  address: none,
   lastupdated: "true",
   pagecount: "true",
   date: none,
   contacts: (),
-  left: "",
-  right: "",
+  left: none,
+  right: none,
 ) = {
   set text(font: font-type, weight: "regular")
   set cite(form: "full")
