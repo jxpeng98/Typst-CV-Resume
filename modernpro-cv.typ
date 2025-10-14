@@ -98,10 +98,13 @@
   text(11pt, fill: primary-colour, weight: "light")[#content \ ]
 }
 
-#let oneline-two(entry1, entry2) = {
-  text(11pt, fill: subheadings-colour, weight: "regular")[#entry1]
+#let oneline-two(entry1: none, entry2: none) = {
+  let left-content = if entry1 != none { entry1 } else { [] }
+  let right-content = if entry2 != none { [#entry2 \ ] } else { [] }
+
+  text(11pt, fill: subheadings-colour, weight: "regular")[#left-content]
   h(1fr)
-  text(11pt, fill: primary-colour, weight: "regular")[#entry2 \ ]
+  text(11pt, fill: primary-colour, weight: "regular")[#right-content]
 }
 
 #let twoline-item(entry1: none, entry2: none, entry3: none, entry4: none, description: none) = {
