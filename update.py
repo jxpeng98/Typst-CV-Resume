@@ -1,7 +1,7 @@
 import sys
-import toml
 import re
 from datetime import datetime
+from pathlib import Path
 
 ####################
 # Modify TOML
@@ -14,37 +14,31 @@ if len(sys.argv) < 2:
 
 new_version = sys.argv[1]  # Get the new version number from the command-line arguments
 
-# Define the TOML content
-toml_content = """
-[package]
-name = "modernpro-cv"
-version = "0.0.1"
-entrypoint = "modernpro-cv.typ"
-authors = [ "jxpeng98"]
-repository = "https://github.com/jxpeng98/Typst-CV-Resume"
-license = "MIT"
-description = "A CV template inspired by Deedy-Resume."
-keywords = ["cv", "resume"]
-categories = ["cv"]
-
-[template]
-path = "template"
-entrypoint = "cv-single.typ"
-thumbnail = "thumbnail.png"
-"""
-
-# Parse the TOML content
-parsed_toml = toml.loads(toml_content)
-
-# Update the version
-parsed_toml["package"]["version"] = new_version
-
 # Define a file path to save the updated TOML content
-file_path = "typst.toml"
+file_path = Path("typst.toml")
+
+if not file_path.exists():
+    print(f"Error: {file_path} does not exist.")
+    sys.exit(1)
+
+# Read existing TOML content
+toml_content = file_path.read_text(encoding="utf-8")
+
+# Update the version while preserving formatting
+version_pattern = re.compile(r'^(version\s*=\s*)"([^"]+)"', re.MULTILINE)
+
+def replace_version(match) -> str:
+    prefix = match.group(1)
+    return f'{prefix}"{new_version}"'
+
+updated_toml, replacements = version_pattern.subn(replace_version, toml_content, count=1)
+
+if replacements == 0:
+    print("Error: Could not find a version entry in typst.toml.")
+    sys.exit(1)
 
 # Write the updated TOML content to a file
-with open(file_path, "w") as file:
-    toml.dump(parsed_toml, file)
+file_path.write_text(updated_toml, encoding="utf-8")
 
 print(f"Updated TOML file saved to {file_path}")
 
@@ -159,8 +153,6 @@ readme_path = 'README.md'
 update_main(main_typ_file_single_path, new_version)
 update_main(main_typ_file_double_path, new_version)
 update_main(readme_path, new_version)
-
-
 
 
 
