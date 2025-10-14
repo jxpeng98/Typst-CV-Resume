@@ -1,5 +1,5 @@
 #import "@local/modernpro-cv:1.1.0": *
-#import "@preview/fontawesome:0.5.0": *
+#import "@preview/fontawesome:0.6.0": *
 
 #show: cv-double(
   font-type: "PT Sans",
