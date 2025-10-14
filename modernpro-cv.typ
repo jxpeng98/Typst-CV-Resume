@@ -5,7 +5,7 @@
 // Author:  Jiaxin Peng
 // License: MIT
 // Version: 1.1.0
-// Date:    2025-03-13
+// Date:    2025-03-14
 // Email:   jiaxin.peng@outlook.com
 ///////////////////////////////
 
@@ -40,14 +40,14 @@
 
 // Education part
 #let education(institution: none, major: none, date: none, location: none, description: none) = {
-  ct = if (institution != none) and (location != none) {
+  let institution_location = if (institution != none) and (location != none) {
     // With comma separator
     [#institution, #location]
   } else {
     // Without comma separator
     [#institution #location]
   }
-  text(11pt, fill: subheadings-colour, weight: "bold")[ct]
+  text(11pt, fill: subheadings-colour, weight: "bold")[#institution_location]
   h(1fr)
   text(11pt, style: "italic", fill: headings-colour, weight: "regular")[#date \ ]
   text(11pt, style: "italic", fill: subheadings-colour, weight: "medium")[#major \ ]
@@ -185,6 +185,7 @@
 #let cv-single(
   font-type: "Times New Roman",
   continue-header: "false",
+  margin: none,
   name: none,
   address: none,
   lastupdated: "true",
@@ -223,9 +224,17 @@
     }
   ])
 
+  let resolved-margin = if margin != none {
+    margin
+  } else if continue-header == "true" {
+    (left: 1.25cm, right: 1.25cm, top: 2.5cm, bottom: 1.5cm)
+  } else {
+    (left: 1.25cm, right: 1.25cm, top: 1cm, bottom: 1cm)
+  }
+
   if continue-header == "true" {
     set page(
-      margin: (left: 1.25cm, right: 1.25cm, top: 2.5cm, bottom: 1.5cm),
+      margin: resolved-margin,
       header: {
         text(
           20pt,
@@ -254,7 +263,7 @@
     )
     mainbody
   } else {
-    set page(margin: (left: 1.25cm, right: 1.25cm, top: 1cm, bottom: 1cm))
+    set page(margin: resolved-margin)
     text(
       20pt,
       fill: primary-colour,
@@ -286,6 +295,7 @@
 #let cv-double(
   font-type: "Times New Roman",
   continue-header: "false",
+  margin: none,
   name: none,
   address: none,
   lastupdated: "true",
@@ -325,9 +335,17 @@
     }
   ])
 
+  let resolved-margin = if margin != none {
+    margin
+  } else if continue-header == "true" {
+    (left: 1.25cm, right: 1.25cm, top: 2.5cm, bottom: 1.5cm)
+  } else {
+    (left: 1.25cm, right: 1.25cm, top: 1cm, bottom: 1.5cm)
+  }
+
   if continue-header == "true" {
     set page(
-      margin: (left: 1.25cm, right: 1.25cm, top: 2.5cm, bottom: 1.5cm),
+      margin: resolved-margin,
       header: {
         text(
           20pt,
@@ -362,7 +380,7 @@
       left, right,
     )
   } else {
-    set page(margin: (left: 1.25cm, right: 1.25cm, top: 1cm, bottom: 1.5cm))
+    set page(margin: resolved-margin)
     text(
       20pt,
       fill: primary-colour,

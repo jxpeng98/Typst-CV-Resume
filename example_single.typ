@@ -1,11 +1,12 @@
 // #import "@local/modernpro-cv:1.0.0": *
 
 #import "modernpro-cv.typ": *
-#import "@preview/fontawesome:0.5.0": *
+#import "@preview/fontawesome:0.6.0": *
 
 #show: cv-single.with(
   font-type: "PT Serif",
   continue-header: "false",
+  margin: (left: 1.75cm, right: 1.75cm, top: 2cm, bottom: 2cm),
   name: [#lorem(2)], //name:"" or name:[]
   address: [UK],
   lastupdated: "true",
@@ -36,6 +37,7 @@
     - #lorem(10),
   ],
 )
+
 #education(
   institution: [#lorem(4)],
   major: [#lorem(2)],

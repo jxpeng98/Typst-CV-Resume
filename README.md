@@ -47,6 +47,7 @@ The template has the following arguments:
 | --- | --- | --- |
 | `font-type` | The font type. You can choose any supported font in your system. | `Times New Roman` |
 | `continue-header` | Whether to continue the header on the follwing pages. | `false` |
+| `margin` | Override the page margin. When omitted, the template falls back to the built-in layout (1.25 cm sides with layout-specific top/bottom). | `none` |
 | `name` | Your name. | `""` |
 | `address` | Your address. | `""` |
 | `lastupdated` | Whether to show the last updated date. | `true` |
@@ -65,6 +66,7 @@ If you want to use the single column version, you create a new `.typ` file and c
 #show: cv-single.with(
   font-type: "PT Serif",
   continue-header: "false",
+  margin: (left: 1.75cm, right: 1.75cm, top: 2cm, bottom: 2cm),
   name: [],
   address: [],
   lastupdated: "true",
@@ -89,6 +91,7 @@ The double column version is similar to the single column version. However, you 
 #show: cv-double(
   font-type: "PT Sans",
   continue-header: "true",
+  margin: (left: 1.5cm, right: 1.5cm, top: 2.2cm, bottom: 1.8cm),
   name: [#lorem(2)],
   address: [#lorem(4)],
   lastupdated: "true",
@@ -145,11 +148,11 @@ I preset the following functions for you to create different parts:
 
 ### Single Column
 
-![](https://minioapi.pjx.ac.cn/img1/2024/07/a81ac7ec96be0625eefccb81ead160d3.png)
+![Single-Column-Preview](https://img.pengjiaxin.com/2024/07/a81ac7ec96be0625eefccb81ead160d3.png)
 
 ### Double Column
 
-![](https://minioapi.pjx.ac.cn/img1/2024/07/12e9b31e306055f615edf49f9b8ffe55.png)
+![Double-Column-Preview](https://img.pengjiaxin.com/2024/07/12e9b31e306055f615edf49f9b8ffe55.png)
 
 ## Legacy Version
 

@@ -1,10 +1,10 @@
 #import "@preview/modernpro-cv:1.1.0": *
-
 #import "@preview/fontawesome:0.5.0": *
 
 #show: cv-single.with(
   font-type: "PT Serif",
   continue-header: "false",
+  margin: (left: 1.25cm, right: 1.25cm, top: 1.2cm, bottom: 1.2cm),
   name: [John Doe],
   address: [123 Street, City, Country],
   lastupdated: "true",
