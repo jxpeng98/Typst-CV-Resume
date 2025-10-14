@@ -1,10 +1,10 @@
 #import "@preview/modernpro-cv:1.1.0": *
-
 #import "@preview/fontawesome:0.5.0": *
 
 #show: cv-double(
   font-type: "PT Sans",
   continue-header: "true",
+  margin: (left: 1.5cm, right: 1.5cm, top: 2.2cm, bottom: 1.8cm),
   name: [#lorem(2)],
   address: [#lorem(4)],
   lastupdated: "true",
@@ -110,5 +110,4 @@
     #bibliography("bib.bib", style: "chicago-author-date")
   ],
 )
-
 
