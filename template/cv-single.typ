@@ -17,91 +17,100 @@
   ),
 )
 
-// about
-#section[about]
-#descript[#lorem(50)]
-#sectionsep
-#section("Education")
-#education(
-  institution: [#lorem(4)],
-  major: [#lorem(2)],
-  date: "xxxx-xxxx",
-  location: "UK",
-  description: [
-    - #lorem(10),
-    - #lorem(10),
-    - #lorem(10),
+#let sections = (
+  section-block("about", title: "About")[
+    #descript[#lorem(50)]
+  ],
+  section-block("education", title: "Education")[
+    #education(
+      institution: [#lorem(4)],
+      major: [#lorem(2)],
+      date: "xxxx-xxxx",
+      location: "UK",
+      description: [
+        - #lorem(10),
+        - #lorem(10),
+        - #lorem(10),
+      ],
+    )
+    #subsectionsep
+    #education(
+      institution: [#lorem(4)],
+      major: [#lorem(2)],
+      date: "xxxx-xxxx",
+      location: "UK",
+    )
+  ],
+  section-block("skills", title: "Skills")[
+    #oneline-title-item(
+      title: "Programming Languages",
+      content: [Python, C++, Java, JavaScript, HTML, CSS, SQL, LaTeX],
+    )
+  ],
+  section-block("awards", title: "Awards")[
+    #award(
+      award: "Scholarship",
+      date: "2018",
+      institution: "University",
+    )
+  ],
+  section-block("experience", title: "Experience")[
+    #job(
+      position: "Software Engineer",
+      institution: [#lorem(4)],
+      location: "UK",
+      date: "xxxx-xxxx",
+      description: [
+        - #lorem(10),
+        - #lorem(10),
+        - #lorem(10),
+      ],
+    )
+  ],
+  section-block("projects", title: "Projects")[
+    #twoline-item(
+      entry1: "Project 1",
+      entry2: "Jan 2023",
+      description: [#lorem(40)],
+    )
+  ],
+  section-block("publications", title: "Publications", separator: false)[
+    + @singh1981asymptotic
+    + @singh1981asymptotic
+  ],
+  section-block("references", title: "References", separator: false)[
+    #references(references: (
+      (
+        name: "Dr. John Doe",
+        position: "Professor",
+        department: "Computer Science",
+        institution: "University",
+        address: "123 Street, City, Country",
+        email: "john.doe@university.edu",
+      ),
+      (
+        name: "Dr. John Doe",
+        department: "Computer Science",
+        institution: "University",
+        address: "123 Street, City, Country",
+        email: "john.doe@university.edu",
+      ),
+    ))
   ],
 )
-#subsectionsep
-#education(
-  institution: [#lorem(4)],
-  major: [#lorem(2)],
-  date: "xxxx-xxxx",
-  location: "UK",
+
+#let section-order = (
+  "about",
+  "experience",
+  "projects",
+  "education",
+  "skills",
+  "awards",
+  "publications",
+  "references",
 )
 
-#section("Skills")
-#oneline-title-item(
-  title: "Programming Languages",
-  content: [Python, C++, Java, JavaScript, HTML, CSS, SQL, LaTeX],
-)
-#sectionsep
-// Award
-#section("Awards")
-#award(
-  award: "Scholarship",
-  date: "2018",
-  institution: "University",
-)
-#sectionsep
-//Experience
-#section("Experience")
-#job(
-  position: "Software Engineer",
-  institution: [#lorem(4)],
-  location: "UK",
-  date: "xxxx-xxxx",
-  description: [
-    - #lorem(10),
-    - #lorem(10),
-    - #lorem(10),
-  ],
-)
-#sectionsep
-// Projects
-#section("Projects")
-#twoline-item(
-  entry1: "Project 1",
-  entry2: "Jan 2023",
-  description: [#lorem(40)],
-)
-// Publication
-#section("Publications")
-
-+ @singh1981asymptotic
-+ @singh1981asymptotic
-
-#sectionsep
-// Reference
-#section("References")
-#references(references: (
-  (
-    name: "Dr. John Doe",
-    position: "Professor",
-    department: "Computer Science",
-    institution: "University",
-    address: "123 Street, City, Country",
-    email: "john.doe@university.edu",
-  ),
-  (
-    name: "Dr. John Doe",
-    department: "Computer Science",
-    institution: "University",
-    address: "123 Street, City, Country",
-    email: "john.doe@university.edu",
-  ),
-))
+#render-sections(sections: sections, order: section-order)
 
 // Keep this at the end
 #show bibliography: none
