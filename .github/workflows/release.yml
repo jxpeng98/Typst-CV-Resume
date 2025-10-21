@@ -8,6 +8,7 @@ on:
 env:
     typst_cv: modernpro-cv
     typst_legacy: modernpro-cv-legacy
+    CHANGELOG_FILENAME: CHANGELOG.md
 
 jobs:
     build:
@@ -45,6 +46,7 @@ jobs:
               with:
                   tag_name: ${{ github.ref }}
                   release_name: ${{ github.ref }}
+                  body_path: ${{ env.CHANGELOG_FILENAME }}
                   draft: false
                   prerelease: false
 
