@@ -57,10 +57,14 @@ The template has the following arguments:
 
 ### Start single column version
 
-If you want to use the single column version, you create a new `.typ` file and copy the following code:
+If you want to use the single column version, pick the starter that matches how much customization you need.
+
+#### Option 1 – Quick template (fixed order)
+
+Use this when you are happy with the default section sequence.
 
 ```Typst
-#import "@preview/modernpro-cv:1.2.1": *
+#import "@preview/modernpro-cv:1.3.0": *
 #import "@preview/fontawesome:0.6.0": *
 
 #show: cv-single.with(
@@ -78,14 +82,90 @@ If you want to use the single column version, you create a new `.typ` file and c
     (text: [#fa-icon("link") example.com], link: "https://www.example.com"),
   )
 )
+
+#section("About")
+#descript[#lorem(40)]
+#sectionsep
+
+#section("Experience")
+#job(
+  position: "Software Engineer",
+  institution: [#lorem(3)],
+  location: "UK",
+  date: "2022-now",
+)
+#sectionsep
+
+#section("Education")
+#education(
+  institution: [University of Typst],
+  major: [Computer Science],
+  date: "2015-2019",
+  location: "UK",
+)
 ```
+
+#### Option 2 – Flexible template (custom order or hidden sections)
+
+Choose this when you want to reorder, remove, or conditionally render sections without editing them in multiple places.
+
+```Typst
+#import "@preview/modernpro-cv:1.3.0": *
+#import "@preview/fontawesome:0.6.0": *
+
+#show: cv-single.with(
+  font-type: "PT Serif",
+  continue-header: "false",
+  margin: (left: 1.75cm, right: 1.75cm, top: 2cm, bottom: 2cm),
+  name: [],
+  address: [],
+  lastupdated: "true",
+  pagecount: "true",
+  date: "2024-07-03",
+  contacts: (
+    (text: [#fa-icon("location-dot") UK]),
+    (text: [#fa-icon("mobile") 123-456-789], link: "tel:123-456-789"),
+    (text: [#fa-icon("link") example.com], link: "https://www.example.com"),
+  )
+)
+
+#let sections = (
+  section-block("about", title: "About")[
+    #descript[#lorem(40)]
+  ],
+  section-block("experience", title: "Experience")[
+    #job(
+      position: "Software Engineer",
+      institution: [#lorem(3)],
+      location: "UK",
+      date: "2022-now",
+    )
+  ],
+  section-block("education", title: "Education")[
+    #education(
+      institution: [University of Typst],
+      major: [Computer Science],
+      date: "2015-2019",
+      location: "UK",
+    )
+  ],
+)
+
+#let section-order = ("about", "experience", "education")
+
+#render-sections(sections: sections, order: section-order)
+```
+
+Define each section once with `section-block`, then control the sequence by reordering `section-order`. Any sections not mentioned in `section-order` are rendered afterward by default (set `include-remaining: false` to skip them).
 
 ### Start double column version
 
-The double column version is similar to the single column version. However, you need to add contents to the specific `left` and `right` sections.
+The double column version is similar to the single column version. Pick the pattern you prefer for each column.
+
+#### Option 1 – Quick template (fixed order in each column)
 
 ```Typst
-#import "@preview/modernpro-cv:1.2.1": *
+#import "@preview/modernpro-cv:1.3.0": *
 #import "@preview/fontawesome:0.6.0": *
 
 #show: cv-double(
@@ -103,13 +183,91 @@ The double column version is similar to the single column version. However, you 
     (text: [#fa-icon("link") example.com], link: "https://www.example.com"),
   ),
   left: [
-    // contents for the left column
+    #section("Profile")
+    #descript[#lorem(30)]
+    #sectionsep
+
+    #section("Skills")
+    #oneline-title-item(title: "Languages", content: [Python, Typst])
+    #sectionsep
   ],
-  right:[
-    // contents for the right column
-  ]
+  right: [
+    #section("Experience")
+    #job(
+      position: "Software Engineer",
+      institution: [#lorem(4)],
+      location: "UK",
+      date: "2022-now",
+    )
+    #sectionsep
+
+    #section("Education")
+    #education(
+      institution: [University of Typst],
+      major: [Computer Science],
+      date: "2015-2019",
+      location: "UK",
+    )
+  ],
 )
 ```
+
+#### Option 2 – Flexible template (custom order or hidden sections)
+
+```Typst
+#import "@preview/modernpro-cv:1.3.0": *
+#import "@preview/fontawesome:0.6.0": *
+
+#show: cv-double(
+  font-type: "PT Sans",
+  continue-header: "true",
+  margin: (left: 1.5cm, right: 1.5cm, top: 2.2cm, bottom: 1.8cm),
+  name: [#lorem(2)],
+  address: [#lorem(4)],
+  lastupdated: "true",
+  pagecount: "true",
+  date: "2024-07-03",
+  contacts: (
+    (text: [#fa-icon("location-dot") UK]),
+    (text: [#fa-icon("mobile") 123-456-789], link: "tel:123-456-789"),
+    (text: [#fa-icon("link") example.com], link: "https://www.example.com"),
+  ),
+  left: [
+    #let left-sections = (
+      section-block("profile", title: "Profile")[
+        #descript[#lorem(30)]
+      ],
+      section-block("skills", title: "Skills")[
+        #oneline-title-item(title: "Languages", content: [Python, Typst])
+      ],
+    )
+    #render-sections(sections: left-sections, order: ("profile", "skills"))
+  ],
+  right: [
+    #let right-sections = (
+      section-block("experience", title: "Experience")[
+        #job(
+          position: "Software Engineer",
+          institution: [#lorem(4)],
+          location: "UK",
+          date: "2022-now",
+        )
+      ],
+      section-block("education", title: "Education")[
+        #education(
+          institution: [University of Typst],
+          major: [Computer Science],
+          date: "2015-2019",
+          location: "UK",
+        )
+      ],
+    )
+#render-sections(sections: right-sections, order: ("experience", "education"))
+  ],
+)
+```
+
+Adjust the `left-order` and `right-order` lists to change what appears first. Omit an id (and set `include-remaining: false` on `render-sections`) to hide the matching block entirely.
 
 ### Start the CV
 
@@ -129,6 +287,8 @@ I preset the following functions for you to create different parts:
 |`#twoline-item(entry1: "", entry2: "", entry3: "", entry4: "")`| Two line items, similar to education and job experiences|
 |`#references(references:())`| Add a reference list. In the `()`, you can add multi reference entries with the following format `(name: "", position: "", department: "", institution: "", address: "", email: "",),`|
 |`#show bibliography: none #bibliography("bib.bib")`| Add a bibliography. You can modify the `bib.bib` file to add your publications. **Note:** Keep this at the end of your CV|
+|`#section-block(id, title: none, separator: true)[…]`| Wrap a section body once, optionally supplying its heading and whether to add a trailing separator|
+|`#render-sections(sections: (), order: (), include-remaining: true)`| Render the prepared section blocks in the order you choose; any blocks not listed in `order` appear afterward when `include-remaining` is `true`|
 
 **Note:** Use `+ @ref` to display your publications. For example,
 
