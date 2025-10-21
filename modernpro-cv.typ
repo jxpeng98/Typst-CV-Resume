@@ -185,6 +185,52 @@
     .join(" | ")
 }
 
+#let section-block(
+  id,
+  title: none,
+  separator: true,
+  body,
+) = (
+  id: id,
+  content: {
+    if title != none {
+      section(title)
+    }
+      body
+    if separator {
+      sectionsep
+    }
+  },
+)
+
+#let render-sections(
+  sections: (),
+  order: none,
+  include-remaining: true,
+) = {
+  if order == none {
+    for entry in sections {
+      entry.content
+    }
+  } else {
+    for id in order {
+      let entry = sections
+        .filter(section => section.id == id)
+        .at(0, default: none)
+      if entry != none {
+        entry.content
+      }
+    }
+    if include-remaining {
+      for entry in sections {
+        if not order.contains(entry.id) {
+          entry.content
+        }
+      }
+    }
+  }
+}
+
 #let cv-single(
   font-type: "Times New Roman",
   continue-header: "false",

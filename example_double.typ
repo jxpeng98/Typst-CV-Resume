@@ -1,4 +1,4 @@
-#import "@local/modernpro-cv:1.1.0": *
+#import "modernpro-cv.typ": *
 #import "@preview/fontawesome:0.6.0": *
 
 #show: cv-double(
@@ -15,128 +15,151 @@
     (text: [#fa-icon("link") example.com], link: "https://www.example.com"),
   ),
   left: [
-    #section[about]
-    #descript[#lorem(50)]
-    #sectionsep
-    #section("Skills")
-    #oneline-title-item(
-      title: "Programming Languages",
-      content: [Python, C++, Java, JavaScript, HTML, CSS, SQL, LaTeX],
+    #let left-sections = (
+      section-block("about", title: "About")[
+        #descript[#lorem(50)]
+      ],
+      section-block("skills", title: "Skills")[
+        #oneline-title-item(
+          title: "Programming Languages",
+          content: [Python, C++, Java, JavaScript, HTML, CSS, SQL, LaTeX],
+        )
+        #oneline-title-item(
+          title: "Frameworks",
+          content: [React, Node.js, Express, Flask, Django, Bootstrap, jQuery],
+        )
+        #oneline-title-item(
+          title: "Tools",
+          content: [
+            Git,
+            GitHub,
+            Docker,
+            AWS,
+            Heroku,
+            MongoDB,
+            MySQL,
+            PostgreSQL,
+            Redis,
+            Linux,
+          ],
+        )
+      ],
+      section-block("awards", title: "Awards")[
+        #award(award: "Scholarship", date: "2018", institution: "University")
+        #award(award: "Prize", date: "2018", institution: "University")
+      ],
     )
-    #oneline-title-item(
-      title: "Frameworks",
-      content: [React, Node.js, Express, Flask, Django, Bootstrap, jQuery],
-    )
-    #oneline-title-item(
-      title: "Tools",
-      content: [Git, GitHub, Docker, AWS, Heroku, MongoDB, MySQL, PostgreSQL, Redis, Linux],
-    )
-    // Award
-    #section("Awards")
-    #award(award: "Scholarship", date: "2018", institution: "University")
-    #award(award: "Prize", date: "2018", institution: "University")
-    #sectionsep
+
+    #let left-order = ("about", "skills", "awards")
+
+    #render-sections(sections: left-sections, order: left-order)
   ],
 
   right: [
-    #section("Education")
-    #education(
-      institution: [#lorem(4)],
-      major: [#lorem(2)],
-      date: "xxxx-xxxx",
-      location: "UK",
-      description: [
-        - #lorem(10),
-        - #lorem(10),
-        - #lorem(10),
+    #let right-sections = (
+      section-block("experience", title: "Experience")[
+        #job(
+          position: "Software Engineer",
+          institution: [#lorem(4)],
+          location: "UK",
+          date: "xxxx-xxxx",
+          description: [
+            - #lorem(10),
+            - #lorem(10),
+            - #lorem(10),
+          ],
+        )
+        #subsectionsep
+        #job(
+          position: "Software Engineer",
+          institution: [#lorem(4)],
+          location: "UK",
+          date: "xxxx-xxxx",
+        )
+      ],
+      section-block("projects", title: "Projects")[
+        #twoline-item(
+          entry1: "Project 1",
+          entry2: "Jan 2023",
+          entry3: "https://www.example.com",
+          entry4: "UK",
+          description: [
+            - #lorem(20)
+            - #lorem(10)
+          ],
+        )
+        #subsectionsep
+        #twoline-item(
+          entry1: "Project 2",
+          entry2: "Jan 2023",
+          description: [#lorem(40) \ ],
+        )
+      ],
+      section-block("education", title: "Education")[
+        #education(
+          institution: [#lorem(4)],
+          major: [#lorem(2)],
+          date: "xxxx-xxxx",
+          location: "UK",
+          description: [
+            - #lorem(10),
+            - #lorem(10),
+            - #lorem(10),
+          ],
+        )
+        #education(
+          institution: [#lorem(4)],
+          major: [#lorem(2)],
+          date: "xxxx-xxxx",
+          location: "UK",
+        )
+      ],
+      section-block("publications", title: "Publications", separator: false)[
+        + @singh1981asymptotic
+        + @singh1981asymptotic
+      ],
+      section-block("references", title: "References", separator: false)[
+        #references(references: (
+          (
+            name: "Dr. John Doe",
+            position: "Professor",
+            department: "Computer Science",
+            institution: "University",
+            address: "123 Street, City, Country",
+            email: "john.doe@university.edu",
+          ),
+          (
+            name: "Dr. John Doe",
+            department: "Computer Science",
+            institution: "University",
+            address: "123 Street, City, Country",
+            email: "john.doe@university.edu",
+          ),
+          (
+            name: "Dr. John Doe",
+            position: "Professor",
+            department: "Computer Science",
+            institution: "University",
+            address: "123 Street, City, Country",
+            email: "john.doe@university.edu",
+          ),
+        ))
       ],
     )
-    #education(
-      institution: [#lorem(4)],
-      major: [#lorem(2)],
-      date: "xxxx-xxxx",
-      location: "UK",
-    )
-    //Experience
-    #section("Experience")
-    #job(
-      position: "Software Engineer",
-      institution: [#lorem(4)],
-      location: "UK",
-      date: "xxxx-xxxx",
-      description: [
-        - #lorem(10),
-        - #lorem(10),
-        - #lorem(10),
-      ],
-    )
-    #subsectionsep
-    #job(
-      position: "Software Engineer",
-      institution: [#lorem(4)],
-      location: "UK",
-      date: "xxxx-xxxx",
-    )
-    #sectionsep
-    // Projects
-    #section("Projects")
-    #twoline-item(
-      entry1: "Project 1",
-      entry2: "Jan 2023",
-      entry3: "https://www.example.com",
-      entry4: "UK",
-      description: [
-        - #lorem(20)
-        - #lorem(10)
-      ],
-    )
-    #subsectionsep
-    #twoline-item(
-      entry1: "Project 2",
-      entry2: "Jan 2023",
-      description: [#lorem(40) \ ],
-    )
-    #sectionsep
-    // Publication
-    #section("Publications")
 
-    + @singh1981asymptotic
-    + @singh1981asymptotic
-    
-    #sectionsep
+    #let right-order = (
+      "experience",
+      "projects",
+      "education",
+      "publications",
+      "references",
+    )
 
+    #render-sections(sections: right-sections, order: right-order)
 
-    // Reference
-    #section("References")
-    #references(references: (
-      (
-        name: "Dr. John Doe",
-        position: "Professor",
-        department: "Computer Science",
-        institution: "University",
-        address: "123 Street, City, Country",
-        email: "john.doe@university.edu",
-      ),
-      (
-        name: "Dr. John Doe",
-        department: "Computer Science",
-        institution: "University",
-        address: "123 Street, City, Country",
-        email: "john.doe@university.edu",
-      ),
-      (
-        name: "Dr. John Doe",
-        position: "Professor",
-        department: "Computer Science",
-        institution: "University",
-        address: "123 Street, City, Country",
-        email: "john.doe@university.edu",
-      ),
-    ))
     // Keep this at the end
     #show bibliography: none
     #bibliography("bib.bib", style: "chicago-author-date")
   ],
 )
-
 
