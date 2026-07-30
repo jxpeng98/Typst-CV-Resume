@@ -55,7 +55,7 @@ typ_file_path = 'modernpro-cv.typ'
 # Define the content to prepend, ensure no leading newline before the first comment line
 new_content_to_prepend = f"""///////////////////////////////
 // modernpro-cv.typ
-// A CV template with modern Sans font and professional look
+// A clean, modern academic CV template
 // Copyright (c) {new_year}
 // Author:  Academic Template Collective
 // License: MIT
@@ -153,5 +153,4 @@ readme_path = 'README.md'
 update_main(main_typ_file_single_path, new_version)
 update_main(main_typ_file_double_path, new_version)
 update_main(readme_path, new_version)
-
 

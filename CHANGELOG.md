@@ -1,10 +1,12 @@
-## [2.0.0]
+# Changelog
+
+## [2.0.0] - 2026-07-30
 
 Visual redesign. The configuration API stays backward compatible: every 1.x
 parameter, dictionary key, and function alias still resolves. Documents rebuilt
 on 2.0.0 will look different, which is the point of the release.
 
-## Changed
+### Changed
 
 - Rebuilt the visual system around a single serif family in two weights, a restrained 8.4-18pt size ladder, and four colours. Body text now defaults to 10pt for more comfortable academic reading. 1.x mixed PT Sans and PT Serif across titles, dates, institutions, and descriptions, which reads as noise at CV sizes.
 - 视觉体系重建为单一衬线字族、两种字重、8.4-18pt 的克制字号阶与四个颜色；正文默认提升到 10pt，以改善学术材料的连续阅读。1.x 在标题、日期、机构、描述之间混用 PT Sans 与 PT Serif，在 CV 的小字号下形成视觉噪音。
@@ -26,8 +28,11 @@ on 2.0.0 will look different, which is the point of the release.
 - 推荐人条目将姓名与职务分行，使每个区块行数一致、双列始终对齐。
 - Opened the default entry rhythm further: section headings, entry titles, institution lines, descriptions, and following entries now have clearer visual separation while retaining the compact preset for one-page summaries.
 - 进一步放松默认条目节奏：章节标题、条目标题、机构行、描述与下一条目之间具有更清晰的视觉分隔，同时保留适合一页式摘要的紧凑预设。
+- Replaced public sample identities and bibliography records with explicitly fictional data, reserved domains, and placeholder identifiers.
+- Expanded the README into a complete workflow covering layout selection, first edits, common recipes, accessibility, ATS guidance, and troubleshooting.
+- Modernized the release workflow to validate the package version, compile both examples, build core and legacy archives, and publish with the repository-scoped GitHub token.
 
-## Added
+### Added
 
 - A single `cv` entry point takes `profile`, `preset`, `accent`, and `columns`. A typical document now configures one key. `cv-single` and `cv-double` remain available.
 - 新增统一入口 `cv`，接受 `profile`、`preset`、`accent`、`columns`。常规文档只需配置一个键。`cv-single` 与 `cv-double` 继续可用。

@@ -1,11 +1,11 @@
 ///////////////////////////////
 // modernpro-cv.typ
 // A clean, modern academic CV template
-// Copyright (c) 2025
+// Copyright (c) 2026
 // Author:  Academic Template Collective
 // License: MIT
 // Version: 2.0.0
-// Date:    2026-07-26
+// Date:    2026-07-30
 // Email:   maintainers@example.invalid
 ///////////////////////////////
 
