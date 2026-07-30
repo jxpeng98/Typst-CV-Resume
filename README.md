@@ -26,12 +26,24 @@ a cover letter, and a research statement read as one application.
 
 [![Two-column compact CV](screenshots/cv-double.png)](screenshots/cv-double.png)
 
+## Choose a layout
+
+| Use case | Start from | Why |
+| --- | --- | --- |
+| Academic applications, grants, promotion, or ATS upload | `cv-single.typ` | One reading order, comfortable multi-page flow, and compact continuation headers |
+| Conference bios, networking, or a one-page human-readable résumé | `cv-double.typ` | More information above the fold in a compact visual summary |
+
+When in doubt, use the single-column version. Keep the two-column version to one
+page and do not rely on it when automated PDF extraction matters.
+
 ## Quick start
 
-Create a project with the Typst CLI:
+Create and compile a project with the Typst CLI:
 
 ```bash
-typst init @preview/modernpro-cv
+typst init @preview/modernpro-cv:2.0.0
+cd modernpro-cv
+typst compile cv-single.typ
 ```
 
 The starter contains:
@@ -44,14 +56,27 @@ modernpro-cv/
 └── cv-single.typ
 ```
 
-Start with `cv-single.typ`. Compile it with:
+During editing, rebuild automatically with:
 
 ```bash
-typst compile cv-single.typ
+typst watch cv-single.typ
 ```
 
 You can also select `modernpro-cv` from the template gallery in the Typst web
 app.
+
+### First edit checklist
+
+1. Replace the placeholder identity once in `profile.typ`.
+2. Open `cv-single.typ` and delete any sections that do not apply.
+3. Replace every fictional appointment, degree, publication, date, and claim.
+4. Compile the document and check page breaks, contact wrapping, and the final
+   line of each page.
+5. Use `cv-double.typ` only if you also need a compact one-page version.
+
+The repository examples intentionally use reserved domains, an all-zero ORCID,
+and fictional people and institutions. Put real information only in your own
+downstream document, not in a public template fork.
 
 ## Minimal academic CV
 
@@ -113,6 +138,23 @@ import the same file from your cover letter and statements:
 
 Sections render in source order. Move a section to move it in the CV; delete it
 to hide it.
+
+## Recommended content workflow
+
+Keep presentation decisions in the `#show: cv.with(...)` call and keep
+application content below it:
+
+- Put identity and contacts in `profile.typ`.
+- Use one `#section(...)` for each academic category.
+- Use semantic helpers such as `experience`, `education`, and `entry` instead
+  of manually aligning dates.
+- Write dates as short strings such as `"2023-present"` so the right rail stays
+  compact.
+- Add `#section-gap` once after a complete section; entry helpers already manage
+  spacing between records.
+
+For a long CV, begin with the default preset and let it flow to another page.
+Use the compact preset only after removing redundant content.
 
 ## The four settings
 
@@ -280,6 +322,39 @@ Keep this variant concise and preferably to one page. The left and right
 columns are visually independent, but text extraction and screen readers may
 not preserve the intended reading order.
 
+## Common recipes
+
+### Hide the footer date
+
+```typst
+#show: cv.with(
+  profile: profile,
+  options: (last-updated: false),
+)
+```
+
+### Use inline contacts
+
+```typst
+#show: cv.with(
+  profile: profile,
+  layout: (contact-layout: "inline"),
+)
+```
+
+### Disable continuation headers
+
+```typst
+#show: cv.with(
+  profile: profile,
+  layout: (continue-header: false),
+)
+```
+
+Continuation headers are useful for an academic CV that runs beyond one page.
+They repeat only the candidate name, document label, and page count—not the full
+contact block.
+
 ## Advanced configuration
 
 Most documents never need this section. When you do need a specific override,
@@ -398,6 +473,19 @@ margins to 2.2cm to match the letter template. To modernise a 1.x document,
 replace `cv-single.with` with `cv.with` and `layout: (density: "balanced")` with
 nothing at all — `"default"` is the default.
 
+## Troubleshooting
+
+- **The email causes a syntax error:** escape `@` as `\@` inside Typst content.
+- **Font Awesome icons do not render:** install the corresponding desktop fonts
+  or remove the optional `icon` fields.
+- **The CV feels too dense:** try `preset: "relaxed"` before changing individual
+  spacing tokens.
+- **The CV exceeds a page limit:** remove low-value detail first, then use
+  `preset: "compact"`.
+- **Copied PDF text is out of order:** submit the single-column layout.
+- **A font is unavailable:** use `theme: (font: "Libertinus Serif")` for a
+  broadly available serif fallback.
+
 ## Local development
 
 Compile the repository examples against the working template:
@@ -410,10 +498,9 @@ typst compile example_double.typ
 The single-column example is the visual and behavioural reference for the
 academic design. The double-column example demonstrates the compact variant.
 
-## Manual download
+## Release notes
 
-Release archives are available from the
-[changelog](CHANGELOG.md).
+See the [changelog](CHANGELOG.md) for version history and migration notes.
 
 ## License
 
