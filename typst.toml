@@ -3,11 +3,11 @@ name = "modernpro-cv"
 version = "2.0.0"
 entrypoint = "modernpro-cv.typ"
 authors = [ "Academic Template Collective",]
-repository = "https://example.invalid/academic-templates/modernpro-cv"
 license = "MIT"
 description = "A clean, modern CV template for academic and professional applications."
 keywords = [ "cv", "resume", "academic",]
 categories = [ "cv",]
+exclude = [ "/screenshots/", "/CHANGELOG.md",]
 
 [template]
 path = "template"
