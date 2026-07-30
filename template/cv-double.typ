@@ -1,135 +1,72 @@
-#import "@preview/modernpro-cv:1.3.0": *
-#import "@preview/fontawesome:0.6.0": *
+#import "@preview/modernpro-cv:2.0.0": *
+#import "profile.typ": profile
 
-#show: cv-double(
-  font-type: "PT Sans",
-  continue-header: "true",
-  margin: (left: 1.5cm, right: 1.5cm, top: 2.2cm, bottom: 1.8cm),
-  name: [#lorem(2)],
-  address: [#lorem(4)],
-  lastupdated: "true",
-  pagecount: "true",
-  date: [2024-07-03],
-  contacts: (
-    (text: [#fa-icon("location-dot") UK]),
-    (text: [#fa-icon("mobile") 123-456-789], link: "tel:123-456-789"),
-    (text: [#fa-icon("link") example.com], link: "https://www.example.com"),
-  ),
+// Two-column variant. Prefer cv-single.typ for a full academic CV or for ATS
+// parsing; this layout suits a one-page summary.
+//
+// For icons beside each contact, add `#import "@preview/fontawesome:0.6.2": fa-icon`
+// and give any contact in profile.typ an `icon:` field.
+#show: cv.with(
+  profile: profile,
+  columns: 2,
   left: [
-    #let left-sections = (
-      section-block("about", title: "About")[
-        #descript[#lorem(40)]
-      ],
-      section-block("skills", title: "Skills")[
-        #oneline-title-item(
-          title: "Programming Languages",
-          content: [Python, C++, Java, JavaScript, HTML, CSS, SQL, LaTeX],
-        )
-        #oneline-title-item(
-          title: "Frameworks",
-          content: [React, Node.js, Express, Flask, Django, Bootstrap, jQuery],
-        )
-      ],
-      section-block("awards", title: "Awards")[
-        #award(award: "Scholarship", date: "2018", institution: "University")
-      ],
-    )
+    #section("Research Focus")
+    #summary[
+      Two or three lines naming your area and the kind of question you ask.
+    ]
+    #section-gap
 
-    #let left-order = ("about", "skills", "awards")
+    #section("Methods")
+    #detail-line(title: "Quantitative", content: [your quantitative methods])
+    #detail-line(title: "Qualitative", content: [your qualitative methods])
+    #detail-line(title: "Tools", content: [Python, R, SQL, Typst])
+    #section-gap
 
-    #render-sections(sections: left-sections, order: left-order)
+    #section("Awards")
+    #award(award: "Award Name", institution: "Awarding Body", date: "2024")
+    #section-gap
+
+    #section("Teaching and Service")
+    #detail-line(title: "Teaching", content: [courses and supervision])
+    #detail-line(title: "Service", content: [committees and review work])
   ],
-
   right: [
-    #let right-sections = (
-      section-block("experience", title: "Experience")[
-        #job(
-          position: "Software Engineer",
-          institution: [#lorem(4)],
-          location: "UK",
-          date: "xxxx-xxxx",
-          description: [
-            - #lorem(10),
-            - #lorem(10),
-            - #lorem(10),
-          ],
-        )
-        #subsectionsep
-        #job(
-          position: "Software Engineer",
-          institution: [#lorem(4)],
-          location: "UK",
-          date: "xxxx-xxxx",
-        )
-      ],
-      section-block("projects", title: "Projects")[
-        #twoline-item(
-          entry1: "Project 1",
-          entry2: "Jan 2023",
-          entry3: "https://www.example.com",
-          entry4: "UK",
-          description: [
-            - #lorem(20)
-            - #lorem(10)
-          ],
-        )
-        #subsectionsep
-        #twoline-item(
-          entry1: "Project 2",
-          entry2: "Jan 2023",
-          description: [#lorem(40) \ ],
-        )
-      ],
-      section-block("education", title: "Education")[
-        #education(
-          institution: [#lorem(4)],
-          major: [#lorem(2)],
-          date: "xxxx-xxxx",
-          location: "UK",
-          description: [
-            - #lorem(10),
-            - #lorem(10),
-            - #lorem(10),
-          ],
-        )
-      ],
-      section-block("publications", title: "Publications", separator: false)[
-        + @singh1981asymptotic
-        + @singh1981asymptotic
-      ],
-      section-block("references", title: "References", separator: false)[
-        #references(references: (
-          (
-            name: "Dr. John Doe",
-            position: "Professor",
-            department: "Computer Science",
-            institution: "University",
-            address: "123 Street, City, Country",
-            email: "john.doe@university.edu",
-          ),
-          (
-            name: "Dr. John Doe",
-            department: "Computer Science",
-            institution: "University",
-            address: "123 Street, City, Country",
-            email: "john.doe@university.edu",
-          ),
-        ))
+    #section("Academic Appointments")
+    #experience(
+      title: "Your Position",
+      institution: [Institution],
+      location: "City, Country",
+      date: "2023-present",
+      details: [
+        - One line on what you lead, build, or supervise.
       ],
     )
+    #section-gap
 
-    #let right-order = (
-      "experience",
-      "projects",
-      "education",
-      "publications",
-      "references",
+    #section("Education")
+    #education(
+      institution: [University],
+      major: [PhD in Your Field],
+      date: "2016-2020",
+      location: "City, Country",
+      description: [Thesis: your thesis title.],
     )
+    #section-gap
 
-    #render-sections(sections: right-sections, order: right-order)
+    #section("Selected Publications")
+    #entry(
+      title: [Paper title],
+      right: "2025",
+      meta: [Author list, Journal Name 8(2)],
+    )
+    #section-gap
 
-    // Keep this at the end
-    #show bibliography: none
-    #bibliography("bib.bib", style: "chicago-author-date")
+    #section("Research Funding")
+    #entry(
+      title: [Grant title],
+      right: "2024-2027",
+      meta: [Funder; your role],
+      location: [Amount],
+    )
   ],
 )

@@ -1,152 +1,114 @@
-// #import "@local/modernpro-cv:1.0.0": *
-
 #import "modernpro-cv.typ": *
-#import "@preview/fontawesome:0.6.0": *
 
-#show: cv-single.with(
-  font-type: "PT Serif",
-  continue-header: "false",
-  margin: (left: 1.75cm, right: 1.75cm, top: 2cm, bottom: 2cm),
-  name: [#lorem(2)], //name:"" or name:[]
-  address: [UK],
-  lastupdated: "true",
-  pagecount: "true",
-  date: "2024-07-03",
-  contacts: (
-    (text: [#fa-icon("location-dot") UK]),
-    (text: [#fa-icon("mobile") 123-456-789], link: "tel:123-456-789"),
-    (text: [#fa-icon("link") example.com], link: "https://www.example.com"),
-    (text: [#fa-icon("github") github], link: "https://github.com/"),
-    (text: [#fa-icon("envelope") example\@example.com], link: "mailto:example@example.com"),
+// Canonical academic CV: single-column, print-friendly, and ATS-friendly.
+// The only required argument is `profile`.
+// All people, institutions, publications, and claims in this example are fictional.
+#show: cv.with(
+  profile: (
+    name: [Dr. Maya Chen],
+    role: [Lecturer in Computational Social Science],
+    address: [Edinburgh, United Kingdom],
+    contacts: (
+      (text: [maya\@northbridge.example], link: "mailto:maya@northbridge.example"),
+      (text: [maya.example.org], link: "https://maya.example.org"),
+      (text: [ORCID~0000-0000-0000-0000], link: "https://orcid.org/0000-0000-0000-0000"),
+    ),
   ),
+  options: (date: "2026-07-10"),
 )
 
-#let sections = (
-  section-block("about", title: "About")[
-    #descript[#lorem(50)]
-  ],
-  section-block("education", title: "Education", separator: false)[
-    #education(
-      institution: [#lorem(4)],
-      major: [#lorem(2)],
-      date: "xxxx-xxxx",
-      location: "UK",
-      description: [
-        - #lorem(10),
-        - #lorem(10),
-        - #lorem(10),
-      ],
-    )
+#section("Research Profile")
+#summary[
+  Computational social scientist studying how public institutions evaluate and
+  govern data-intensive systems. My work combines audit studies, causal
+  inference, and participatory design to make automated decisions more
+  transparent and accountable.
+]
+#section-gap
 
-    #education(
-      institution: [#lorem(4)],
-      major: [#lorem(2)],
-      date: "xxxx-xxxx",
-      location: "UK",
-    )
-  ],
-  section-block("skills", title: "Skills")[
-    #oneline-title-item(
-      title: "Programming Languages",
-      content: [Python, C++, Java, JavaScript, HTML, CSS, SQL, LaTeX],
-    )
-    #oneline-title-item(
-      title: "Frameworks",
-      content: [React, Node.js, Express, Flask, Django, Bootstrap, jQuery],
-    )
-    #oneline-title-item(
-      title: "Tools",
-      content: [
-        Git,
-        GitHub,
-        Docker,
-        AWS,
-        Heroku,
-        MongoDB,
-        MySQL,
-        PostgreSQL,
-        Redis,
-        Linux,
-      ],
-    )
-  ],
-  section-block("awards", title: "Awards")[
-    #award(award: "Scholarship", date: "2018", institution: "University")
-    #award(award: "Prize", date: "2018", institution: "University")
-  ],
-  section-block("experience", title: "Experience")[
-    #job(
-      position: "Software Engineer",
-      institution: [#lorem(4)],
-      location: "UK",
-      date: "xxxx-xxxx",
-      description: [
-        - #lorem(10),
-        - #lorem(10),
-        - #lorem(10),
-      ],
-    )
-    #subsectionsep
-    #job(
-      position: "Software Engineer",
-      institution: [#lorem(4)],
-      location: "UK",
-      date: "xxxx-xxxx",
-    )
-  ],
-  section-block("projects", title: "Projects", separator: false)[
-    #twoline-item(
-      entry1: "Project 1",
-      entry2: "Jan 2023",
-      description: [#lorem(40)],
-    )
-  ],
-  section-block("publications", title: "Publications", separator: false)[
-    + @singh1981asymptotic
-    + @singh1981asymptotic
-  ],
-  section-block("references", title: "References", separator: false)[
-    #references(references: (
-      (
-        name: "Dr. John Doe",
-        position: "Professor",
-        department: "Computer Science",
-        institution: "University",
-        address: "123 Street, City, Country",
-        email: "john.doe@university.edu",
-      ),
-      (
-        name: "Dr. John Doe",
-        department: "Computer Science",
-        institution: "University",
-        address: "123 Street, City, Country",
-        email: "john.doe@university.edu",
-      ),
-      (
-        name: "Dr. John Doe",
-        position: "Professor",
-        department: "Computer Science",
-        institution: "University",
-        address: "123 Street, City, Country",
-        email: "john.doe@university.edu",
-      ),
-    ))
+#section("Academic Appointments")
+#experience(
+  title: "Lecturer in Computational Social Science",
+  institution: [Northbridge University, School of Social and Political Science],
+  location: "Edinburgh, UK",
+  date: "2023-present",
+  details: [
+    - Lead the Civic AI Lab and supervise research on algorithmic accountability.
   ],
 )
-
-#let section-order = (
-  "about",
-  "experience",
-  "projects",
-  "education",
-  "skills",
-  "awards",
-  "publications",
-  "references",
+#experience(
+  title: "Research Fellow in Digital Society",
+  institution: [University of Wessex, Centre for Digital Society],
+  location: "Bristol, UK",
+  date: "2020-2023",
 )
+#section-gap
 
-#render-sections(sections: sections, order: section-order)
+#section("Education")
+#education(
+  institution: [University of Wessex],
+  major: [PhD in Information Studies],
+  date: "2016-2020",
+  location: "Bristol, UK",
+  description: [Thesis: Auditing automated decisions in local public services.],
+)
+#education(
+  institution: [Westford Institute of Technology],
+  major: [MSc in Data Science, with distinction],
+  date: "2014-2015",
+  location: "Manchester, UK",
+)
+#section-gap
 
-// Keep this at the end
-#show bibliography: none
-#bibliography("bib.bib", style: "chicago-author-date")
+#section("Selected Publications")
+#entry(
+  title: [Governing high-stakes models through public audit],
+  right: "2025",
+  meta: [M. Chen and A. Rahman, Journal of Responsible Data 8(2)],
+)
+#entry(
+  title: [When explanations change institutional decisions],
+  right: "2023",
+  meta: [M. Chen, L. Okafor, and J. Bell, Digital Government Review 12(4)],
+)
+#section-gap
+
+#section("Research Funding")
+#entry(
+  title: [Trustworthy Civic AI],
+  right: "2024-2027",
+  meta: [Northland Research Council New Investigator Award; Principal Investigator],
+  location: [GBP 318,000],
+)
+#section-gap
+
+#section("Teaching and Service")
+#detail-line(
+  title: "Teaching",
+  content: [Course lead for Computational Research Methods; MSc dissertation supervision.],
+)
+#detail-line(
+  title: "Service",
+  content: [Programme committee, Conference on Public Interest Technology; departmental ethics panel.],
+)
+#section-gap
+
+#section("References")
+#reference-list(references: (
+  (
+    name: "Professor Alice Morgan",
+    position: "Chair in Digital Society",
+    department: "School of Information",
+    institution: "University of Wessex",
+    address: "Bristol, United Kingdom",
+    email: "alice.morgan@wessex.example",
+  ),
+  (
+    name: "Professor Daniel Okafor",
+    position: "Director, Civic Data Institute",
+    department: "Department of Public Policy",
+    institution: "Northbridge University",
+    address: "Edinburgh, United Kingdom",
+    email: "daniel.okafor@northbridge.example",
+  ),
+))

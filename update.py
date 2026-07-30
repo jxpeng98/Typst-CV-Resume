@@ -155,4 +155,3 @@ update_main(main_typ_file_double_path, new_version)
 update_main(readme_path, new_version)
 
 
-
