@@ -116,13 +116,12 @@
 }
 
 #let _first-filled(values, default: none) = {
-  let value = default
   for candidate in values {
-    if not is-filled(value) and is-filled(candidate) {
-      value = candidate
+    if is-filled(candidate) {
+      return candidate
     }
   }
-  value
+  return default
 }
 
 // A smaller date set beside a larger title aligns on cap-height by default,
