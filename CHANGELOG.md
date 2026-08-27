@@ -1,5 +1,26 @@
 # Changelog
 
+## [2.1.0] - 2026-08-27
+
+### Added
+
+- Added optional `profile.photo` content for single- and double-column CVs, with
+  configurable `theme.photo-width` and `theme.photo-height` dimensions.
+- Added documented flat, material, glass, harmonious, and classic photo-header
+  examples while preserving the text-only, ATS-first default.
+
+### Fixed
+
+- Fixed `_first-filled` so explicit configuration values take precedence over
+  defaults.
+- Fixed legacy optional-field checks, contacts without links, contextual page
+  counters, and caller-resolved bibliography paths.
+
+### Changed
+
+- Extended release validation to compile the legacy CV and cover-letter
+  examples alongside the current templates.
+
 ## [2.0.0] - 2026-07-30
 
 Visual redesign. The configuration API stays backward compatible: every 1.x

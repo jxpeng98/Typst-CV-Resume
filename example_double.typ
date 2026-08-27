@@ -10,6 +10,10 @@
     name: [Dr. Maya Chen],
     role: [Lecturer in Computational Social Science],
     address: [Edinburgh, United Kingdom],
+    photo: box(width: 16mm, height: 20mm, fill: rgb("#edf2f7"))[
+      #set align(center + horizon)
+      #text(11pt, fill: rgb("#1e3a5f"), weight: "bold")[MC]
+    ],
     contacts: (
       (
         icon: fa-icon("envelope", solid: true, top-edge: "baseline"),

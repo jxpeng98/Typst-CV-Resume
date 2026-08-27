@@ -147,10 +147,17 @@ def update_main(main_typ_file_path, new_version):
 main_typ_file_single_path = 'template/cv-single.typ'
 main_typ_file_double_path = 'template/cv-double.typ'
 
-# define the path to README.md
-readme_path = 'README.md'
-
 update_main(main_typ_file_single_path, new_version)
 update_main(main_typ_file_double_path, new_version)
-update_main(readme_path, new_version)
 
+readme_path = Path('README.md')
+readme_content = readme_path.read_text(encoding='utf-8')
+updated_readme, replacements = re.subn(
+    r'(@preview/modernpro-cv:)[^\s"]+',
+    rf'\g<1>{new_version}',
+    readme_content,
+)
+if replacements == 0:
+    raise RuntimeError(f'No modernpro-cv version references found in {readme_path}')
+readme_path.write_text(updated_readme, encoding='utf-8')
+print(f'Updated {replacements} version reference(s) in {readme_path}.')

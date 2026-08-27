@@ -171,7 +171,7 @@
   text(11pt, font: font_descript, fill: subheadings_colour, weight: "semibold")[#major ]
   h(1fr)
   text(11pt, font: font_term, fill: headings_colour, weight: "medium")[#location \ ]
-  if detail != [] or detail != "" {
+  if detail != [] and detail != "" {
     text(11pt, font: font_info, fill: primary_colour, weight: "light")[#detail]
   }
 }
@@ -188,13 +188,13 @@
 // Projects
 #let project(title, period, info) = {
   text(11pt, font: font_descript, fill: subheadings_colour, weight: "semibold")[#title ]
-  if period != [] or period != "" {
+  if period != [] and period != "" {
     h(1fr)
     text(11pt, font: font_term, fill: headings_colour, weight: "medium")[#period \ ]
   } else {
     [\ ]
   }
-  if info != [] or info != "" {
+  if info != [] and info != "" {
     text(11pt, font: font_info, fill: primary_colour, weight: "light")[#info ]
   }
 }
@@ -251,7 +251,7 @@
 #let teaching(position, university, detail) = {
   text(11pt, font: font_section, fill: subheadings_colour, weight: "bold")[#upper[#university]]
   text(11pt, font: font_descript, fill: subheadings_colour, weight: "semibold")[ | #position \ ]
-  if detail != [] or detail != "" {
+  if detail != [] and detail != "" {
     text(11pt, font: font_info, fill: primary_colour, weight: "light")[#detail]
   }
 }
@@ -279,7 +279,17 @@
 }
 
 // Publications
+#let _is-portable-bibliography-source(source) = if type(source) == array {
+  source.all(item => type(item) == path or type(item) == bytes)
+} else {
+  type(source) == path or type(source) == bytes
+}
+
 #let publication(path, styletype) = {
+  assert(
+    _is-portable-bibliography-source(path),
+    message: "publication source must be created in the calling document with path(\"bib.bib\"), or supplied as raw bytes",
+  )
   set text(11pt, font: font_info, fill: primary_colour, weight: "light")
   bibliography(path, title: none, full: true, style: styletype)
 }
@@ -307,9 +317,9 @@
       baseline: 2pt,
     )
     contacts.map(contact =>{
-      if contact.link == none [
+      if not ("link" in contact) or contact.link == none or contact.link == "" {
         contact.text
-      ] else {
+      } else {
         link(contact.link)[#{ contact.text }]
       }
     }).join(" | ")
@@ -320,7 +330,7 @@
       #lastupdate(lastupdated, date)
       #h(1fr)
       #if pagecount == "true" {
-        text(9pt, font: "Helvetica", fill: primary_colour, weight: "light")[#counter(page).display("1 / 1", both: true)]
+        text(9pt, font: "Helvetica", fill: primary_colour, weight: "light")[#context counter(page).display("1 / 1", both: true)]
       }
     ],
   )
@@ -380,9 +390,9 @@
       baseline: 2pt,
     )
     contacts.map(contact =>{
-      if contact.link == none [
+      if not ("link" in contact) or contact.link == none or contact.link == "" {
         contact.text
-      ] else {
+      } else {
         link(contact.link)[#{ contact.text }]
       }
     }).join(" | ")
@@ -435,9 +445,9 @@
       baseline: 2pt,
     )
     contacts.map(contact =>{
-      if contact.link == none [
+      if not ("link" in contact) or contact.link == none or contact.link == "" {
         contact.text
-      ] else {
+      } else {
         link(contact.link)[#{ contact.text }]
       }
     }).join(" | ")

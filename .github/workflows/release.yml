@@ -35,6 +35,9 @@ jobs:
           test "$package_version" = "$GITHUB_REF_NAME"
           typst compile example_single.typ /tmp/cv-single.pdf
           typst compile example_double.typ /tmp/cv-double.pdf
+          typst compile --root . legacy/example-single-legacy.typ /tmp/cv-single-legacy.pdf
+          typst compile --root . legacy/example-double-legacy.typ /tmp/cv-double-legacy.pdf
+          typst compile --root . legacy/coverletter-legacy.typ /tmp/coverletter-legacy.pdf
 
       - name: Build release archives
         shell: bash

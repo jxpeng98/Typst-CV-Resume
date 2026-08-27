@@ -15,7 +15,9 @@ For a matching letter and statement template, see
 [modernpro-coverletter](https://typst.app/universe/package/modernpro-coverletter). The two
 packages share a design system and take the same `profile` shape, so a CV, a
 cover letter, and a research statement read as one application. Each starter
-keeps that dictionary inline so the document remains self-contained.
+keeps that dictionary inline so the document remains self-contained. An
+optional `photo` is a CV-only presentation detail; letter and statement
+templates ignore it.
 
 ## Preview
 
@@ -42,7 +44,7 @@ page and do not rely on it when automated PDF extraction matters.
 Create and compile a project with the Typst CLI:
 
 ```bash
-typst init @preview/modernpro-cv:2.0.0
+typst init @preview/modernpro-cv:2.1.0
 cd modernpro-cv
 typst compile cv-single.typ
 ```
@@ -84,8 +86,7 @@ downstream document, not in a public template fork.
 same file so identity, content, and presentation stay together:
 
 ```typst
-#import "@preview/modernpro-cv:2.0.0": *
-
+#import "@preview/modernpro-cv:2.1.0": *
 #let profile = (
   name: [Dr. Maya Chen],
   role: [Lecturer in Computational Social Science],
@@ -158,7 +159,7 @@ Everything beyond `profile` is optional:
 
 | Setting | Values | Purpose |
 | --- | --- | --- |
-| `profile` | `name`, optional `role`, `address`, `contacts` | Who you are |
+| `profile` | `name`, optional `role`, `address`, `contacts`, `photo` | Who you are |
 | `preset` | `"compact"`, `"default"`, `"relaxed"` | The whole vertical rhythm |
 | `accent` | any colour | The one colour in the document |
 | `columns` | `1` or `2` | Single-column CV, or the compact variant |
@@ -245,6 +246,40 @@ requires the corresponding Font Awesome desktop fonts. Omit `icon` for the
 lowest-friction, ATS-first setup. Icons should supplement familiar labels, not
 replace them.
 
+## Optional profile photo
+
+Pass a ready-to-render image as `profile.photo`. The default 16 x 20 mm portrait
+uses a formal 4:5 crop, square corners, and the same hairline border as the rest
+of the document:
+
+```typst
+#let profile = (
+  name: [Dr. Maya Chen],
+  role: [Lecturer in Computational Social Science],
+  address: [Edinburgh, United Kingdom],
+  photo: image(
+    "portrait.jpg",
+    width: 16mm,
+    height: 20mm,
+    fit: "cover",
+    alt: "Portrait of Dr. Maya Chen",
+  ),
+  contacts: (
+    (text: [maya\@northbridge.example], link: "mailto:maya@northbridge.example"),
+  ),
+)
+```
+
+The image is resolved in the CV document, then placed at the right edge of the
+first-page header. This masthead is identical in single- and two-column CVs;
+only the body grid changes. When a photo is present, identity and inline
+contacts form one left-hand group while the portrait anchors the right edge;
+the masthead grows from 17 mm to 20 mm.
+The field accepts any Typst content, including a simple initials placeholder.
+It is not repeated in continuation headers. Omit `photo` for ATS submissions
+or applications where photographs are discouraged; cover letters and
+statements keep the shared typography and rule without repeating the image.
+
 ## Academic content helpers
 
 Use one small helper for each kind of content:
@@ -288,8 +323,7 @@ Use only the sections that strengthen the document.
 canonical CV. Only the page structure changes.
 
 ```typst
-#import "@preview/modernpro-cv:2.0.0": *
-
+#import "@preview/modernpro-cv:2.1.0": *
 #let profile = (
   name: [Dr. Maya Chen],
   role: [Lecturer in Computational Social Science],
@@ -449,6 +483,18 @@ at the end of the document:
 #show bibliography: none
 #bibliography("bib.bib", style: "chicago-author-date")
 ```
+
+The legacy `publication` helper remains available. Because imported packages
+cannot construct paths into the calling project, resolve the path in the CV
+file before passing it to the helper:
+
+```typst
+#publication(path("bib.bib"), "chicago-author-date")
+```
+
+The helper also accepts raw bibliography bytes or an array of resolved paths
+and bytes. It rejects bare path strings because those would resolve inside the
+installed package rather than beside the CV document.
 
 ### Legacy API
 

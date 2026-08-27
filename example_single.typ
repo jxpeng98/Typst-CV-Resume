@@ -8,12 +8,17 @@
     name: [Dr. Maya Chen],
     role: [Lecturer in Computational Social Science],
     address: [Edinburgh, United Kingdom],
+    photo: box(width: 18mm, height: 22.5mm, fill: rgb("#edf2f7"))[
+      #set align(center + horizon)
+      #text(11pt, fill: rgb("#1e3a5f"), weight: "bold")[MC]
+    ],
     contacts: (
       (text: [maya\@northbridge.example], link: "mailto:maya@northbridge.example"),
       (text: [maya.example.org], link: "https://maya.example.org"),
       (text: [ORCID~0000-0000-0000-0000], link: "https://orcid.org/0000-0000-0000-0000"),
     ),
   ),
+  theme: (photo-width: 18mm, photo-height: 22.5mm),
   options: (date: "2026-07-10"),
 )
 

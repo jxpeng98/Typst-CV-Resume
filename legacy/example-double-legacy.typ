@@ -67,5 +67,5 @@
     #sectionsep
     // Publication
     #section("Publications")
-    #publication("bib.bib", "chicago-author-date") ],
+    #publication(path("bib.bib"), "chicago-author-date") ],
 )

@@ -1,11 +1,11 @@
-#import "@preview/modernpro-cv:2.0.0": *
-
+#import "@preview/modernpro-cv:2.1.0": *
 // Edit identity and contacts here. Keeping them beside the CV content makes
 // this starter a self-contained document with no application-specific imports.
 #let profile = (
   name: [Your Name],
   role: [Your Current Role],
   address: [City, Country],
+  // photo: image("portrait.jpg", width: 16mm, height: 20mm, fit: "cover", alt: "Portrait of Your Name"),
   contacts: (
     (text: [you\@example.edu], link: "mailto:you@example.edu"),
     (text: [your-site.example], link: "https://your-site.example"),

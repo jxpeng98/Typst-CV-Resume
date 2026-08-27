@@ -10,7 +10,7 @@
   pagecount: "true",
   date: "2023.4.7",
   contacts: (
-    (text: "08856", link: ""),
+    (text: "08856"),
     (text: "example.com", link: "https://www.example.com"),
     (text: "github.com", link: "https://www.github.com"),
     (text: "123@example.com", link: "mailto:123@example.com"),
@@ -69,4 +69,4 @@
 #sectionsep
 // Publication
 #section("Publications")
-#publication("bib.bib", "chicago-author-date")
+#publication(path("bib.bib"), "chicago-author-date")

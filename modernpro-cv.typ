@@ -4,8 +4,8 @@
 // Copyright (c) 2026
 // Author:  Academic Template Collective
 // License: MIT
-// Version: 2.0.0
-// Date:    2026-07-30
+// Version: 2.1.0
+// Date:    2026-08-27
 // Email:   maintainers@example.invalid
 ///////////////////////////////
 
@@ -35,6 +35,8 @@
   contact-icon-size: 7.6pt,
   contact-icon-width: 9pt,
   contact-icon-gap: 4pt,
+  photo-width: 16mm,
+  photo-height: 20mm,
 
   section-gap: 1.08em,
   section-content-gap: 0.7em,
@@ -426,8 +428,21 @@
 
 #let reference-list = references
 
+// Paths constructed inside an imported package are confined to that package.
+// Require callers to resolve bibliography resources in their own document with
+// `path("bib.bib")`, or to pass raw bytes, before crossing the package boundary.
+#let _is-portable-bibliography-source(source) = if type(source) == array {
+  source.all(item => type(item) == path or type(item) == bytes)
+} else {
+  type(source) == path or type(source) == bytes
+}
+
 // Publications
 #let publication(path, styletype) = {
+  assert(
+    _is-portable-bibliography-source(path),
+    message: "publication source must be created in the calling document with path(\"bib.bib\"), or supplied as raw bytes",
+  )
   context {
     let style = cv-style.get()
     set text(style.body-size, fill: style.text)
@@ -521,7 +536,7 @@
       )
     } else {
       grid(
-        columns: 1fr,
+        columns: auto,
         row-gutter: style.header-row-gap,
         ..contacts.map(contact => align(right, _contact-label(contact, style))),
       )
@@ -622,6 +637,7 @@
     (accent, _option(theme, "accent", none)),
     default: default-cv-style.accent,
   )
+  let resolved-photo = _option(profile, "photo", none)
 
   let style = (
     text: _option(theme, "text", default-cv-style.text),
@@ -652,6 +668,8 @@
       "contact-icon-gap",
       _option(theme, "contact-icon-gap", default-cv-style.contact-icon-gap),
     ),
+    photo-width: _option(theme, "photo-width", default-cv-style.photo-width),
+    photo-height: _option(theme, "photo-height", default-cv-style.photo-height),
     footer-size: _option(theme, "footer-size", default-cv-style.footer-size),
     reference-size: _option(theme, "reference-size", default-cv-style.reference-size),
     section-gap: _option(layout, "section-gap", _option(theme, "section-gap", rhythm.section-gap)),
@@ -679,6 +697,7 @@
     role: _option-any(profile, ("role", "headline", "position"), none),
     address: _option(profile, "address", address),
     contacts: _option(profile, "contacts", contacts),
+    photo: resolved-photo,
     lastupdated: as-bool(_option-any(options, ("lastupdated", "last-updated"), lastupdated)),
     pagecount: as-bool(_option-any(options, ("pagecount", "page-count"), pagecount)),
     date: resolved-date,
@@ -686,7 +705,11 @@
     column-gutter: _option(layout, "column-gutter", 1.8em),
     contact-layout: _option(layout, "contact-layout", "stacked"),
     preset: resolved-preset,
-    header-height: _option(layout, "header-height", 17mm),
+    header-height: _option(
+      layout,
+      "header-height",
+      if is-filled(resolved-photo) { style.photo-height } else { 17mm },
+    ),
     header-ascent: _option(layout, "header-ascent", 0.8em),
   )
 }
@@ -734,24 +757,68 @@
   } else {
     contact-stack(cfg.contacts)
   }
+  let has-photo = is-filled(cfg.photo)
+  let photo-frame = if has-photo {
+    box(
+      width: style.photo-width,
+      height: style.photo-height,
+      inset: 0pt,
+      clip: true,
+    )[
+      #align(center + horizon, cfg.photo)
+    ]
+  }
+  let identity-block = grid(
+    columns: 1fr,
+    row-gutter: style.header-row-gap,
+    ..identity,
+  )
+  let header-content = if has-photo and cfg.contact-layout == "rail" {
+    let utility = if contact-block == none { [] } else { contact-block }
+    grid(
+      columns: (1fr, auto),
+      column-gutter: 1.4em,
+      align: horizon,
+      align(left + horizon, identity-block),
+      align(right + horizon, grid(
+        columns: (auto, auto),
+        column-gutter: 1em,
+        align: horizon,
+        utility,
+        photo-frame,
+      )),
+    )
+  } else if has-photo {
+    grid(
+      columns: (1fr, auto),
+      column-gutter: 1.4em,
+      align: top,
+      [
+        #identity-block
+        #if contact-block != none {
+          v(style.header-row-gap)
+          align(left, contact-display(cfg.contacts))
+        }
+      ],
+      align(right + top, photo-frame),
+    )
+  } else {
+    grid(
+      columns: (1.08fr, 1fr),
+      column-gutter: 1.4em,
+      align: bottom,
+      identity-block,
+      align(right + bottom, [
+        #if contact-block != none {
+          contact-block
+        }
+      ]),
+    )
+  }
 
   block(breakable: false)[
     #block(height: cfg.header-height, breakable: false)[
-      #align(bottom, grid(
-        columns: (1.08fr, 1fr),
-        column-gutter: 1.4em,
-        align: bottom,
-        grid(
-          columns: 1fr,
-          row-gutter: style.header-row-gap,
-          ..identity,
-        ),
-        align(right + bottom, [
-          #if contact-block != none {
-            contact-block
-          }
-        ]),
-      ))
+      #align(bottom, header-content)
     ]
     #v(style.header-rule-gap)
     #line(length: 100%, stroke: style.rule-stroke + style.accent)
