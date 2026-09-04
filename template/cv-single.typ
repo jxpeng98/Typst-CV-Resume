@@ -1,4 +1,4 @@
-#import "@preview/modernpro-cv:2.1.0": *
+#import "@preview/modernpro-cv:2.1.1": *
 // Edit identity and contacts here. Keeping them beside the CV content makes
 // this starter a self-contained document with no application-specific imports.
 #let profile = (
@@ -7,9 +7,9 @@
   address: [City, Country],
   // photo: image("portrait.jpg", width: 16mm, height: 20mm, fit: "cover", alt: "Portrait of Your Name"),
   contacts: (
-    (text: [you\@example.edu], link: "mailto:you@example.edu"),
-    (text: [your-site.example], link: "https://your-site.example"),
-    (text: [ORCID~0000-0000-0000-0000], link: "https://orcid.org/0000-0000-0000-0000"),
+    (text: [name\@candidate.invalid], link: "mailto:name@candidate.invalid"),
+    (text: [site.candidate.invalid], link: "https://site.candidate.invalid"),
+    (text: [Fictional ID~0000-0000], link: "https://registry.example.invalid/0000-0000"),
   ),
 )
 
@@ -79,7 +79,7 @@
     department: "Department",
     institution: "Institution",
     address: "City, Country",
-    email: "referee@example.edu",
+    email: "referee.one@referee.invalid",
   ),
   (
     name: "Second Referee",
@@ -87,6 +87,6 @@
     department: "Department",
     institution: "Institution",
     address: "City, Country",
-    email: "second@example.edu",
+    email: "referee.two@referee.invalid",
   ),
 ))

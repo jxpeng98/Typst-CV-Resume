@@ -4,8 +4,8 @@
 // Copyright (c) 2026
 // Author:  Academic Template Collective
 // License: MIT
-// Version: 2.1.0
-// Date:    2026-08-27
+// Version: 2.1.1
+// Date:    2026-09-04
 // Email:   maintainers@example.invalid
 ///////////////////////////////
 
@@ -38,16 +38,16 @@
   photo-width: 16mm,
   photo-height: 20mm,
 
-  section-gap: 1.08em,
-  section-content-gap: 0.7em,
-  item-gap: 0.98em,
-  entry-row-gap: 0.58em,
-  description-gap: 0.66em,
-  header-row-gap: 2.4pt,
-  header-rule-gap: 6pt,
-  header-content-gap: 10pt,
-  body-leading: 0.66em,
-  list-spacing: 0.3em,
+  section-gap: 1.3em,
+  section-content-gap: 0.85em,
+  item-gap: 1.2em,
+  entry-row-gap: 0.7em,
+  description-gap: 0.78em,
+  header-row-gap: 3pt,
+  header-rule-gap: 7pt,
+  header-content-gap: 12pt,
+  body-leading: 0.8em,
+  list-spacing: 0.4em,
   rule-stroke: 0.4pt,
   section-tracking: 0.08em,
 )
@@ -69,16 +69,16 @@
   )
 } else if preset == "relaxed" or preset == "spacious" {
   (
-    section-gap: 1.3em,
-    section-content-gap: 0.82em,
-    item-gap: 1.2em,
-    entry-row-gap: 0.68em,
-    description-gap: 0.76em,
-    header-row-gap: 3pt,
-    header-rule-gap: 7pt,
-    header-content-gap: 11pt,
-    body-leading: 0.74em,
-    list-spacing: 0.32em,
+    section-gap: 1.6em,
+    section-content-gap: 1.05em,
+    item-gap: 1.5em,
+    entry-row-gap: 0.88em,
+    description-gap: 0.96em,
+    header-row-gap: 3.6pt,
+    header-rule-gap: 8pt,
+    header-content-gap: 14pt,
+    body-leading: 0.95em,
+    list-spacing: 0.55em,
   )
 } else {
   (
@@ -131,17 +131,16 @@
 // restores a shared baseline and survives a title that wraps.
 #let _cap-shift(style) = 0.7 * (style.item-title-size - style.small-size)
 
-// Structural gaps are explicit, which drops the weak paragraph and block
-// spacing next to them. Every vertical distance therefore comes from exactly
-// one rhythm token rather than stacking on Typst's defaults.
+// Structural gaps are weak so an entry's trailing gap and the following
+// section gap collapse to the larger value instead of stacking.
 #let sectionsep = context {
   let style = cv-style.get()
-  v(style.section-gap)
+  v(style.section-gap, weak: true)
 }
 
 #let subsectionsep = context {
   let style = cv-style.get()
-  v(style.item-gap)
+  v(style.item-gap, weak: true)
 }
 
 // Section headings (Education, Experience, etc). Case, weight, colour, and the
@@ -257,7 +256,7 @@
 
 #let _entry-finish() = context {
   let style = cv-style.get()
-  v(style.item-gap)
+  v(style.item-gap, weak: true)
 }
 
 // Education part
@@ -384,7 +383,7 @@
       text(style.body-size, fill: style.text)[#label],
       align(right, text(style.small-size, fill: style.muted)[#date]),
     )
-    v(style.entry-row-gap)
+    v(style.entry-row-gap, weak: true)
   }
 }
 

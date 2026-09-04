@@ -1,5 +1,18 @@
 # Changelog
 
+## [2.1.1] - 2026-09-04
+
+### Fixed
+
+- Made entry and section separators weak so their spacing collapses to one
+  rhythm token, keeping every section transition consistent.
+
+### Changed
+
+- Opened the default and relaxed line and section rhythm for more readable CVs.
+- Replaced example, starter, legacy, bibliography, and preview content with
+  explicitly fictional Exampleland data and reserved `.invalid` addresses.
+
 ## [2.1.0] - 2026-08-27
 
 ### Added

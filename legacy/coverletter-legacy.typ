@@ -6,10 +6,10 @@
   name: [#lorem(2)], //name:"" or name:[]
   address: [#lorem(4)],
   contacts: (
-    (text: "08856", link: ""),
-    (text: "example.com", link: "https://www.example.com"),
-    (text: "github.com", link: "https://www.github.com"),
-    (text: "123@example.com", link: "mailto:123@example.com"),
+    (text: "00000", link: ""),
+    (text: "site.candidate.invalid", link: "https://site.candidate.invalid"),
+    (text: "profile.candidate.invalid", link: "https://profile.candidate.invalid"),
+    (text: "name@candidate.invalid", link: "mailto:name@candidate.invalid"),
   ),
   recipient: (
     starttitle: "Dear",

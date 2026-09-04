@@ -44,7 +44,7 @@ page and do not rely on it when automated PDF extraction matters.
 Create and compile a project with the Typst CLI:
 
 ```bash
-typst init @preview/modernpro-cv:2.1.0
+typst init @preview/modernpro-cv:2.1.1
 cd modernpro-cv
 typst compile cv-single.typ
 ```
@@ -76,9 +76,9 @@ app.
    line of each page.
 5. Use `cv-double.typ` only if you also need a compact one-page version.
 
-The repository examples intentionally use reserved domains, an all-zero ORCID,
-and fictional people and institutions. Put real information only in your own
-downstream document, not in a public template fork.
+The repository examples use explicit Placeholder entities from Exampleland and
+reserved `.invalid` domains. Put real information only in your own downstream
+document, not in a public template fork.
 
 ## Minimal academic CV
 
@@ -86,15 +86,15 @@ downstream document, not in a public template fork.
 same file so identity, content, and presentation stay together:
 
 ```typst
-#import "@preview/modernpro-cv:2.1.0": *
+#import "@preview/modernpro-cv:2.1.1": *
 #let profile = (
-  name: [Dr. Maya Chen],
-  role: [Lecturer in Computational Social Science],
-  address: [Edinburgh, United Kingdom],
+  name: [Dr. Nova Placeholder],
+  role: [Lecturer in Speculative Systems],
+  address: [Sample City, Exampleland],
   contacts: (
-    (text: [maya\@northbridge.example], link: "mailto:maya@northbridge.example"),
-    (text: [maya.example.org], link: "https://maya.example.org"),
-    (text: [ORCID~0000-0000-0000-0000], link: "https://orcid.org/0000-0000-0000-0000"),
+    (text: [nova\@candidate.invalid], link: "mailto:nova@candidate.invalid"),
+    (text: [nova.candidate.invalid], link: "https://nova.candidate.invalid"),
+    (text: [Fictional ID~0000-0000], link: "https://registry.example.invalid/0000-0000"),
   ),
 )
 
@@ -102,34 +102,33 @@ same file so identity, content, and presentation stay together:
 
 #section("Research Profile")
 #summary[
-  Computational social scientist studying how public institutions evaluate
-  data-intensive systems.
+  Researcher studying imaginary institutions and simulated decision engines.
 ]
 #section-gap
 
 #section("Academic Appointments")
 #experience(
-  title: "Lecturer in Computational Social Science",
-  institution: [Northbridge University],
-  location: "Edinburgh, UK",
-  date: "2023-present",
+  title: "Lecturer in Speculative Systems",
+  institution: [Exampleland University],
+  location: "Sample City, Exampleland",
+  date: "20XY-present",
 )
 #section-gap
 
 #section("Education")
 #education(
-  institution: [University of Wessex],
-  major: [PhD in Information Studies],
-  date: "2016-2020",
-  location: "Bristol, UK",
+  institution: [Placeholder Institute],
+  major: [PhD in Speculative Systems],
+  date: "20XS-20XW",
+  location: "Demo Harbour, Exampleland",
 )
 #section-gap
 
 #section("Selected Publications")
 #entry(
-  title: [Governing high-stakes models through public audit],
-  right: "2025",
-  meta: [M. Chen and A. Rahman, Journal of Responsible Data 8(2)],
+  title: [Governing imaginary models through simulated review],
+  right: "20YY",
+  meta: [N. Placeholder and A. Example, Journal of Imaginary Systems 8(2)],
 )
 ```
 
@@ -209,15 +208,15 @@ clean. A contact can be linked or unlinked:
 
 ```typst
 contacts: (
-  (text: [maya\@northbridge.example], link: "mailto:maya@northbridge.example"),
-  (text: [maya.example.org], link: "https://maya.example.org"),
-  [Edinburgh, United Kingdom],
+  (text: [nova\@candidate.invalid], link: "mailto:nova@candidate.invalid"),
+  (text: [nova.candidate.invalid], link: "https://nova.candidate.invalid"),
+  [Sample City, Exampleland],
 )
 ```
 
 Escape `@` as `\@` inside Typst content. Two or three concise contacts usually
-fit best; email, a personal or institutional website, and ORCID are good
-academic defaults.
+fit best; email, a personal or institutional website, and a researcher
+identifier are good academic defaults.
 
 For a human-facing version, add an optional `icon` field. The template accepts
 any Typst content and keeps the icon in a small fixed column, so the labels stay
@@ -229,13 +228,13 @@ aligned and remain fully searchable:
 contacts: (
   (
     icon: fa-icon("envelope", solid: true, top-edge: "baseline"),
-    text: [maya\@northbridge.example],
-    link: "mailto:maya@northbridge.example",
+    text: [nova\@candidate.invalid],
+    link: "mailto:nova@candidate.invalid",
   ),
   (
-    icon: fa-icon("orcid", top-edge: "baseline"),
-    text: [ORCID~0000-0000-0000-0000],
-    link: "https://orcid.org/0000-0000-0000-0000",
+    icon: fa-icon("id-badge", solid: true, top-edge: "baseline"),
+    text: [Fictional ID~0000-0000],
+    link: "https://registry.example.invalid/0000-0000",
   ),
 )
 ```
@@ -256,18 +255,18 @@ of the document:
 
 ```typst
 #let profile = (
-  name: [Dr. Maya Chen],
-  role: [Lecturer in Computational Social Science],
-  address: [Edinburgh, United Kingdom],
+  name: [Dr. Nova Placeholder],
+  role: [Lecturer in Speculative Systems],
+  address: [Sample City, Exampleland],
   photo: image(
     "portrait.jpg",
     width: 16mm,
     height: 20mm,
     fit: "cover",
-    alt: "Portrait of Dr. Maya Chen",
+    alt: "Portrait of the fictional candidate",
   ),
   contacts: (
-    (text: [maya\@northbridge.example], link: "mailto:maya@northbridge.example"),
+    (text: [nova\@candidate.invalid], link: "mailto:nova@candidate.invalid"),
   ),
 )
 ```
@@ -325,14 +324,14 @@ Use only the sections that strengthen the document.
 canonical CV. Only the page structure changes.
 
 ```typst
-#import "@preview/modernpro-cv:2.1.0": *
+#import "@preview/modernpro-cv:2.1.1": *
 #let profile = (
-  name: [Dr. Maya Chen],
-  role: [Lecturer in Computational Social Science],
-  address: [Edinburgh, United Kingdom],
+  name: [Dr. Nova Placeholder],
+  role: [Lecturer in Speculative Systems],
+  address: [Sample City, Exampleland],
   contacts: (
-    (text: [maya\@northbridge.example], link: "mailto:maya@northbridge.example"),
-    (text: [maya.example.org], link: "https://maya.example.org"),
+    (text: [nova\@candidate.invalid], link: "mailto:nova@candidate.invalid"),
+    (text: [nova.candidate.invalid], link: "https://nova.candidate.invalid"),
   ),
 )
 
@@ -341,19 +340,19 @@ canonical CV. Only the page structure changes.
   columns: 2,
   left: [
     #section("Research Focus")
-    #summary[Algorithmic accountability and digital government.]
+    #summary[Imaginary governance and simulated decision engines.]
     #section-gap
 
     #section("Methods")
-    #detail-line(title: "Methods", content: [causal inference, audit studies])
+    #detail-line(title: "Methods", content: [synthetic trials, mock audits])
   ],
   right: [
     #section("Academic Appointments")
     #experience(
-      title: "Lecturer in Computational Social Science",
-      institution: [Northbridge University],
-      location: "Edinburgh, UK",
-      date: "2023-present",
+      title: "Lecturer in Speculative Systems",
+      institution: [Exampleland University],
+      location: "Sample City, Exampleland",
+      date: "20XY-present",
     )
   ],
 )
@@ -454,10 +453,10 @@ reorder or conditionally hide sections, use `section-block` and
   ],
   section-block("education", title: "Education")[
     #education(
-      institution: [University of Wessex],
-      major: [PhD in Information Studies],
-      date: "2016-2020",
-      location: "Bristol, UK",
+      institution: [Placeholder Institute],
+      major: [PhD in Speculative Systems],
+      date: "20XS-20XW",
+      location: "Demo Harbour, Exampleland",
     )
   ],
 )

@@ -5,12 +5,12 @@
   name: [#lorem(2)], //name:"" or name:[]
   address: [#lorem(4)],
   lastupdated: "true",
-  date: "2023.4.7",
+  date: "20ZZ.01.01",
   contacts: (
-    (text: "08856", link: ""),
-    (text: "example.com", link: "https://www.example.com"),
-    (text: "github.com", link: "https://www.github.com"),
-    (text: "123@example.com", link: "mailto:123@example.com"),
+    (text: "00000", link: ""),
+    (text: "site.candidate.invalid", link: "https://site.candidate.invalid"),
+    (text: "profile.candidate.invalid", link: "https://profile.candidate.invalid"),
+    (text: "name@candidate.invalid", link: "mailto:name@candidate.invalid"),
   ),
   [ // Left
     //About
@@ -19,31 +19,31 @@
     #sectionsep
     #section("Education")
     #subsection[#lorem(4)\ ]
-    #term[xxxx-xxxx][UK]
+    #term[xxxx-xxxx][Exampleland]
     #subsectionsep
     #subsection[#lorem(4)\ ]
-    #term[xxxx-xxxx][UK]
+    #term[xxxx-xxxx][Exampleland]
     #sectionsep
     #section("Skills")
-    #descript("Programming Languages")
-    #info[Python, C++, Java, JavaScript, HTML, CSS, SQL, LaTeX]
+    #descript("Fictional Languages")
+    #info[Language Alpha, Language Beta, Language Gamma, Language Delta]
     #subsectionsep
     #descript("Frameworks")
-    #info[React, Node.js, Express, Flask, Django, Bootstrap, jQuery]
+    #info[Framework Alpha, Framework Beta, Framework Gamma]
     #subsectionsep
     #descript("Tools")
-    #info[Git, GitHub, Docker, AWS, Heroku, MongoDB, MySQL, PostgreSQL, Redis, Linux]
+    #info[Tool Alpha, Tool Beta, Tool Gamma, Tool Delta]
     #sectionsep
     // Award
     #section("Awards")
-    #awarddetail[2018][Scholarship][University]
-    #awarddetail[2017][Grant][Organisation]
-    #awarddetail[2016][Scholarship][University]
+    #awarddetail[20YY][Fictional Scholarship][Exampleland University]
+    #awarddetail[20YX][Sample Grant][Placeholder Organisation]
+    #awarddetail[20YW][Fictional Scholarship][Exampleland University]
     #sectionsep ],
   [ // Right
     //Experience
     #section("Experience")
-    #jobtitle[#lorem(4)][#lorem(2)][xxxx-xxxx][UK]
+    #jobtitle[#lorem(4)][#lorem(2)][xxxx-xxxx][Exampleland]
     #jobdetail[
       - #lorem(10)
       - #lorem(10)

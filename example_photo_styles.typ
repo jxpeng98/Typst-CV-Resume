@@ -2,7 +2,8 @@
 #import "@preview/fontawesome:0.6.2": fa-icon
 
 // Render with: typst compile --input photo-style=flat|material|glass|harmonious|classic ...
-// All people, institutions, publications, and claims in this example are fictional.
+// Every person, place, institution, publication, identifier, and claim below
+// is an explicit placeholder from the invented setting of Exampleland.
 #let variant = sys.inputs.at("photo-style", default: "flat")
 #assert(
   ("flat", "material", "glass", "harmonious", "classic").contains(variant),
@@ -58,18 +59,18 @@
 #let contacts = (
   (
     icon: fa-icon("envelope", solid: true, top-edge: "baseline"),
-    text: [maya\@northbridge.example],
-    link: "mailto:maya@northbridge.example",
+    text: [nova\@candidate.invalid],
+    link: "mailto:nova@candidate.invalid",
   ),
   (
     icon: fa-icon("globe", solid: true, top-edge: "baseline"),
-    text: [maya.example.org],
-    link: "https://maya.example.org",
+    text: [nova.candidate.invalid],
+    link: "https://nova.candidate.invalid",
   ),
   (
-    icon: fa-icon("orcid", top-edge: "baseline"),
-    text: [ORCID~0000-0000-0000-0000],
-    link: "https://orcid.org/0000-0000-0000-0000",
+    icon: fa-icon("id-badge", solid: true, top-edge: "baseline"),
+    text: [Fictional ID~0000-0000],
+    link: "https://registry.example.invalid/0000-0000",
   ),
 )
 
@@ -108,7 +109,7 @@
       place(left + top, rect(width: 1.2mm, height: 21mm, fill: palette.accent))
     }
     #align(center + horizon)[
-      #text(11pt, fill: tokens.monogram, weight: "bold")[MC]
+      #text(11pt, fill: tokens.monogram, weight: "bold")[NP]
     ]
   ]
 
@@ -134,17 +135,17 @@
 #let editorial = ("harmonious", "classic").contains(variant)
 #let example-profile = if editorial {
   (
-    name: [Dr. Maya Chen],
-    role: [Lecturer in Computational Social Science],
-    address: [Edinburgh, United Kingdom],
+    name: [Dr. Nova Placeholder],
+    role: [Lecturer in Speculative Systems],
+    address: [Sample City, Exampleland],
     contacts: if variant == "classic" { classic-contacts } else { contacts },
     photo: harmonious-photo,
   )
 } else {
   (
-    name: [Dr. Maya Chen],
-    role: [Lecturer in Computational Social Science],
-    address: [Edinburgh, United Kingdom],
+    name: [Dr. Nova Placeholder],
+    role: [Lecturer in Speculative Systems],
+    address: [Sample City, Exampleland],
     contacts: (),
     photo: profile-module(variant),
   )
@@ -162,101 +163,101 @@
   } else {
     none
   },
-  options: (date: "2026-07-10"),
+  options: (date: "20ZZ-01-01"),
 )
 
 #section("Research Profile")
 #summary[
-  Computational social scientist studying how public institutions evaluate and
-  govern data-intensive systems. My work combines audit studies, causal
-  inference, and participatory design to make automated decisions more
-  transparent and accountable.
+  Researcher in a wholly invented setting studying how imaginary institutions
+  evaluate simulated decision engines. The programme combines synthetic audits,
+  counterfactual trials, and staged workshops; it describes no real person,
+  place, institution, or project.
 ]
 #section-gap
 
 #section("Academic Appointments")
 #experience(
-  title: "Lecturer in Computational Social Science",
-  institution: [Northbridge University, School of Social and Political Science],
-  location: "Edinburgh, UK",
-  date: "2023-present",
+  title: "Lecturer in Speculative Systems",
+  institution: [Exampleland University, School of Imaginary Studies],
+  location: "Sample City, Exampleland",
+  date: "20XY-present",
   details: [
-    - Lead the Civic AI Lab and supervise research on algorithmic accountability.
+    - Lead the Placeholder Systems Lab and supervise entirely simulated studies.
   ],
 )
 #experience(
-  title: "Research Fellow in Digital Society",
-  institution: [University of Wessex, Centre for Digital Society],
-  location: "Bristol, UK",
-  date: "2020-2023",
+  title: "Research Fellow in Imaginary Governance",
+  institution: [Placeholder Institute, Centre for Simulated Society],
+  location: "Demo Harbour, Exampleland",
+  date: "20XW-20XY",
 )
 #section-gap
 
 #section("Education")
 #education(
-  institution: [University of Wessex],
-  major: [PhD in Information Studies],
-  date: "2016-2020",
-  location: "Bristol, UK",
-  description: [Thesis: Auditing automated decisions in local public services.],
+  institution: [Exampleland University],
+  major: [PhD in Speculative Systems],
+  date: "20XS-20XW",
+  location: "Sample City, Exampleland",
+  description: [Thesis: Auditing imaginary decisions in fictional civic services.],
 )
 #education(
-  institution: [Westford Institute of Technology],
-  major: [MSc in Data Science, with distinction],
-  date: "2014-2015",
-  location: "Manchester, UK",
+  institution: [Placeholder Institute of Technology],
+  major: [MSc in Model Studies, with fictional distinction],
+  date: "20XQ-20XR",
+  location: "Demo Harbour, Exampleland",
 )
 #section-gap
 
 #section("Selected Publications")
 #entry(
-  title: [Governing high-stakes models through public audit],
-  right: "2025",
-  meta: [M. Chen and A. Rahman, Journal of Responsible Data 8(2)],
+  title: [Governing imaginary models through simulated review],
+  right: "20YY",
+  meta: [N. Placeholder and A. Example, Journal of Imaginary Systems 8(2)],
 )
 #entry(
-  title: [When explanations change institutional decisions],
-  right: "2023",
-  meta: [M. Chen, L. Okafor, and J. Bell, Digital Government Review 12(4)],
+  title: [When sample explanations change fictional decisions],
+  right: "20YX",
+  meta: [N. Placeholder, R. Sample, and T. Demo, Simulated Governance Review 12(4)],
 )
 #section-gap
 
 #section("Research Funding")
 #entry(
-  title: [Trustworthy Civic AI],
-  right: "2024-2027",
-  meta: [Northland Research Council New Investigator Award; Principal Investigator],
-  location: [GBP 318,000],
+  title: [Imaginary Civic Systems],
+  right: "20YY-20ZZ",
+  meta: [Exampleland Fictional Research Council; Lead Investigator],
+  location: [318,000 example credits],
 )
 #section-gap
 
 #section("Teaching and Service")
 #detail-line(
   title: "Teaching",
-  content: [Course lead for Computational Research Methods; MSc dissertation supervision.],
+  content: [Course lead for Speculative Research Methods; sample-project supervision.],
 )
 #detail-line(
   title: "Service",
-  content: [Programme committee, Conference on Public Interest Technology; departmental ethics panel.],
+  content: [Programme committee, Fictional Systems Symposium; placeholder review panel.],
 )
 #section-gap
 
 #section("References")
 #reference-list(references: (
   (
-    name: "Professor Alice Morgan",
-    position: "Chair in Digital Society",
-    department: "School of Information",
-    institution: "University of Wessex",
-    address: "Bristol, United Kingdom",
-    email: "alice.morgan@wessex.example",
+    name: "Professor Robin Sample",
+    position: "Chair in Imaginary Systems",
+    department: "School of Placeholder Studies",
+    institution: "Exampleland University",
+    address: "Sample City, Exampleland",
+    email: "robin.sample@referee.invalid",
   ),
   (
-    name: "Professor Daniel Okafor",
-    position: "Director, Civic Data Institute",
-    department: "Department of Public Policy",
-    institution: "Northbridge University",
-    address: "Edinburgh, United Kingdom",
-    email: "daniel.okafor@northbridge.example",
+    name: "Professor Taylor Demo",
+    position: "Director, Simulated Policy Institute",
+    department: "Department of Fictional Policy",
+    institution: "Placeholder Institute",
+    address: "Demo Harbour, Exampleland",
+    email: "taylor.demo@referee.invalid",
   ),
 ))
