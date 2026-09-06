@@ -34,7 +34,8 @@
   location: "Sample City, Exampleland",
   date: "20XY-present",
   details: [
-    - Lead the Placeholder Systems Lab and supervise entirely simulated studies.
+    - Lead the Placeholder Systems Lab and supervise entirely simulated studies. Teach courses on speculative research methods and fictional civic systems.
+    - Serve on the programme committee for the annual Fictional Systems Symposium and review panel for the Exampleland Fictional Research Council.
   ],
 )
 #experience(
