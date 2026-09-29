@@ -44,7 +44,7 @@ page and do not rely on it when automated PDF extraction matters.
 Create and compile a project with the Typst CLI:
 
 ```bash
-typst init @preview/modernpro-cv:2.1.1
+typst init @preview/modernpro-cv:2.1.2
 cd modernpro-cv
 typst compile cv-single.typ
 ```
@@ -86,7 +86,7 @@ document, not in a public template fork.
 same file so identity, content, and presentation stay together:
 
 ```typst
-#import "@preview/modernpro-cv:2.1.1": *
+#import "@preview/modernpro-cv:2.1.2": *
 #let profile = (
   name: [Dr. Nova Placeholder],
   role: [Lecturer in Speculative Systems],
@@ -203,6 +203,8 @@ in the ladder.
 
 ## Contacts
 
+The adaptive header improvements described below are available in version 2.1.2.
+
 Contacts are plain text by default, keeping the header quiet and PDF extraction
 clean. A contact can be linked or unlinked:
 
@@ -214,9 +216,40 @@ contacts: (
 )
 ```
 
-Escape `@` as `\@` inside Typst content. Two or three concise contacts usually
-fit best; email, a personal or institutional website, and a researcher
-identifier are good academic defaults.
+Escape `@` as `\@` inside Typst content (`[...]`). Quoted strings such as
+`"nova@candidate.invalid"` do not need that escape. Two or three concise contacts
+keep the header short, but five is not a limit: add the items you need in the
+order you want them to appear.
+
+### Sizing and wrapping
+
+`layout.header-height` is a **minimum**, not a fixed height or a limit. It
+defaults to 17 mm without a photo, or `theme.photo-height` (20 mm by default)
+with a photo. Additional contacts and wrapped lines expand the header; the
+divider and document body move down with it. Font sizes and row spacing stay
+at their configured values.
+
+Headers that fit retain their compact alignment. When content exceeds the
+minimum, side-by-side identity, contact, and photo blocks align at the top.
+Long email addresses and URLs can break at punctuation; an individual segment
+wider than its column can break between characters. The text is not truncated,
+no hyphens or invisible characters are added to copied labels, and link
+destinations stay unchanged.
+
+### Contact layouts
+
+| Profile | `layout.contact-layout` | First-page layout |
+| --- | --- | --- |
+| Without a photo | `"stacked"` (default) | Identity on the left; one contact per row on the right |
+| Without a photo | `"inline"` | Identity on the left; contacts flowing across lines on the right |
+| With a photo | `"stacked"` (default) or `"inline"` | Identity and inline contacts on the left; photo on the right |
+| With a photo | `"rail"` | Identity on the left; stacked contacts beside the photo on the right |
+
+Inline items stay together when they fit the available width; a longer item
+wraps within that width. The photo rail limits contact width to preserve space
+for the name. These layouts apply to both single- and two-column CVs.
+
+### Optional icons
 
 For a human-facing version, add an optional `icon` field. The template accepts
 any Typst content and keeps the icon in a small fixed column, so the labels stay
@@ -227,12 +260,12 @@ aligned and remain fully searchable:
 
 contacts: (
   (
-    icon: fa-icon("envelope", solid: true, top-edge: "baseline"),
+    icon: fa-icon("envelope", solid: true),
     text: [nova\@candidate.invalid],
     link: "mailto:nova@candidate.invalid",
   ),
   (
-    icon: fa-icon("id-badge", solid: true, top-edge: "baseline"),
+    icon: fa-icon("id-badge", solid: true),
     text: [Fictional ID~0000-0000],
     link: "https://registry.example.invalid/0000-0000",
   ),
@@ -245,11 +278,15 @@ requires the corresponding Font Awesome desktop fonts. Omit `icon` for the
 lowest-friction, ATS-first setup. Icons should supplement familiar labels, not
 replace them.
 
+Icons are centered by their visible glyph bounds within the label's first line,
+including when the label wraps. Font Awesome needs no `top-edge` adjustment;
+existing icons with `top-edge: "baseline"` also remain supported.
+Contacts without icons still line up with the other labels in a stacked list.
+
 ## Optional profile photo
 
 Pass a ready-to-render image as `profile.photo`. The default 16 x 20 mm portrait
-uses a formal 4:5 crop, square corners, and the same hairline border as the rest
-of the document:
+fits a 4:5 frame with square corners:
 
 [![Academic CV with an optional profile photo](screenshots/cv-photo-harmonious.png)](screenshots/cv-photo-harmonious.png)
 
@@ -274,8 +311,10 @@ of the document:
 The image is resolved in the CV document, then placed at the right edge of the
 first-page header. This masthead is identical in single- and two-column CVs;
 only the body grid changes. When a photo is present, identity and inline
-contacts form one left-hand group while the portrait anchors the right edge;
-the masthead grows from 17 mm to 20 mm.
+contacts form one left-hand group while the portrait anchors the right edge.
+The minimum header height defaults to the photo height, and the header can grow
+further to fit its content. Use the [photo rail recipe](#place-contacts-beside-a-photo)
+to put stacked contacts beside the portrait instead.
 The field accepts any Typst content, including a simple initials placeholder.
 It is not repeated in continuation headers. Omit `photo` for ATS submissions
 or applications where photographs are discouraged; cover letters and
@@ -324,7 +363,7 @@ Use only the sections that strengthen the document.
 canonical CV. Only the page structure changes.
 
 ```typst
-#import "@preview/modernpro-cv:2.1.1": *
+#import "@preview/modernpro-cv:2.1.2": *
 #let profile = (
   name: [Dr. Nova Placeholder],
   role: [Lecturer in Speculative Systems],
@@ -375,12 +414,44 @@ not preserve the intended reading order.
 
 ### Use inline contacts
 
+Without a photo, this changes the right-hand contact column into a wrapping
+inline list. With a photo, inline contacts below the identity are already the
+default.
+
 ```typst
 #show: cv.with(
   profile: profile,
   layout: (contact-layout: "inline"),
 )
 ```
+
+### Place contacts beside a photo
+
+Use a `profile` that includes `photo`, as in the example above:
+
+```typst
+#show: cv.with(
+  profile: profile,
+  layout: (contact-layout: "rail"),
+)
+```
+
+The contact column can wrap, and the photo keeps its configured dimensions.
+Without a photo, `"rail"` falls back to stacked contacts.
+
+### Give the header more room
+
+```typst
+#show: cv.with(
+  profile: profile,
+  layout: (header-height: 24mm),
+)
+```
+
+This reserves at least 24 mm before the divider. Taller content still expands
+the header; reducing this value does not compress the contacts. For a matching
+CV and letter, use the same minimum with profiles and layouts that fit inside
+it. Different content or photo layouts can still require different heights.
 
 ### Disable continuation headers
 
@@ -403,7 +474,7 @@ the grouped API keeps optional settings separate from content:
 | Group | Settings |
 | --- | --- |
 | `theme` | `font`, colours (`text`, `muted`, `heading`, `accent`, `rule`), and individual size tokens |
-| `layout` | `preset`, `margin`, `continue-header`, `header-height`, individual rhythm gaps, plus `columns` and `column-gutter` for the two-column variant |
+| `layout` | `preset`, `margin`, `continue-header`, `contact-layout`, minimum `header-height`, individual rhythm gaps, plus `columns` and `column-gutter` for the two-column variant |
 | `options` | `last-updated`, `page-count`, `date` |
 
 ```typst
@@ -528,6 +599,9 @@ nothing at all — `"default"` is the default.
 ## Troubleshooting
 
 - **The email causes a syntax error:** escape `@` as `\@` inside Typst content.
+- **The header takes more space after adding contacts:** it expands to keep
+  every item readable. A smaller `header-height` does not shrink its content;
+  shorten labels or choose `preset: "compact"` if space is tight.
 - **Font Awesome icons do not render:** install the corresponding desktop fonts
   or remove the optional `icon` fields.
 - **The CV feels too dense:** try `preset: "relaxed"` before changing individual
@@ -540,12 +614,38 @@ nothing at all — `"default"` is the default.
 
 ## Local development
 
+The commands below run from the repository root. To use the working template in
+your own document, place it beside `modernpro-cv.typ` and import that file:
+
+```typst
+#import "modernpro-cv.typ": *
+```
+
 Compile the repository examples against the working template:
 
 ```bash
 typst compile example_single.typ
 typst compile example_double.typ
 ```
+
+Run the header regression checks, including long labels and the photo rail:
+
+```bash
+typst compile --root . tests/header-overflow.typ /tmp/cv-header.pdf
+typst compile --root . --input mode=inline --input long=true --input icons=true --input count=3 tests/header-overflow.typ /tmp/cv-header-long.pdf
+typst compile --root . --input mode=rail --input long=true --input icons=true --input count=3 tests/header-overflow.typ /tmp/cv-header-rail.pdf
+```
+
+With the Font Awesome 7 desktop fonts installed, also run the glyph-alignment
+check. It mixes default and legacy `top-edge: "baseline"` icons:
+
+```bash
+typst compile --root . --input icons=fontawesome tests/header-overflow.typ /tmp/cv-header-icons.pdf
+```
+
+The fixture checks contact bounds, wrapping, first-line icon alignment, and
+identity alignment. Its opening comments list inputs for contact counts,
+presets, page widths, and the two-column variant.
 
 The single-column example is the visual and behavioural reference for the
 academic design. The double-column example demonstrates the compact variant.

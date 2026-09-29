@@ -1,4 +1,4 @@
-#import "@preview/modernpro-cv:2.1.1": *
+#import "@preview/modernpro-cv:2.1.2": *
 // Edit identity and contacts here. Keeping them beside the CV content makes
 // this starter a self-contained document with no application-specific imports.
 #let profile = (

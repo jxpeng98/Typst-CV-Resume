@@ -4,8 +4,8 @@
 // Copyright (c) 2026
 // Author:  Academic Template Collective
 // License: MIT
-// Version: 2.1.1
-// Date:    2026-09-06
+// Version: 2.1.2
+// Date:    2026-09-29
 // Email:   maintainers@example.invalid
 ///////////////////////////////
 
@@ -457,7 +457,19 @@
   and is-filled(contact.icon)
 )
 
-#let _contact-label(contact, style) = {
+#let _contact-label(contact, style) = layout(size => {
+  // Only oversized tokens become breakable boxes, keeping copied labels free
+  // of added characters. Link destinations and short labels stay intact.
+  set text(hyphenate: false)
+  show regex("\\S+"): it => context {
+    if measure(it).width <= size.width { it } else {
+      it.text.matches(regex("[^./@_-]+[./@_-]?|[./@_-]")).map(part => {
+        if measure(text(part.text)).width > size.width {
+          part.text.clusters().map(char => box(char)).join()
+        } else { box(part.text) }
+      }).join()
+    }
+  }
   let label = if type(contact) == dictionary {
     _option(contact, "text", [])
   } else {
@@ -476,10 +488,18 @@
   } else {
     rendered
   }
-}
+})
 
 #let _contact-icon(contact, style) = if _contact-has-icon(contact) {
-  text(style.contact-icon-size, fill: style.accent)[#_option(contact, "icon", [])]
+  context {
+    // Center the visible glyph in the label's first line, independent of the
+    // icon font's metrics or a caller's legacy top-edge: "baseline" setting.
+    let icon = {
+      show text: it => text(top-edge: "bounds", bottom-edge: "bounds", it)
+      text(style.contact-icon-size, fill: style.accent)[#_option(contact, "icon", [])]
+    }
+    box(height: measure(text(style.contact-size)[M]).height, align(horizon, icon))
+  }
 } else {
   []
 }
@@ -489,19 +509,21 @@
   context {
     let style = cv-style.get()
     set text(style.contact-size, fill: style.muted)
-    contacts
-      .map(contact => {
-        if _contact-has-icon(contact) {
-          box([
-            #_contact-icon(contact, style)
-            #h(style.contact-icon-gap)
-            #_contact-label(contact, style)
-          ])
-        } else {
-          _contact-label(contact, style)
-        }
-      })
-      .join(" · ")
+    layout(size => contacts.map(contact => {
+      let item = if _contact-has-icon(contact) {
+        grid(
+          columns: (auto, auto),
+          column-gutter: style.contact-icon-gap,
+          align: left + top,
+          _contact-icon(contact, style),
+          _contact-label(contact, style),
+        )
+      } else {
+        _contact-label(contact, style)
+      }
+      // Keep short items together; long labels wrap inside the available width.
+      box(width: calc.min(size.width, measure(item).width), item)
+    }).join(" · "))
   }
 }
 
@@ -523,8 +545,8 @@
       let cells = ()
       for contact in contacts {
         cells += (
-          align(center + horizon, _contact-icon(contact, style)),
-          align(left + horizon, _contact-label(contact, style)),
+          align(center + top, _contact-icon(contact, style)),
+          align(left + top, _contact-label(contact, style)),
         )
       }
       grid(
@@ -772,21 +794,27 @@
     row-gutter: style.header-row-gap,
     ..identity,
   )
-  let header-content = if has-photo and cfg.contact-layout == "rail" {
+  let header-content(vertical) = if has-photo and cfg.contact-layout == "rail" {
     let utility = if contact-block == none { [] } else { contact-block }
-    grid(
-      columns: (1fr, auto),
-      column-gutter: 1.4em,
-      align: horizon,
-      align(left + horizon, identity-block),
-      align(right + horizon, grid(
-        columns: (auto, auto),
-        column-gutter: 1em,
-        align: horizon,
-        utility,
-        photo-frame,
-      )),
-    )
+    layout(size => context {
+      let contact-width = calc.min(
+        measure(utility).width,
+        (size.width - style.photo-width - 2.4em.to-absolute()) / 2.08,
+      )
+      grid(
+        columns: (1fr, auto),
+        column-gutter: 1.4em,
+        align: vertical,
+        align(left + vertical, identity-block),
+        align(right + vertical, grid(
+          columns: (contact-width, style.photo-width),
+          column-gutter: 1em,
+          align: vertical,
+          utility,
+          photo-frame,
+        )),
+      )
+    })
   } else if has-photo {
     grid(
       columns: (1fr, auto),
@@ -805,9 +833,9 @@
     grid(
       columns: (1.08fr, 1fr),
       column-gutter: 1.4em,
-      align: bottom,
+      align: vertical,
       identity-block,
-      align(right + bottom, [
+      align(right + vertical, [
         #if contact-block != none {
           contact-block
         }
@@ -816,9 +844,22 @@
   }
 
   block(breakable: false)[
-    #block(height: cfg.header-height, breakable: false)[
-      #align(bottom, header-content)
-    ]
+    #layout(size => context {
+      let compact-align = if has-photo and cfg.contact-layout == "rail" { horizon } else { bottom }
+      let content = header-content(compact-align)
+      let minimum = measure(box(height: cfg.header-height), width: size.width, height: size.height).height
+      // Align tall headers from the top, keeping the name beside the first contact.
+      if measure(content, width: size.width).height > minimum {
+        content = header-content(top)
+      }
+      grid(
+        columns: (0pt, 1fr),
+        column-gutter: 0pt,
+        align: bottom,
+        box(height: cfg.header-height),
+        content,
+      )
+    })
     #v(style.header-rule-gap)
     #line(length: 100%, stroke: style.rule-stroke + style.accent)
     #v(style.header-content-gap)

@@ -58,17 +58,17 @@
 
 #let contacts = (
   (
-    icon: fa-icon("envelope", solid: true, top-edge: "baseline"),
+    icon: fa-icon("envelope", solid: true),
     text: [nova\@candidate.invalid],
     link: "mailto:nova@candidate.invalid",
   ),
   (
-    icon: fa-icon("globe", solid: true, top-edge: "baseline"),
+    icon: fa-icon("globe", solid: true),
     text: [nova.candidate.invalid],
     link: "https://nova.candidate.invalid",
   ),
   (
-    icon: fa-icon("id-badge", solid: true, top-edge: "baseline"),
+    icon: fa-icon("id-badge", solid: true),
     text: [Fictional ID~0000-0000],
     link: "https://registry.example.invalid/0000-0000",
   ),

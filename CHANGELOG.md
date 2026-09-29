@@ -1,5 +1,24 @@
 # Changelog
 
+## [2.1.2] - 2026-09-29
+
+### Fixed
+
+- Center contact icons by their visible glyph bounds within the first text line,
+  preventing Font Awesome metrics and legacy baseline overrides from changing
+  alignment or row spacing.
+- Let the first-page header grow beyond its minimum height so additional or
+  wrapped contacts do not overlap, including inline and photo layouts.
+- Wrap long contact labels without changing link destinations, keep icons at
+  the first line, and bound photo-rail width to preserve space for the name.
+- Top-align tall headers while preserving the alignment of compact headers.
+
+### Documentation
+
+- Clarified minimum header height, contact wrapping, photo layouts, and matching
+  headers across documents. Added configuration recipes and local regression
+  commands for the header fixes.
+
 ## [2.1.1] - 2026-09-06
 
 ### Fixed
